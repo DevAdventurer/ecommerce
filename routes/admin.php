@@ -70,5 +70,14 @@ Route::middleware('admin')->name('admin.')->group(function() {
         Route::post('admin', 'store')->name('admin.store')->middleware('can:add_admin');
         Route::put('admin/{admin}', 'update')->name('admin.update')->middleware('can:edit_admin');
         Route::delete('admin/{admin}/delete', 'destroy')->name('admin.destroy')->middleware('can:delete_admin');
+
+        Route::get('profile', 'profile')->name('profile');
+        Route::put('profile/update', 'profileUpdate')->name('profile.update');
+        Route::put('profile/photo/update/{admin}', 'profilePhotoUpdate')->name('profile.photo.update');
+        Route::put('profile/cover/photo/update/{admin}', 'profileCoverPhotoUpdate')->name('profile.cover.photo.update');
+
+        Route::get('change-password/{admin}', 'changePassword')->name('change-password');
+        Route::put('update-password/{admin}', 'updatePassword')->name('update-password');
+
     });
 });

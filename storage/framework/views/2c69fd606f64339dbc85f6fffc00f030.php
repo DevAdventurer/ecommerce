@@ -13,10 +13,10 @@
                 <!-- Light Logo-->
                 <a href="<?php echo e(route('admin.dashboard.index')); ?>" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="<?php echo e(asset(get_app_setting('favicon')??'assets/images/logo-sm.png')); ?>" alt="" height="22">
+                        <img src="<?php echo e(asset(get_app_setting('favicon')??'assets/images/logo-sm.png')); ?>" alt="" width="40">
                     </span>
                     <span class="logo-lg">
-                        <img src="<?php echo e(asset(get_app_setting('logo')??'assets/images/logo-light.png')); ?>" alt="" height="60">
+                        <img src="<?php echo e(asset(get_app_setting('logo')??'assets/images/logo-light.png')); ?>" alt="" width="200">
                     </span>
                 </a>
                 <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">

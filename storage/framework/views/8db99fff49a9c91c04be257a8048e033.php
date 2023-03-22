@@ -55,9 +55,6 @@
             </div><!--end col-->
         </div><!--end row-->
 
-        <?php echo e(route('admin.'.request()->segment(2).'.index')); ?>
-
-
 <?php $__env->stopSection(); ?>
 
 

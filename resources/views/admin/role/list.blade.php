@@ -55,8 +55,6 @@
             </div><!--end col-->
         </div><!--end row-->
 
-        {{ route('admin.'.request()->segment(2).'.index') }}
-
 @endsection
 
 
