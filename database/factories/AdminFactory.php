@@ -1,0 +1,29 @@
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ */
+class AdminFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'name' => 'Asif Jamal',
+            'email' => 'asifjamal251@gmail.com',
+            'password' => Hash::make('123456'),
+            'mobile_no' => 9315647380,
+            'role_id' => 1,
+            'status' => 1,
+        ];
+    }
+}
