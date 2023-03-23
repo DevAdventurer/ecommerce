@@ -8,6 +8,10 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CollectionController;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\AttributeController;
 
 Route::middleware('admin.guest')->name('admin.')->group(function() {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login.form');
@@ -82,10 +86,56 @@ Route::middleware('admin')->name('admin.')->group(function() {
 
     });
 
-     //Admin
+     //Site Setting
     Route::controller(SiteSettingController::class)->group(function(){
         Route::get('site-setting', 'index')->name('site-setting.index')->middleware('can:browse_site_setting');
         Route::post('logo', 'logo')->name('site-setting.logo')->middleware('can:logo_site_setting');
+    });
+
+     //Product
+    Route::controller(ProductController::class)->group(function(){
+        Route::match(['get','patch'],'product', 'index')->name('product.index')->middleware('can:browse_product');
+        Route::get('product/create', 'create')->name('product.create')->middleware('can:add_product');
+        Route::get('product/{product}', 'show')->name('product.show')->middleware('can:read_product');
+        Route::get('product/{product}/edit', 'edit')->name('product.edit')->middleware('can:edit_product');
+        Route::post('product', 'store')->name('product.store')->middleware('can:add_product');
+        Route::put('product/{product}', 'update')->name('product.update')->middleware('can:edit_product');
+        Route::delete('product/{product}/delete', 'destroy')->name('product.destroy')->middleware('can:delete_product');
+    });
+
+
+    //Collection
+    Route::controller(CollectionController::class)->group(function(){
+        Route::match(['get','patch'],'collection', 'index')->name('collection.index')->middleware('can:browse_collection');
+        Route::get('collection/create', 'create')->name('collection.create')->middleware('can:add_collection');
+        Route::get('collection/{collection}', 'show')->name('collection.show')->middleware('can:read_collection');
+        Route::get('collection/{collection}/edit', 'edit')->name('collection.edit')->middleware('can:edit_collection');
+        Route::post('collection', 'store')->name('collection.store')->middleware('can:add_collection');
+        Route::put('collection/{collection}', 'update')->name('collection.update')->middleware('can:edit_collection');
+        Route::delete('collection/{collection}/delete', 'destroy')->name('collection.destroy')->middleware('can:delete_collection');
+    });
+
+    //Tag
+    Route::controller(TagController::class)->group(function(){
+        Route::match(['get','patch'],'tag', 'index')->name('tag.index')->middleware('can:browse_tag');
+        Route::get('tag/create', 'create')->name('tag.create')->middleware('can:add_tag');
+        Route::get('tag/{tag}', 'show')->name('tag.show')->middleware('can:read_tag');
+        Route::get('tag/{tag}/edit', 'edit')->name('tag.edit')->middleware('can:edit_tag');
+        Route::post('tag', 'store')->name('tag.store')->middleware('can:add_tag');
+        Route::put('tag/{tag}', 'update')->name('tag.update')->middleware('can:edit_tag');
+        Route::delete('tag/{tag}/delete', 'destroy')->name('tag.destroy')->middleware('can:delete_tag');
+    });
+
+
+    //Attribute
+    Route::controller(AttributeController::class)->group(function(){
+        Route::match(['get','patch'],'attribute', 'index')->name('attribute.index')->middleware('can:browse_attribute');
+        Route::get('attribute/create', 'create')->name('attribute.create')->middleware('can:add_attribute');
+        Route::get('attribute/{attribute}', 'show')->name('attribute.show')->middleware('can:read_attribute');
+        Route::get('attribute/{attribute}/edit', 'edit')->name('attribute.edit')->middleware('can:edit_attribute');
+        Route::post('attribute', 'store')->name('attribute.store')->middleware('can:add_attribute');
+        Route::put('attribute/{attribute}', 'update')->name('attribute.update')->middleware('can:edit_attribute');
+        Route::delete('attribute/{attribute}/delete', 'destroy')->name('attribute.destroy')->middleware('can:delete_attribute');
     });
 
 });
