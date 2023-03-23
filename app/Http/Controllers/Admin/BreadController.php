@@ -3,12 +3,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Menu;
 use App\Models\Permission;
-use App\Models\RolePermission;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use DB;
+use App\Models\RolePermission;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\Bread\BreadCollection;
-use Str;
+
 
 class BreadController extends Controller
 {

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BreadController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\SiteSettingController;
 
 Route::middleware('admin.guest')->name('admin.')->group(function() {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login.form');
@@ -80,4 +81,11 @@ Route::middleware('admin')->name('admin.')->group(function() {
         Route::put('update-password/{admin}', 'updatePassword')->name('update-password');
 
     });
+
+     //Admin
+    Route::controller(SiteSettingController::class)->group(function(){
+        Route::get('site-setting', 'index')->name('site-setting.index')->middleware('can:browse_site_setting');
+        Route::post('logo', 'logo')->name('site-setting.logo')->middleware('can:logo_site_setting');
+    });
+
 });
