@@ -127,6 +127,42 @@ Route::middleware('admin')->name('admin.')->group(function() {
     });
 
 
+    //Brand
+    Route::controller(BrandController::class)->group(function(){
+        Route::match(['get','patch'],'brand', 'index')->name('brand.index')->middleware('can:browse_brand');
+        Route::get('brand/create', 'create')->name('brand.create')->middleware('can:add_brand');
+        Route::get('brand/{brand}', 'show')->name('brand.show')->middleware('can:read_brand');
+        Route::get('brand/{brand}/edit', 'edit')->name('brand.edit')->middleware('can:edit_brand');
+        Route::post('brand', 'store')->name('brand.store')->middleware('can:add_brand');
+        Route::put('brand/{brand}', 'update')->name('brand.update')->middleware('can:edit_brand');
+        Route::delete('brand/{brand}/delete', 'destroy')->name('brand.destroy')->middleware('can:delete_brand');
+    });
+
+
+    //Product Type
+    Route::controller(ProductTypeController::class)->group(function(){
+        Route::match(['get','patch'],'product-type', 'index')->name('product-type.index')->middleware('can:browse_product_type');
+        Route::get('product-type/create', 'create')->name('product-type.create')->middleware('can:add_product_type');
+        Route::get('product-type/{product_type}', 'show')->name('product-type.show')->middleware('can:read_product_type');
+        Route::get('product-type/{product_type}/edit', 'edit')->name('product-type.edit')->middleware('can:edit_product_type');
+        Route::post('product-type', 'store')->name('product-type.store')->middleware('can:add_product_type');
+        Route::put('product-type/{product_type}', 'update')->name('product-type.update')->middleware('can:edit_product_type');
+        Route::delete('product-type/{product_type}/delete', 'destroy')->name('product-type.destroy')->middleware('can:delete_product-type');
+    });
+
+
+    //vendor
+    Route::controller(VendorController::class)->group(function(){
+        Route::match(['get','patch'],'vendor', 'index')->name('vendor.index')->middleware('can:browse_vendor');
+        Route::get('vendor/create', 'create')->name('vendor.create')->middleware('can:add_vendor');
+        Route::get('vendor/{vendor}', 'show')->name('vendor.show')->middleware('can:read_vendor');
+        Route::get('vendor/{vendor}/edit', 'edit')->name('vendor.edit')->middleware('can:edit_vendor');
+        Route::post('vendor', 'store')->name('vendor.store')->middleware('can:add_vendor');
+        Route::put('vendor/{vendor}', 'update')->name('vendor.update')->middleware('can:edit_vendor');
+        Route::delete('vendor/{vendor}/delete', 'destroy')->name('vendor.destroy')->middleware('can:delete_vendor');
+    });
+
+
     //Attribute
     Route::controller(AttributeController::class)->group(function(){
         Route::match(['get','patch'],'attribute', 'index')->name('attribute.index')->middleware('can:browse_attribute');
