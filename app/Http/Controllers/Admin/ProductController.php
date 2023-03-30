@@ -8,10 +8,11 @@ use App\Models\Category;
 use App\Models\CategoryProduct;
 use App\Models\Product;
 use App\Models\Tag;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
-{
+{  
     
     public function index(Request $request)
     {
