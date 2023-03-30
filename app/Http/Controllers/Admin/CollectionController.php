@@ -22,8 +22,8 @@ class CollectionController extends Controller
                 $datas->orWhere('slug', 'like', '%'.$search.'%');
               
             }
-            $request->request->add(['page'=>(($request->start+$request->length)/$request->length )]);
-            $datas = $datas->paginate($request->length);
+            $request->merge(['recordsTotal' => $datas->count(), 'length' => $request->length]);
+            $datas = $datas->limit($request->length)->offset($request->start)->get();
             return response()->json(new CollectionCollection($datas));
            
         }
