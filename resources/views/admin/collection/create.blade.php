@@ -105,10 +105,10 @@
                     </div>
 
 
-                    <div class="form-group{{ $errors->has('publish_date') ? ' has-error' : '' }}">
-                        {!! Form::label('publish_date', 'Publish Date') !!}
-                        {!! Form::text('publish_date', null, ['class' => 'dateSelector form-control', 'placeholder' => 'Publish Date']) !!}
-                        <small class="text-danger">{{ $errors->first('publish_date') }}</small>
+                    <div class="form-group{{ $errors->has('published_date') ? ' has-error' : '' }}">
+                        {!! Form::label('published_date', 'Publish Date') !!}
+                        {!! Form::text('published_date', null, ['class' => 'dateSelector form-control', 'placeholder' => 'Publish Date']) !!}
+                        <small class="text-danger">{{ $errors->first('published_date') }}</small>
                     </div>
 
                      <div class="btn-group">
@@ -117,22 +117,26 @@
 
                 </div>
             </div>
+            
 
 
              <div class="card">
-
                 <div class="card-header">
-                    <h6 class="card-title mb-0">Feature Image</h6>
+                    <h6 class="card-title mb-0">Collection Data</h6>
                 </div>
-
                 <div class="card-body">
+
+                    <div class="form-group{{ $errors->has('parrent') ? ' has-error' : '' }}">
+                        {!! Form::label('parrent', 'Parent Collection') !!}
+                        {!! Form::select('parrent', $collections, null, ['id' => 'parrent', 'class' => 'form-control', 'placeholder' => 'Choose Parent Collection']) !!}
+                        <small class="text-danger">{{ $errors->first('parrent') }}</small>
+                    </div>
 
                     <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
                         {!! Form::label('image', 'Image') !!}
                         {!! Form::file('image', ['class'=>'dropify']) !!}
                         <small class="text-danger">{{ $errors->first('image') }}</small>
                     </div>
-
                 </div>
             </div>
         </div>

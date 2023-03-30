@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Admin\Collection\CollectionCollection;
+use Carbon\Carbon;
 use App\Models\Collection;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Admin\Collection\CollectionCollection;
 
 class CollectionController extends Controller
 {
@@ -38,7 +39,8 @@ class CollectionController extends Controller
      */
     public function create()
     {
-        return view('admin.collection.create');
+        $collections = Collection::select('id', 'title')->pluck('title', 'id');
+        return view('admin.collection.create', compact('collections'));
     }
 
     /**
@@ -51,26 +53,27 @@ class CollectionController extends Controller
     {
 
         $this->validate($request,[
-            'name'=>'required',
+            'title'=>'required',
             'image'=>'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'description' =>'nullable',
             'status'=>'required|integer',
+            'publish_date'=>'required',
         ]);
         
         $collection = new Collection;
-        $collection->name = $request->name;
+        $collection->title = $request->title;
         $collection->body = $request->description;
+        $collection->parent = $request->parent;
         $collection->status = $request->status?1:0;
-
+        $collection->published_at = Carbon::parse($request->published_date)->format('Y-m-d');
        
-        // $collection->meta_title = $request->metaTitle??$request->name;
-        // $collection->meta_keywords = $request->metaKeywords??$request->name;
-        // $collection->meta_description = $request->metaDescription??$request->body;
-        // $collection->parent = $request->parent;
+        $collection->meta_title = $request->meta_title??$request->title;
+        $collection->meta_description = $request->meta_description??$request->description;
+
 
         if($request->hasFile('image')){
             $image_name = time().".".$request->file('image')->getClientOriginalExtension();
-            $image = $request->file('image')->storeAs('categories', $image_name);
+            $image = $request->file('image')->storeAs('collections', $image_name);
             $collection->image = 'storage/'.$image;
         }  
 
@@ -87,10 +90,9 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, Collection $collection)
     {
-        $collection = Collection::find($id);
-        return view('admin.collection.create',compact('Collection'));
+        return view('admin.collection.create',compact('collection'));
     }
 
     /**
@@ -99,10 +101,10 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, Collection $collection)
     {
-        $collection = Collection::where('id',$id)->first();
-        return view('admin.collection.edit',compact('Collection'));
+        $collections = Collection::select('id', 'title')->pluck('title', 'id');
+        return view('admin.collection.edit',compact('collection','collections'));
     }
 
     /**

@@ -24,7 +24,6 @@ class SiteSettingController extends Controller
 
     public function logo(Request $request)
     {
-
         //dd($request->all());
         $logo = SiteSetting::latest()->first();
         $logo->title = $request->title;

@@ -40,8 +40,8 @@
                         <table id="datatable" class="datatable table table-bordered wrap align-middle" style="width:100%" aria-describedby="scroll-horizontal_info">
                             <thead>
                             <tr>
-                                <th>Si</th>
-                                <th>Name</th>
+                                <th style="width:30px;">Si</th>
+                                <th>Title</th>
                                 <th>Image</th>
                                 <th>Status</th>
                                 <th>Created at</th>
@@ -79,7 +79,7 @@ $(document).ready(function(){
     },
     "columns": [
         { "data": "sn" }, 
-        { "data": "name" }, 
+        { "data": "title" }, 
         { "data": "image" },  
         { "data": "status" },  
         { "data": "created_at" },   
