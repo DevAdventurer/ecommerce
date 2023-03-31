@@ -108,6 +108,8 @@
     <!-- App js -->
     
      <?php echo $__env->yieldPushContent('scripts'); ?>
+
+     
      <script src="<?php echo e(asset('admin-assets/js/app.js')); ?>"></script>
      <script type="text/javascript">
     function deleteAjax(url,callback=null){  

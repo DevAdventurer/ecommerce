@@ -108,6 +108,8 @@
     <!-- App js -->
     
      @stack('scripts')
+
+     
      <script src="{{asset('admin-assets/js/app.js')}}"></script>
      <script type="text/javascript">
     function deleteAjax(url,callback=null){  

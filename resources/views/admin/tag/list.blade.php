@@ -18,7 +18,7 @@
             <h4 class="mb-sm-0">{{Str::title(str_replace('-', ' ', request()->segment(2)))}}</h4>
             @can('add_admin')
             <div class="page-title-right">
-                <a href="{{ route('admin.'.request()->segment(2).'.create') }}"  class="btn-sm btn btn-primary btn-label rounded-pill">
+                <a href="{{ route('admin.'.request()->segment(2).'.create') }}"  class="btn-sm btn btn-success waves-effect waves-light btn-label rounded-pill">
                     <i class="bx bx-plus label-icon align-middle rounded-pill fs-16 me-2"></i>
                     Add {{Str::title(str_replace('-', ' ', request()->segment(2)))}}
                 </a>
@@ -49,7 +49,7 @@
                         </div>
                     
                         <div class="btn-group">
-                            {!! Form::button("Create Tag", ['class' => 'btn btn-soft-secondary waves-effect waves-light','onClick'=>'createTag(this)']) !!}
+                            {!! Form::button("Create Tag", ['class' => 'btn btn-soft-success btn-border waves-effect waves-light','onClick'=>'createTag(this)']) !!}
                         </div>
                     
                     {!! Form::close() !!}
@@ -73,12 +73,12 @@
                     <table id="dataTableAjax" class="display dataTableAjax table table-striped table-bordered dom-jQuery-events" >
                         <thead>
                             <tr>
-                                <th>Si</th>
+                                <th style="width:30px;">Si</th>
                                 <th>Name</th>
                                 <th>Slug</th>
                                 <th>Created at</th>
                                 @can(['edit_tag','delete_tag'])
-                                  <th>Action</th>
+                                  <th style="width:30px;">Action</th>
                                 @endcan
 
                             </tr>
@@ -155,7 +155,7 @@ var table2 = $('#dataTableAjax').DataTable({
 
 
 
-var createForm = '<form method="POST" action="{{ route('admin.'.request()->segment(2).'.index') }}" accept-charset="UTF-8" class="form-horizontal" id="tagForm">{{csrf_field()}}<div class="form-group"><label for="name">Tag Name</label><input class="form-control" required="required" placeholder="Enter Tag Name" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-secondary waves-effect waves-light" onclick="createTag(this)" type="button">Create Tag</button></div></form>';
+var createForm = '<form method="POST" action="{{ route('admin.'.request()->segment(2).'.index') }}" accept-charset="UTF-8" class="form-horizontal" id="tagForm">{{csrf_field()}}<div class="form-group"><label for="name">Tag Name</label><input class="form-control" required="required" placeholder="Enter Tag Name" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-success btn-border waves-effect waves-light" onclick="createTag(this)" type="button">Create Tag</button></div></form>';
 
 
 
@@ -176,13 +176,33 @@ function createTag(element){
         processData: false,
         cache: false,
         success:function(response){
-            //toastr.success(response.message); 
+            //toast.success(response.message); 
+            Toastify({
+                text: response.message,
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                className: response.class,
+
+            }).showToast();
+
             table2.draw('page');
             button.normal();
             document.querySelector('#tagForm').reset();
         },
         error:function(error){
-           // toastr.error(error.responseJSON.message); 
+            Toastify({
+                text: response.message,
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                className: response.class,
+
+            }).showToast(); 
             button.normal();
             handleErrors(error.responseJSON);
             
@@ -198,7 +218,7 @@ function editData(url) {
         enctype: 'multipart/form-data',
         url:url+'/edit',
         success:function(response){
-           $('#form').html('<form id="tagForm" method="POST" action="{{ route('admin.'.request()->segment(2).'.index') }}" accept-charset="UTF-8">{{method_field('PUT')}} {{csrf_field()}}<div class="form-group"><label for="name">Tag Name</label><input class="form-control" required="required" value="'+response.data.name+'" placeholder="Enter Tag Name" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-secondary waves-effect waves-light" onclick="UpdateTag(this,'+response.data.id+')" type="button">Update Tag</button></div></form>');
+           $('#form').html('<form id="tagForm" method="POST" action="{{ route('admin.'.request()->segment(2).'.index') }}" accept-charset="UTF-8">{{method_field('PUT')}} {{csrf_field()}}<div class="form-group"><label for="name">Tag Name</label><input class="form-control" required="required" value="'+response.data.name+'" placeholder="Enter Tag Name" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-success btn-border waves-effect waves-light" onclick="UpdateTag(this,'+response.data.id+')" type="button">Update Tag</button></div></form>');
         },
         error:function(error){
             //toastr.error(error.responseJSON.message);  
@@ -225,12 +245,31 @@ function UpdateTag(element,id){
         processData: false,
         cache: false,
         success:function(response){
-            //toastr.success(response.message); 
+            Toastify({
+                text: response.message,
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                className: response.class,
+
+            }).showToast();
             table2.draw('page');
             button.normal();
             $('#form').html(createForm);
         },
         error:function(error){
+            Toastify({
+                text: response.message,
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                className: response.class,
+
+            }).showToast();
             //toastr.error(error.responseJSON.message); 
             button.normal();
             handleErrors(error.responseJSON);

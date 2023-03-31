@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CollectionController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\AttributeController;
 
 Route::middleware('admin.guest')->name('admin.')->group(function() {

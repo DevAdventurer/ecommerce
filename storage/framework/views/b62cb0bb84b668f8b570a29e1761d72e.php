@@ -16,7 +16,7 @@
                     <h4 class="mb-sm-0"><?php echo e(Str::title(str_replace('-', ' ', request()->segment(2)))); ?></h4>
                     <?php if (\Illuminate\Support\Facades\Blade::check('can', 'add_collection')): ?>
                     <div class="page-title-right">
-                        <a href="<?php echo e(route('admin.'.request()->segment(2).'.create')); ?>"  class="btn-sm btn btn-primary btn-label rounded-pill">
+                        <a href="<?php echo e(route('admin.'.request()->segment(2).'.create')); ?>"  class="btn-sm btn btn-success waves-effect waves-light btn-label rounded-pill">
                             <i class="bx bx-plus label-icon align-middle rounded-pill fs-16 me-2"></i>
                             Add <?php echo e(Str::title(str_replace('-', ' ', request()->segment(2)))); ?>
 
@@ -46,7 +46,7 @@
                                 <th>Status</th>
                                 <th>Created at</th>
                                 <?php if (\Illuminate\Support\Facades\Blade::check('can', ['edit_collection','delete_collection', 'read_collection'])): ?>
-                                    <th>Action</th>
+                                    <th style="width:30px;">Action</th>
                                 <?php endif; ?>
                             </tr>
                         </thead>

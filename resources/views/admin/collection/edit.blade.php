@@ -20,14 +20,14 @@
 
             <div class="page-title-right">
                 @can('browse_collection')
-                    <a href="{{ route('admin.'.request()->segment(2).'.index') }}"  class="btn-sm btn btn-primary btn-label rounded-pill">
+                    <a href="{{ route('admin.'.request()->segment(2).'.index') }}"  class="btn-sm btn btn-secondary waves-effect waves-light btn-label rounded-pill">
                         <i class="bx bx-list-ul label-icon align-middle rounded-pill fs-16 me-2"></i>
                         {{Str::title(str_replace('-', ' ', request()->segment(2)))}} List
                     </a>
                 @endcan
 
                 @can('add_collection')
-                    <a href="{{ route('admin.'.request()->segment(2).'.create') }}"  class="btn-sm btn btn-primary btn-label rounded-pill">
+                    <a href="{{ route('admin.'.request()->segment(2).'.create') }}"  class="btn-sm btn btn-success waves-effect waves-light btn-label rounded-pill">
                         <i class="bx bx-plus label-icon align-middle rounded-pill fs-16 me-2"></i>
                         Add {{Str::title(str_replace('-', ' ', request()->segment(2)))}}
                     </a>
@@ -118,7 +118,7 @@
                     </div>
 
                      <div class="btn-group">
-                        {!! Form::submit("Save ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn btn-success btn-border waves-effect waves-light']) !!}
+                        {!! Form::submit("Save ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']) !!}
                     </div>
 
                 </div>

@@ -19,7 +19,7 @@
             <?php if (\Illuminate\Support\Facades\Blade::check('can', 'add_collection')): ?>
             <div class="page-title-right">
                
-                <a href="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>"  class="btn-sm btn btn-primary btn-label rounded-pill">
+                <a href="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>"  class="btn-sm btn btn-secondary waves-effect waves-light btn-label rounded-pill">
                     <i class="bx bx-list-ul label-icon align-middle rounded-pill fs-16 me-2"></i>
                     <?php echo e(Str::title(str_replace('-', ' ', request()->segment(2)))); ?> List
                 </a>
@@ -115,16 +115,16 @@
                     </div>
 
 
-                    <div class="form-group<?php echo e($errors->has('publish_date') ? ' has-error' : ''); ?>">
-                        <?php echo Form::label('publish_date', 'Publish Date'); ?>
+                    <div class="form-group<?php echo e($errors->has('published_date') ? ' has-error' : ''); ?>">
+                        <?php echo Form::label('published_date', 'Publish Date'); ?>
 
-                        <?php echo Form::text('publish_date', null, ['class' => 'dateSelector form-control', 'placeholder' => 'Publish Date']); ?>
+                        <?php echo Form::text('published_date', null, ['class' => 'dateSelector form-control', 'placeholder' => 'Publish Date']); ?>
 
-                        <small class="text-danger"><?php echo e($errors->first('publish_date')); ?></small>
+                        <small class="text-danger"><?php echo e($errors->first('published_date')); ?></small>
                     </div>
 
                      <div class="btn-group">
-                        <?php echo Form::submit("Save ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn btn-success btn-border waves-effect waves-light']); ?>
+                        <?php echo Form::submit("Save ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']); ?>
 
                     </div>
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Admin\Tag;
+namespace App\Http\Resources\Admin\Brand;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use App\Http\Resources\Admin\Tag\TagResource;
-class TagCollection extends ResourceCollection
+use App\Http\Resources\Admin\Brand\BrandResource;
+class BrandCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -15,7 +15,7 @@ class TagCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => TagResource::collection($this->collection),
+            'data' => BrandResource::collection($this->collection),
             'recordsTotal' => $request->recordsTotal,
             'recordsFiltered' => $request->recordsTotal,
             'length' => $request->lenght,

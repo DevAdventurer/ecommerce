@@ -19,14 +19,14 @@
 
             <div class="page-title-right">
                 <?php if (\Illuminate\Support\Facades\Blade::check('can', 'browse_collection')): ?>
-                    <a href="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>"  class="btn-sm btn btn-primary btn-label rounded-pill">
+                    <a href="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>"  class="btn-sm btn btn-secondary waves-effect waves-light btn-label rounded-pill">
                         <i class="bx bx-list-ul label-icon align-middle rounded-pill fs-16 me-2"></i>
                         <?php echo e(Str::title(str_replace('-', ' ', request()->segment(2)))); ?> List
                     </a>
                 <?php endif; ?>
 
                 <?php if (\Illuminate\Support\Facades\Blade::check('can', 'add_collection')): ?>
-                    <a href="<?php echo e(route('admin.'.request()->segment(2).'.create')); ?>"  class="btn-sm btn btn-primary btn-label rounded-pill">
+                    <a href="<?php echo e(route('admin.'.request()->segment(2).'.create')); ?>"  class="btn-sm btn btn-success waves-effect waves-light btn-label rounded-pill">
                         <i class="bx bx-plus label-icon align-middle rounded-pill fs-16 me-2"></i>
                         Add <?php echo e(Str::title(str_replace('-', ' ', request()->segment(2)))); ?>
 
@@ -131,7 +131,7 @@
                     </div>
 
                      <div class="btn-group">
-                        <?php echo Form::submit("Save ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn btn-success btn-border waves-effect waves-light']); ?>
+                        <?php echo Form::submit("Save ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']); ?>
 
                     </div>
 

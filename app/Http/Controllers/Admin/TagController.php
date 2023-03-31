@@ -25,8 +25,8 @@ class TagController extends Controller
                 $datas->orWhere('name', 'like', '%'.$search.'%');
               
             }
-            $request->request->add(['page'=>(($request->start+$request->length)/$request->length )]);
-            $datas = $datas->paginate($request->length);
+            $request->merge(['recordsTotal' => $datas->count(), 'length' => $request->length]);
+            $datas = $datas->limit($request->length)->offset($request->start)->get();
             return response()->json(new TagCollection($datas));
            
         }
@@ -70,7 +70,7 @@ class TagController extends Controller
             if($tag->save()){ 
                 return response()->json(['class'=>'success','message'=>'Tag Created Successfuly.']);
             }
-
+            return response()->json(['class'=>'error','message'=>'Whoops, looks like something went wrong ! Try again ...']);
             return redirect()->back()->with(['class'=>'error','message'=>'Whoops, looks like something went wrong ! Try again ...']);
         }
         
@@ -100,7 +100,7 @@ class TagController extends Controller
 
             $tag->name = $request->name;
             if($tag->save()){ 
-                return response()->json(['class'=>'success','message'=>'Tag Created Successfuly.']);
+                return response()->json(['class'=>'success','message'=>'Tag Updated Successfuly.']);
             }
 
             return redirect()->back()->with(['class'=>'error','message'=>'Whoops, looks like something went wrong ! Try again ...']);

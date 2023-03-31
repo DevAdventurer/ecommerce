@@ -47,3 +47,6 @@ span.file-icon p {
     border-right: 1px solid #7188d1;
     padding-right: 6px;
 }
+table tr {
+    vertical-align: middle;
+}
