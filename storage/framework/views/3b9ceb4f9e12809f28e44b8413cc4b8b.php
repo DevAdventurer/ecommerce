@@ -1,5 +1,6 @@
 <?php $__env->startPush('links'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('admin-assets/libs/dropify/css/dropify.min.css')); ?>"> 
+<link rel="stylesheet" href="<?php echo e(asset('admin-assets/libs/select2/css/select2.min.css')); ?>"> 
 
 <?php $__env->stopPush(); ?>
 
@@ -37,7 +38,7 @@
             <div class="card-content">
                 <div class="card-body" id="form">
 
-                    <?php echo Form::open(['method' => 'POST', 'route' => 'admin.'.request()->segment(2).'.store', 'class' => 'form-horizontal','files'=>true]); ?>
+                    <?php echo Form::open(['method' => 'POST', 'route' => 'admin.'.request()->segment(2).'.store', 'class' => 'form-horizontal','files'=>true, 'id'=>'formdata']); ?>
 
                     
                         <div class="form-group<?php echo e($errors->has('name') ? ' has-error' : ''); ?>">
@@ -77,6 +78,7 @@
                             <tr>
                                 <th style="width:30px;">Si</th>
                                 <th>Name</th>
+                                <th>Attribute Value</th>
                                 <th>Created at</th>
                                 <?php if (\Illuminate\Support\Facades\Blade::check('can', ['edit_attribute','delete_attribute'])): ?>
                                   <th style="width:30px;">Action</th>
@@ -107,7 +109,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <?php echo Form::open(['method' => 'POST', 'route' => 'admin.'.request()->segment(2).'.value.store', 'class' => 'form-horizontal','files'=>true]); ?>
+                <?php echo Form::open(['method' => 'POST', 'route' => 'admin.'.request()->segment(2).'.value.store', 'class' => 'form-horizontal','files'=>true, 'id'=>'attributeValueData']); ?>
 
                 
                     <div class="form-group<?php echo e($errors->has('attribute') ? ' has-error' : ''); ?>">
@@ -117,9 +119,17 @@
 
                         <small class="text-danger"><?php echo e($errors->first('attribute')); ?></small>
                     </div>
+
+                    <div class="form-group<?php echo e($errors->has('attribute_value') ? ' has-error' : ''); ?>">
+                        <?php echo Form::label('attribute_value', 'Add Attribute value'); ?>
+
+                        <?php echo Form::text('attribute_value', null, ['id' => 'attribute_value','class' => 'form-control']); ?>
+
+                        <small class="text-danger"><?php echo e($errors->first('attribute_value')); ?></small>
+                    </div>
                 
                     <div class="btn-group">
-                        <?php echo Form::submit("Save Attribute Value", ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']); ?>
+                        <?php echo Form::button("Save Attribute Value", ['class' => 'btn btn-soft-success btn-border waves-effect waves-light', 'onClick'=>'attributeValueSave($(this))']); ?>
 
                     </div>
                 
@@ -137,6 +147,8 @@
 <?php $__env->startPush('scripts'); ?>
 <script src="<?php echo e(asset('admin-assets/libs/dropify/js/dropify.min.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('admin-assets/libs/dropify/dropify.js')); ?>"></script>
+<script src="<?php echo e(asset('admin-assets/libs/select2/js/select2.min.js')); ?>" type="text/javascript"></script>
+<script src="<?php echo e(asset('admin-assets/js/pages/select2.init.js')); ?>" type="text/javascript"></script>
 
 <script type="text/javascript">
 
@@ -154,6 +166,7 @@ var table2 = $('#dataTableAjax').DataTable({
     "columns": [
         { "data": "sn" }, 
         { "data": "name" }, 
+        { "data": "attribute_value" }, 
         { "data": "created_at" }, 
         {
             "data": "action",
@@ -185,6 +198,50 @@ var table2 = $('#dataTableAjax').DataTable({
     }]
 
 });
+
+
+function attributeValueSave(element){
+    var button = new Button(element);
+    button.process();
+    clearErrors();
+    var requestData,otpdata,data;
+
+    formData = new FormData(document.querySelector('#attributeValueData'));
+
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url:'<?php echo e(route('admin.'.request()->segment(2).'.value.store')); ?>',
+        data: formData,
+        contentType: false,
+        processData: false,
+        cache: false,
+        success:function(response){
+            //toast.success(response.message); 
+            Toastify({
+                text: response.message,
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                className: response.class,
+
+            }).showToast();
+
+            table2.draw('page');
+            button.normal();
+            document.querySelector('#attributeValueData').reset();
+            $('#attributeValue').modal('toggle');
+        },
+        error:function(error){
+            
+            button.normal();
+            handleErrors(error.responseJSON);
+            
+        }
+    });
+}
 </script>
 
 

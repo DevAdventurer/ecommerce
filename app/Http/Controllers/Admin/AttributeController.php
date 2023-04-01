@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\Attribute\AttributeCollection;
 use App\Models\Attribute;
+use App\Models\AttributeValue;
 use Illuminate\Http\Request;
 
 class AttributeController extends Controller
@@ -17,7 +18,7 @@ class AttributeController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            $datas = Attribute::orderBy('created_at','desc')->select(['id','name','created_at']);
+            $datas = Attribute::orderBy('created_at','desc')->select(['id','name','created_at'])->with('attributeValue');
             
             $search = $request->search['value'];
             if ($search) {
@@ -127,5 +128,29 @@ class AttributeController extends Controller
             return response()->json(['message'=>'Attribute deleted Successfully ...', 'class'=>'success']);  
         }
         return response()->json(['message'=>'Whoops, looks like something went wrong ! Try again ...', 'class'=>'error']);
+    }
+
+
+
+
+
+
+
+
+    public function storeValue(Request $request) {
+
+        //return $request->all();
+        $this->validate($request,[
+            'attribute'=>'required',    
+            'attribute_value'=>'required',    
+        ]);
+
+        $attribute = new AttributeValue;
+        $attribute->attribute_id = $request->attribute;
+        $attribute->attribute_value = $request->attribute_value;
+        if($attribute->save()){ 
+            return response()->json(['class'=>'success','message'=>'Attribute Value Created Successfuly.']);
+        }
+        return redirect()->back()->with(['class'=>'error','message'=>'Whoops, looks like something went wrong ! Try again ...']);
     }
 }

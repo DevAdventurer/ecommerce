@@ -17,6 +17,7 @@ class AttributeResource extends JsonResource
             'sn' => ++$request->start,
             'id' => $this->id,
             'name' => $this->name,
+            'attribute_value' => $this->attributeValue->count()>0?$this->attributeValue->implode('attribute_value',', '):'N/A',
             'created_at' => $this->created_at->format('d M Y'),
         ];
     }

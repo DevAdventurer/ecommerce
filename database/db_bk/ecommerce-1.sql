@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 01, 2023 at 01:01 PM
+-- Generation Time: Apr 01, 2023 at 09:10 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -110,8 +110,7 @@ CREATE TABLE `attributes` (
 --
 
 INSERT INTO `attributes` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Size', '2023-04-01 06:38:29', '2023-04-01 06:38:29', NULL),
-(2, 'Color', '2023-04-01 09:58:47', '2023-04-01 09:58:47', NULL);
+(1, 'Size', '2023-04-01 06:38:29', '2023-04-01 06:38:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -127,17 +126,6 @@ CREATE TABLE `attribute_values` (
   `updated_at` datetime NOT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `attribute_values`
---
-
-INSERT INTO `attribute_values` (`id`, `attribute_id`, `attribute_value`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(3, 1, 'S', '2023-04-01 10:41:11', '2023-04-01 10:41:11', NULL),
-(4, 1, 'M', '2023-04-01 10:43:35', '2023-04-01 10:43:35', NULL),
-(5, 2, 'Red', '2023-04-01 10:54:18', '2023-04-01 10:54:18', NULL),
-(6, 2, 'Green', '2023-04-01 10:54:26', '2023-04-01 10:54:26', NULL),
-(7, 2, 'Blue', '2023-04-01 10:54:37', '2023-04-01 10:54:37', NULL);
 
 -- --------------------------------------------------------
 
@@ -736,13 +724,13 @@ ALTER TABLE `admin_details`
 -- AUTO_INCREMENT for table `attributes`
 --
 ALTER TABLE `attributes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `attribute_values`
 --
 ALTER TABLE `attribute_values`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `brands`
