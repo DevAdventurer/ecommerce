@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Admin\ProductType\ProductTypeCollection;
-use App\Models\ProductType;
+use App\Http\Resources\Admin\Vendor\VendorCollection;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 
-class ProductTypeController extends Controller
+class VendorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class ProductTypeController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            $datas = ProductType::orderBy('created_at','desc')->select(['id','name','slug','created_at']);
+            $datas = Vendor::orderBy('created_at','desc')->select(['id','name','slug','created_at']);
             
             $search = $request->search['value'];
             if ($search) {
@@ -27,11 +27,11 @@ class ProductTypeController extends Controller
             }
             $request->merge(['recordsTotal' => $datas->count(), 'length' => $request->length]);
             $datas = $datas->limit($request->length)->offset($request->start)->get();
-            return response()->json(new ProductTypeCollection($datas));
+            return response()->json(new VendorCollection($datas));
            
         }
 
-        return view('admin.product-type.list');
+        return view('admin.vendor.list');
     }
 
     /**
@@ -41,7 +41,7 @@ class ProductTypeController extends Controller
      */
     public function create(Request $request )
     {
-        return view('admin.product-type.create');
+        return view('admin.vendor.list');
     }
 
     /**
@@ -65,12 +65,12 @@ class ProductTypeController extends Controller
                 'name'=>'required',    
             ]);
 
-            $ProductType = new ProductType;
-            $ProductType->name = $request->name;
-            if($ProductType->save()){ 
-                return response()->json(['class'=>'success','message'=>'ProductType Created Successfuly.']);
+            $vendor = new Vendor;
+            $vendor->name = $request->name;
+            if($vendor->save()){ 
+                return response()->json(['class'=>'success','message'=>'Vendor Created Successfuly.']);
             }
-
+            return response()->json(['class'=>'error','message'=>'Whoops, looks like something went wrong ! Try again ...']);
             return redirect()->back()->with(['class'=>'error','message'=>'Whoops, looks like something went wrong ! Try again ...']);
         }
         
@@ -80,9 +80,9 @@ class ProductTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, ProductType $ProductType)
+    public function edit(Request $request, Vendor $vendor)
     {
-        return response()->json(['class'=>'success','message'=>'Record Founded','data'=>$ProductType]); 
+        return response()->json(['class'=>'success','message'=>'Record Founded','data'=>$vendor]); 
     }
 
     /**
@@ -92,15 +92,15 @@ class ProductTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductType $ProductType)
+    public function update(Request $request, Vendor $vendor)
     {
         $this->validate($request,[
                 'name'=>'required',    
             ]);
 
-            $ProductType->name = $request->name;
-            if($ProductType->save()){ 
-                return response()->json(['class'=>'success','message'=>'ProductType Created Successfuly.']);
+            $vendor->name = $request->name;
+            if($vendor->save()){ 
+                return response()->json(['class'=>'success','message'=>'Vendor Updated Successfuly.']);
             }
 
             return redirect()->back()->with(['class'=>'error','message'=>'Whoops, looks like something went wrong ! Try again ...']);
@@ -112,10 +112,10 @@ class ProductTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, ProductType $ProductType)
+    public function destroy(Request $request, Vendor $vendor)
     {
-        if($ProductType->delete()){
-            return response()->json(['message'=>'ProductType deleted Successfully ...', 'class'=>'success']);  
+        if($vendor->delete()){
+            return response()->json(['message'=>'Vendor deleted Successfully ...', 'class'=>'success']);  
         }
         return response()->json(['message'=>'Whoops, looks like something went wrong ! Try again ...', 'class'=>'error']);
     }

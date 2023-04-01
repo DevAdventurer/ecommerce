@@ -16,14 +16,7 @@
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
             <h4 class="mb-sm-0">{{Str::title(str_replace('-', ' ', request()->segment(2)))}}</h4>
-            @can('add_admin')
-            <div class="page-title-right">
-                <a href="{{ route('admin.'.request()->segment(2).'.create') }}"  class="btn-sm btn btn-primary btn-label rounded-pill">
-                    <i class="bx bx-plus label-icon align-middle rounded-pill fs-16 me-2"></i>
-                    Add {{Str::title(str_replace('-', ' ', request()->segment(2)))}}
-                </a>
-            </div>
-            @endcan
+           
 
         </div>
     </div>
@@ -40,16 +33,16 @@
             <div class="card-content">
                 <div class="card-body" id="form">
 
-                    {!! Form::open(['method' => 'POST', 'route' => 'admin.'.request()->segment(2).'.store', 'class' => 'form-horizontal','id'=>'tagForm']) !!}
+                    {!! Form::open(['method' => 'POST', 'route' => 'admin.'.request()->segment(2).'.store', 'class' => 'form-horizontal','id'=>'productTypeForm']) !!}
                     
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            {!! Form::label('name', 'Tag Name') !!}
-                            {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Enter Tag Name']) !!}
+                            {!! Form::label('name', 'Product Type') !!}
+                            {!! Form::text('name', null, ['class' => 'form-control slugify', 'required' => 'required','placeholder'=>'Enter Product Type']) !!}
                             <small class="text-danger">{{ $errors->first('name') }}</small>
                         </div>
                     
                         <div class="btn-group">
-                            {!! Form::button("Create Tag", ['class' => 'btn btn-soft-secondary waves-effect waves-light','onClick'=>'createTag(this)']) !!}
+                            {!! Form::button("Save Product Type", ['class' => 'btn btn-soft-success btn-border','onClick'=>'createProductTypeForm(this)']) !!}
                         </div>
                     
                     {!! Form::close() !!}
@@ -73,12 +66,12 @@
                     <table id="dataTableAjax" class="display dataTableAjax table table-striped table-bordered dom-jQuery-events" >
                         <thead>
                             <tr>
-                                <th>Si</th>
+                                <th style="width:30px;">Si</th>
                                 <th>Name</th>
                                 <th>Slug</th>
                                 <th>Created at</th>
-                                @can(['edit_tag','delete_tag'])
-                                  <th>Action</th>
+                                @can(['edit_product_type','delete_product_type'])
+                                  <th style="width:30px;">Action</th>
                                 @endcan
 
                             </tr>
@@ -126,17 +119,17 @@ var table2 = $('#dataTableAjax').DataTable({
                 if (type === 'display') {
                     var btn = '<div class="dropdown d-inline-block"><button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="ri-more-fill align-middle"></i></button><ul class="dropdown-menu dropdown-menu-end">';
 
-                    @can(['edit_tag','delete_tag','read_tag'])
+                    @can(['edit_product_type','delete_product_type','read_product_type'])
 
-                    @can('read_tag')
+                    @can('read_product_type')
                     // btn += '<li><a class="dropdown-item" href="{{ request()->url() }}/' + row['id'] + '"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>';
                     @endcan
 
-                    @can('edit_tag')
+                    @can('edit_product_type')
                         btn+='<li><button class="dropdown-item edit-item-btn" onClick="editData(\''+window.location.href+'/'+row['id']+'\')"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</button></li>';
                     @endcan
 
-                    @can('delete_tag')
+                    @can('delete_product_type')
                         btn += '<li><button type="button" onclick="deleteAjax(\''+window.location.href+'/'+row['id']+'/delete\')" class="dropdown-item remove-item-btn"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</button></li>';
                     @endcan
 
@@ -155,17 +148,17 @@ var table2 = $('#dataTableAjax').DataTable({
 
 
 
-var createForm = '<form method="POST" action="http://localhost:8000/admin/tag" accept-charset="UTF-8" class="form-horizontal" id="tagForm">{{csrf_field()}}<div class="form-group"><label for="name">Tag Name</label><input class="form-control" required="required" placeholder="Enter Tag Name" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-secondary waves-effect waves-light" onclick="createTag(this)" type="button">Create Tag</button></div></form>';
+var createForm = '<form method="POST" action="{{ route('admin.'.request()->segment(2).'.index') }}" accept-charset="UTF-8" class="form-horizontal" id="productTypeForm">{{csrf_field()}}<div class="form-group"><label for="name">Product Type</label><input class="form-control" required="required" placeholder="Enter Product Type" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-success btn-border" onclick="createProductTypeForm(this)" type="button">Save Product Type</button></div></form>';
 
 
 
-function createTag(element){
+function createProductTypeForm(element){
     var button = new Button(element);
     button.process();
     clearErrors();
     var requestData,otpdata,data;
 
-    formData = new FormData(document.querySelector('#tagForm'));
+    formData = new FormData(document.querySelector('#productTypeForm'));
 
     $.ajax({
         type: "POST",
@@ -176,13 +169,24 @@ function createTag(element){
         processData: false,
         cache: false,
         success:function(response){
-            //toastr.success(response.message); 
+            //toast.success(response.message); 
+            
+
             table2.draw('page');
             button.normal();
-            document.querySelector('#tagForm').reset();
+            Toastify({
+                text: response.message,
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                className: response.class,
+
+            }).showToast();
+            document.querySelector('#productTypeForm').reset();
         },
-        error:function(error){
-           // toastr.error(error.responseJSON.message); 
+        error:function(error){ 
             button.normal();
             handleErrors(error.responseJSON);
             
@@ -198,7 +202,7 @@ function editData(url) {
         enctype: 'multipart/form-data',
         url:url+'/edit',
         success:function(response){
-           $('#form').html('<form id="tagForm" method="POST" action="http://localhost:8000/admin/tag/" accept-charset="UTF-8">{{method_field('PUT')}} {{csrf_field()}}<div class="form-group"><label for="name">Tag Name</label><input class="form-control" required="required" value="'+response.data.name+'" placeholder="Enter Tag Name" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-secondary waves-effect waves-light" onclick="UpdateTag(this,'+response.data.id+')" type="button">Update Tag</button></div></form>');
+           $('#form').html('<form id="productTypeForm" method="POST" action="{{ route('admin.'.request()->segment(2).'.index') }}" accept-charset="UTF-8">{{method_field('PUT')}} {{csrf_field()}}<div class="form-group"><label for="name">Product Type</label><input class="form-control" required="required" value="'+response.data.name+'" placeholder="Enter Product Type" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-success btn-border" onclick="UpdateProductTypeForm(this,'+response.data.id+')" type="button">Update Product Type</button></div></form>');
         },
         error:function(error){
             //toastr.error(error.responseJSON.message);  
@@ -208,13 +212,13 @@ function editData(url) {
 }
 
 
-function UpdateTag(element,id){
+function UpdateProductTypeForm(element,id){
     var button = new Button(element);
     button.process();
     clearErrors();
     var requestData,otpdata,data;
 
-    formData = new FormData(document.querySelector('#tagForm'));
+    formData = new FormData(document.querySelector('#productTypeForm'));
 
     $.ajax({
         type: "POST",
@@ -225,12 +229,31 @@ function UpdateTag(element,id){
         processData: false,
         cache: false,
         success:function(response){
-            //toastr.success(response.message); 
+            Toastify({
+                text: response.message,
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                className: response.class,
+
+            }).showToast();
             table2.draw('page');
             button.normal();
             $('#form').html(createForm);
         },
         error:function(error){
+            Toastify({
+                text: response.message,
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                className: response.class,
+
+            }).showToast();
             //toastr.error(error.responseJSON.message); 
             button.normal();
             handleErrors(error.responseJSON);

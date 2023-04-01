@@ -57,7 +57,7 @@ class CollectionController extends Controller
             'image'=>'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'description' =>'nullable',
             'status'=>'required|integer',
-            'publish_date'=>'required',
+            'published_date'=>'required',
         ]);
         
         $collection = new Collection;

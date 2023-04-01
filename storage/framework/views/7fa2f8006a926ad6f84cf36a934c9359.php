@@ -16,16 +16,23 @@
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
             <h4 class="mb-sm-0"><?php echo e(Str::title(str_replace('-', ' ', request()->segment(2)))); ?></h4>
-            <?php if (\Illuminate\Support\Facades\Blade::check('can', 'add_collection')): ?>
-            <div class="page-title-right">
-               
-                <a href="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>"  class="btn-sm btn btn-secondary waves-effect waves-light btn-label rounded-pill">
-                    <i class="bx bx-list-ul label-icon align-middle rounded-pill fs-16 me-2"></i>
-                    <?php echo e(Str::title(str_replace('-', ' ', request()->segment(2)))); ?> List
-                </a>
 
+            <div class="page-title-right">
+                <?php if (\Illuminate\Support\Facades\Blade::check('can', 'browse_collection')): ?>
+                    <a href="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>"  class="btn-sm btn btn-secondary waves-effect waves-light btn-label rounded-pill">
+                        <i class="bx bx-list-ul label-icon align-middle rounded-pill fs-16 me-2"></i>
+                        <?php echo e(Str::title(str_replace('-', ' ', request()->segment(2)))); ?> List
+                    </a>
+                <?php endif; ?>
+
+                <?php if (\Illuminate\Support\Facades\Blade::check('can', 'add_collection')): ?>
+                    <a href="<?php echo e(route('admin.'.request()->segment(2).'.create')); ?>"  class="btn-sm btn btn-success waves-effect waves-light btn-label rounded-pill">
+                        <i class="bx bx-plus label-icon align-middle rounded-pill fs-16 me-2"></i>
+                        Add <?php echo e(Str::title(str_replace('-', ' ', request()->segment(2)))); ?>
+
+                    </a>
+                <?php endif; ?>
             </div>
-            <?php endif; ?>
 
         </div>
     </div>
@@ -34,7 +41,7 @@
 
 
 
-<?php echo Form::open(['method' => 'POST', 'route' => 'admin.'.request()->segment(2).'.store', 'class' => 'form-horizontal','files'=>true]); ?>
+<?php echo Form::open(['method' => 'PUT', 'route' => ['admin.'.request()->segment(2).'.update', $collection->id], 'class' => 'form-horizontal','files'=>true]); ?>
 
     <div class="row">
 
@@ -46,7 +53,7 @@
                         <div class="form-group<?php echo e($errors->has('title') ? ' has-error' : ''); ?>">
                             <?php echo Form::label('title', 'Title'); ?>
 
-                            <?php echo Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Collection Title']); ?>
+                            <?php echo Form::text('title', $collection->title, ['class' => 'form-control', 'placeholder' => 'Collection Title']); ?>
 
                             <small class="text-danger"><?php echo e($errors->first('title')); ?></small>
                         </div> 
@@ -56,7 +63,7 @@
                         <div class="form-group<?php echo e($errors->has('description') ? ' has-error' : ''); ?>">
                             <?php echo Form::label('description', 'Description'); ?>
 
-                            <?php echo Form::textarea('description', null, ['class' => 'form-control editor', 'placeholder' => 'Description']); ?>
+                            <?php echo Form::textarea('description', $collection->body, ['class' => 'form-control editor', 'placeholder' => 'Description']); ?>
 
                             <small class="text-danger"><?php echo e($errors->first('description')); ?></small>
                         </div>
@@ -76,7 +83,7 @@
                     <div class="form-group<?php echo e($errors->has('meta_title') ? ' has-error' : ''); ?>">
                         <?php echo Form::label('meta_title', 'Meta Title'); ?>
 
-                        <?php echo Form::text('meta_title', null, ['class' => 'form-control', 'placeholder' => 'Meta Title']); ?>
+                        <?php echo Form::text('meta_title', $collection->meta_title, ['class' => 'form-control', 'placeholder' => 'Meta Title']); ?>
 
                         <small class="text-danger"><?php echo e($errors->first('meta_title')); ?></small>
                     </div>
@@ -84,7 +91,7 @@
                     <div class="form-group<?php echo e($errors->has('meta_description') ? ' has-error' : ''); ?>">
                         <?php echo Form::label('meta_description', 'Meta Description'); ?>
 
-                        <?php echo Form::textarea('meta_description', null, ['class' => 'form-control', 'placeholder' => 'Meta Description', 'rows'=>5]); ?>
+                        <?php echo Form::textarea('meta_description', $collection->meta_description, ['class' => 'form-control', 'placeholder' => 'Meta Description', 'rows'=>5]); ?>
 
                         <small class="text-danger"><?php echo e($errors->first('meta_description')); ?></small>
                     </div>
@@ -109,7 +116,7 @@
                     <div class="form-group<?php echo e($errors->has('status') ? ' has-error' : ''); ?>">
                         <?php echo Form::label('status', 'Select Status'); ?>
 
-                        <?php echo Form::select('status', [0=>'Draft', 1=>'Publish'], null, ['id' => 'my_status', 'class' => 'form-control get_category_list', 'placeholder' => 'Select status',]); ?>
+                        <?php echo Form::select('status', [0=>'Draft', 1=>'Publish'], $collection->status, ['id' => 'my_status', 'class' => 'form-control get_category_list', 'placeholder' => 'Select status',]); ?>
 
                         <small class="text-danger"><?php echo e($errors->first('status')); ?></small>
                     </div>
@@ -118,7 +125,7 @@
                     <div class="form-group<?php echo e($errors->has('published_date') ? ' has-error' : ''); ?>">
                         <?php echo Form::label('published_date', 'Publish Date'); ?>
 
-                        <?php echo Form::text('published_date', null, ['class' => 'dateSelector form-control', 'placeholder' => 'Publish Date']); ?>
+                        <?php echo Form::text('published_date',  $collection->published_at->format('d-m-y'), ['class' => 'dateSelector form-control', 'placeholder' => 'Publish Date']); ?>
 
                         <small class="text-danger"><?php echo e($errors->first('published_date')); ?></small>
                     </div>
@@ -142,7 +149,7 @@
                     <div class="form-group<?php echo e($errors->has('parrent') ? ' has-error' : ''); ?>">
                         <?php echo Form::label('parrent', 'Parent Collection'); ?>
 
-                        <?php echo Form::select('parrent', $collections, null, ['id' => 'parrent', 'class' => 'form-control', 'placeholder' => 'Choose Parent Collection']); ?>
+                        <?php echo Form::select('parrent', $collections, $collection->parent, ['id' => 'parrent', 'class' => 'form-control', 'placeholder' => 'Choose Parent Collection']); ?>
 
                         <small class="text-danger"><?php echo e($errors->first('parrent')); ?></small>
                     </div>
@@ -202,4 +209,4 @@
     });
 </script>
 <?php $__env->stopPush(); ?>
-<?php echo $__env->make('admin.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/sanix/Documents/ecommerce/resources/views/admin/collection/create.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/sanix/Documents/ecommerce/resources/views/admin/collection/edit.blade.php ENDPATH**/ ?>

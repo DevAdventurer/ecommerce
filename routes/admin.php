@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CollectionController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\VendorController;
+use App\Http\Controllers\Admin\ProductTypeController;
 use App\Http\Controllers\Admin\AttributeController;
 
 Route::middleware('admin.guest')->name('admin.')->group(function() {
@@ -148,7 +150,7 @@ Route::middleware('admin')->name('admin.')->group(function() {
         Route::get('product-type/{product_type}/edit', 'edit')->name('product-type.edit')->middleware('can:edit_product_type');
         Route::post('product-type', 'store')->name('product-type.store')->middleware('can:add_product_type');
         Route::put('product-type/{product_type}', 'update')->name('product-type.update')->middleware('can:edit_product_type');
-        Route::delete('product-type/{product_type}/delete', 'destroy')->name('product-type.destroy')->middleware('can:delete_product-type');
+        Route::delete('product-type/{product_type}/delete', 'destroy')->name('product-type.destroy')->middleware('can:delete_product_type');
     });
 
 
@@ -173,6 +175,9 @@ Route::middleware('admin')->name('admin.')->group(function() {
         Route::post('attribute', 'store')->name('attribute.store')->middleware('can:add_attribute');
         Route::put('attribute/{attribute}', 'update')->name('attribute.update')->middleware('can:edit_attribute');
         Route::delete('attribute/{attribute}/delete', 'destroy')->name('attribute.destroy')->middleware('can:delete_attribute');
+
+
+        Route::post('attribute/value', 'storeValue')->name('attribute.value.store')->middleware('can:add_attribute');
     });
 
 });
