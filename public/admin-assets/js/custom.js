@@ -73,6 +73,6 @@ handleErrors = function(error, options={}) {
 }
 
 
-document.querySelector('.slugify').addEventListener('change', function() {
-    console.log('You selected: ', this.value);
-});
+// document.querySelector('.slugify').addEventListener('change', function() {
+//     console.log('You selected: ', this.value);
+// });

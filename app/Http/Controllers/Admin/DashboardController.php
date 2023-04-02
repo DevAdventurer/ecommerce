@@ -9,8 +9,34 @@ use OpenAI\Laravel\Facades\OpenAI;
 
 class DashboardController extends Controller
 {
+    public function index(Request $request)
+    {
+
+
+        $sizes = ['S', 'M', 'L'];
+        $colors = ['Red', 'Green', 'Blue'];
+
+
+
+
+        $collection = collect($sizes);
+ 
+        $matrix = $collection->crossJoin($colors);
+         
+        return $matrix->all();
+
+
+        // foreach($sizes as $size){
+        //     foreach($colors as $color){
+        //         echo "<p>" . $size . ':' . $color . "</p>";
+        //     }
+        // }
+
+        return "<br>ok";
+        return view('admin.dashboard');
+    }
    
-    public function index(Request $request){
+    public function chatGPT(Request $request){
 
         // $title = 'shopify ecommerce';
 

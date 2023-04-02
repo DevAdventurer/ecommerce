@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\VendorController;
 use App\Http\Controllers\Admin\ProductTypeController;
 use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Admin\ProductInventoryController;
 
 Route::middleware('admin.guest')->name('admin.')->group(function() {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login.form');
@@ -104,6 +105,18 @@ Route::middleware('admin')->name('admin.')->group(function() {
         Route::post('product', 'store')->name('product.store')->middleware('can:add_product');
         Route::put('product/{product}', 'update')->name('product.update')->middleware('can:edit_product');
         Route::delete('product/{product}/delete', 'destroy')->name('product.destroy')->middleware('can:delete_product');
+    });
+
+
+     //ProductInventory
+    Route::controller(ProductInventoryController::class)->group(function(){
+        Route::match(['get','patch'],'product/{product}/inventory', 'index')->name('product.inventory.index')->middleware('can:browse_product');
+        Route::get('product/{product}/inventory/create', 'create')->name('product.inventory.create')->middleware('can:add_product');
+        Route::get('product-inventory/{product_inventory}', 'show')->name('product.inventory.show')->middleware('can:read_product');
+        Route::get('product-inventory/{product_inventory}/edit', 'edit')->name('product.inventory.edit')->middleware('can:edit_product');
+        Route::post('product-inventory', 'store')->name('product.inventory.store')->middleware('can:add_product');
+        Route::put('product-inventory/{product_inventory}', 'update')->name('product.inventory.update')->middleware('can:edit_product');
+        Route::delete('product-inventory/{product_inventory}/delete', 'destroy')->name('product.inventory.destroy')->middleware('can:delete_product');
     });
 
 

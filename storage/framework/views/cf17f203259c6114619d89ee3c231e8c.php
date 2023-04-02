@@ -104,7 +104,7 @@
                             <?php if (\Illuminate\Support\Facades\Blade::check('can', ['edit_product','delete_product','read_product'])): ?>
 
                             <?php if (\Illuminate\Support\Facades\Blade::check('can', 'read_product')): ?>
-                            // btn += '<li><a class="dropdown-item" href="<?php echo e(request()->url()); ?>/' + row['id'] + '"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>';
+                                btn += '<li><a class="dropdown-item" href="<?php echo e(request()->url()); ?>/' + row['id'] + '"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>';
                             <?php endif; ?>
 
                             <?php if (\Illuminate\Support\Facades\Blade::check('can', 'edit_product')): ?>

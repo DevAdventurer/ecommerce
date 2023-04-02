@@ -7,7 +7,6 @@
 /storage/framework/*.key
 /storage/logs/*.key
 /storage
-/vendor
 .env
 .env.backup
 .env.production

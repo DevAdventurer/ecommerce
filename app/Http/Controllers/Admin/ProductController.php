@@ -10,6 +10,8 @@ use App\Models\Product;
 use App\Models\Tag;
 use App\Models\Attribute;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+
 
 class ProductController extends Controller
 {  
@@ -55,27 +57,36 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->all();
+        
         $this->validate($request,[
             'title' => 'required',
-            //'subtitle' => 'required',
-            'body' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4000',
         ]);
 
         $product = new Product;
         $product->title = $request->title;
-        $product->subtitle = $request->subtitle;
-        $product->body = $request->body;
+        $product->body = $request->description;
+        $product->short_description = $request->short_description;
+        $product->published_at = Carbon::parse($request->published_date)->format('Y-m-d');
         $product->status = $request->status??0;
+        $product->brand_id = $request->brand;
+        $product->product_type_id = $request->product_type;
+        $product->vendor_id = $request->vendor;
+        $product->price = $request->price;
+        $product->sale_price = $request->sale_price;
 
-        if($request->hasFile('image')){
-            $image_name = time().".".$request->file('image')->getClientOriginalExtension();
-            $image = $request->file('image')->storeAs('Products', $image_name);
-            $product->image = 'storage/'.$image;
+        $product->meta_title = $request->meta_title;
+        $product->meta_description = $request->meta_description;
+
+        if($request->hasFile('featured_image')){
+            $image_name = time().".".$request->file('featured_image')->getClientOriginalExtension();
+            $image = $request->file('featured_image')->storeAs('products', $image_name);
+            $product->featured_image = 'storage/'.$image;
         }  
 
         if($product->save()){ 
-            $product->categories()->sync($request->categories);
+            $product->collections()->sync($request->collections);
             $product->tags()->sync($request->tags);
             
 
@@ -91,9 +102,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, Product $product)
     {
-        //
+        //return view('admin.product.inventory.list');
+        $product->with(['productType', 'brand', 'vendor'])->first();
+        return view('admin.product.views', compact('product'));
     }
 
     /**
@@ -105,7 +118,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::with('tags','categories')->where('id',$id)->first();
-        return view('admin.product.edit',compact('Product'));
+        return view('admin.product.edit',compact('product'));
     }
 
     /**
