@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 03, 2023 at 01:12 PM
+-- Generation Time: Apr 03, 2023 at 09:53 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -90,54 +90,6 @@ CREATE TABLE `admin_password_resets` (
 INSERT INTO `admin_password_resets` (`email`, `token`, `created_at`) VALUES
 ('asifjamal@yopmail.com', '$2y$10$J/boDihlUPMgBF7L2uPVjeaYlLxKjQ4Ifo25TfhwBOt3UCix0kkYm', '2019-06-16 12:06:57'),
 ('asif.sanix@gmail.com', '$2y$10$cNoidIFR/27b5zYgCugNGeto1P2Dr0uHNen4gUahwteuP1vCgURlm', '2019-08-08 06:19:27');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `attributes`
---
-
-CREATE TABLE `attributes` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `attributes`
---
-
-INSERT INTO `attributes` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Size', '2023-04-01 06:38:29', '2023-04-01 06:38:29', NULL),
-(2, 'Color', '2023-04-01 09:58:47', '2023-04-01 09:58:47', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `attribute_values`
---
-
-CREATE TABLE `attribute_values` (
-  `id` int(11) NOT NULL,
-  `attribute_id` int(11) NOT NULL,
-  `attribute_value` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `attribute_values`
---
-
-INSERT INTO `attribute_values` (`id`, `attribute_id`, `attribute_value`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(3, 1, 'S', '2023-04-01 10:41:11', '2023-04-01 10:41:11', NULL),
-(4, 1, 'M', '2023-04-01 10:43:35', '2023-04-01 10:43:35', NULL),
-(5, 2, 'Red', '2023-04-01 10:54:18', '2023-04-01 10:54:18', NULL),
-(6, 2, 'Green', '2023-04-01 10:54:26', '2023-04-01 10:54:26', NULL),
-(7, 2, 'Blue', '2023-04-01 10:54:37', '2023-04-01 10:54:37', NULL);
 
 -- --------------------------------------------------------
 
@@ -242,6 +194,14 @@ CREATE TABLE `options` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `options`
+--
+
+INSERT INTO `options` (`id`, `product_id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Size', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
+(2, 1, 'Color', '2023-04-03 19:34:13', '2023-04-03 19:34:13');
+
 -- --------------------------------------------------------
 
 --
@@ -256,6 +216,16 @@ CREATE TABLE `option_values` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `option_values`
+--
+
+INSERT INTO `option_values` (`id`, `product_id`, `option_id`, `option_value`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'L', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
+(2, 1, 1, 'M', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
+(3, 1, 2, 'Red', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
+(4, 1, 2, 'Green', '2023-04-03 19:34:13', '2023-04-03 19:34:13');
 
 -- --------------------------------------------------------
 
@@ -372,15 +342,26 @@ CREATE TABLE `products` (
   `title` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `body` longtext DEFAULT NULL,
-  `featured_image` varchar(255) NOT NULL,
+  `short_description` text DEFAULT NULL,
+  `featured_image` varchar(255) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
+  `price` decimal(10,2) DEFAULT NULL,
+  `sale_price` decimal(10,2) DEFAULT NULL,
+  `tax_id` int(11) DEFAULT NULL,
   `meta_title` varchar(255) DEFAULT NULL,
   `meta_description` text DEFAULT NULL,
-  `published_at` date DEFAULT NULL,
+  `published_at` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `deleted_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `brand_id`, `product_type_id`, `vendor_id`, `title`, `slug`, `body`, `short_description`, `featured_image`, `status`, `price`, `sale_price`, `tax_id`, `meta_title`, `meta_description`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 1, 1, 'Test Product', 'test-product', '<p>Hello World</p>', '<p>Short Deskription</p>', 'storage/products/1680550453.jpg', 1, '900.00', '1500.00', NULL, 'Test Product', 'Hello World', '2023-04-01', '2023-04-03 19:34:13', '2023-04-03 19:34:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -390,8 +371,37 @@ CREATE TABLE `products` (
 
 CREATE TABLE `product_collections` (
   `product_id` int(11) NOT NULL,
-  `collection_id` int(11) NOT NULL
+  `collection_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_collections`
+--
+
+INSERT INTO `product_collections` (`product_id`, `collection_id`, `created_at`, `updated_at`) VALUES
+(1, 1, '2023-04-03 19:34:13', '2023-04-03 19:34:13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_tags`
+--
+
+CREATE TABLE `product_tags` (
+  `product_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_tags`
+--
+
+INSERT INTO `product_tags` (`product_id`, `tag_id`, `created_at`, `updated_at`) VALUES
+(1, 1, '2023-04-03 19:34:13', '2023-04-03 19:34:13');
 
 -- --------------------------------------------------------
 
@@ -414,6 +424,35 @@ CREATE TABLE `product_types` (
 INSERT INTO `product_types` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
 (1, 'Jeans', 'jeans', '2023-04-01 05:36:49', '2023-04-01 05:36:49'),
 (2, 'T-Shirts', 't-shirt', '2023-04-01 05:39:34', '2023-04-01 05:43:36');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_variants`
+--
+
+CREATE TABLE `product_variants` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `variant` varchar(255) NOT NULL,
+  `sku` varchar(255) DEFAULT NULL,
+  `variant_price` decimal(10,2) DEFAULT NULL,
+  `variant_sale_price` decimal(10,2) DEFAULT NULL,
+  `stock` int(11) DEFAULT NULL,
+  `available_stock` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_variants`
+--
+
+INSERT INTO `product_variants` (`id`, `product_id`, `variant`, `sku`, `variant_price`, `variant_sale_price`, `stock`, `available_stock`, `created_at`, `updated_at`) VALUES
+(1, 1, 'L/Red', 'LR00', '900.00', '1500.00', 200, 150, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
+(2, 1, 'L/Green', 'LG00', '800.00', '1500.00', 350, 250, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
+(3, 1, 'M/Red', 'MR00', '999.00', '1800.00', 100, 60, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
+(4, 1, 'M/Green', 'MG000', '800.00', '1200.00', 700, 600, '2023-04-03 19:34:13', '2023-04-03 19:34:13');
 
 -- --------------------------------------------------------
 
@@ -566,7 +605,7 @@ CREATE TABLE `tags` (
   `slug` varchar(150) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tags`
@@ -605,24 +644,6 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 -- --------------------------------------------------------
 
 --
--- Table structure for table `variants`
---
-
-CREATE TABLE `variants` (
-  `id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `variant` varchar(255) NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `sale_price` decimal(10,2) NOT NULL,
-  `available_quantity` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `vendors`
 --
 
@@ -632,7 +653,7 @@ CREATE TABLE `vendors` (
   `slug` varchar(150) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `vendors`
@@ -663,19 +684,6 @@ ALTER TABLE `admin_details`
 --
 ALTER TABLE `admin_password_resets`
   ADD KEY `password_resets_email_index` (`email`(191));
-
---
--- Indexes for table `attributes`
---
-ALTER TABLE `attributes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `attribute_values`
---
-ALTER TABLE `attribute_values`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `attribute_values_attribute_id_foreign` (`attribute_id`);
 
 --
 -- Indexes for table `brands`
@@ -735,9 +743,22 @@ ALTER TABLE `product_collections`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Indexes for table `product_tags`
+--
+ALTER TABLE `product_tags`
+  ADD KEY `product_tags_product_id_foreign` (`product_id`),
+  ADD KEY `product_tags_tag_id_foreign` (`tag_id`);
+
+--
 -- Indexes for table `product_types`
 --
 ALTER TABLE `product_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_variants`
+--
+ALTER TABLE `product_variants`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -772,12 +793,6 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- Indexes for table `variants`
---
-ALTER TABLE `variants`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `vendors`
 --
 ALTER TABLE `vendors`
@@ -800,18 +815,6 @@ ALTER TABLE `admin_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `attributes`
---
-ALTER TABLE `attributes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `attribute_values`
---
-ALTER TABLE `attribute_values`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
@@ -827,13 +830,13 @@ ALTER TABLE `collections`
 -- AUTO_INCREMENT for table `options`
 --
 ALTER TABLE `options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `option_values`
 --
 ALTER TABLE `option_values`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -852,6 +855,12 @@ ALTER TABLE `products`
 --
 ALTER TABLE `product_types`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `product_variants`
+--
+ALTER TABLE `product_variants`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -878,12 +887,6 @@ ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `variants`
---
-ALTER TABLE `variants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
@@ -894,17 +897,18 @@ ALTER TABLE `vendors`
 --
 
 --
--- Constraints for table `attribute_values`
---
-ALTER TABLE `attribute_values`
-  ADD CONSTRAINT `attribute_values_attribute_id_foreign` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE;
-
---
 -- Constraints for table `product_collections`
 --
 ALTER TABLE `product_collections`
   ADD CONSTRAINT `product_collections_collection_id_foreign` FOREIGN KEY (`collection_id`) REFERENCES `collections` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `product_collections_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `product_tags`
+--
+ALTER TABLE `product_tags`
+  ADD CONSTRAINT `product_tags_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `product_tags_tag_id_foreign` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

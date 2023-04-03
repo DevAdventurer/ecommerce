@@ -4,20 +4,32 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\Product\ProductCollection;
+use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\CategoryProduct;
+use App\Models\Option;
+use App\Models\OptionValue;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Models\Tag;
-use App\Models\Attribute;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 
 class ProductController extends Controller
-{  
+{ 
+    
     
     public function index(Request $request)
     {
+        return Product::orderBy('created_at','desc')
+        ->with(['tags','collections', 'brand', 'productType','vendor','productVariants'])
+        ->with('options', function($query){
+            $query->with('optionValue');
+        })
+        ->get(); 
+
+    
        if ($request->ajax()) {
            
 
@@ -57,79 +69,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
-
-    $options = array(
-
-        'option_name' => 'Size',
-        
-        'option_value'=>[
-            "S",
-            "M"
-        ]
-        
-        
-
-    );
-
-    //dd($options);
-
-    $inputs = $request->input('group-a');
-
-    $options = [];
-    foreach ($inputs as $input) {
-        $option_val = explode(',', $input['option_value']);
-
-        $option_value = array(
-
-            'option_name' => $input['option'],
-            
-            'option_value'=>$option_val,
-
-        );
-
-        array_push($options, $option_val);
-    }
-
-//dd($options);
-
-
-$start = array_shift($options);
-$matrix = collect($start)->crossJoin(...$options);
-return view('welcome', compact('matrix'));
-
-foreach($matrix as $items){
-    //dd($item);
-    echo implode('/', $items);
-    echo "<p>";
-    foreach($items as $item){
-    //echo implode('/', $item);
-    }
-    echo "</p>";
-}
-
-
-
-return"ok";
-return $request->all();
-    
-
-        $options = [];
-
-        // Just store all options in the array
-        // I am going to assume $option["option_values"] is always an array
-        foreach ($input['option'] as $key => $option) {
-          explode(',', $input['option_value']);
-          array_push($options, $option["option_values"]);
-        }
-
-        // Get the first element so we can use collections
-        // and the crossJoin function
-        $start = array_shift($options);
-        return collect($start)->crossJoin(...$options);
-    
-
-return "ok";
+        //return $request->all();
         
         $this->validate($request,[
             'title' => 'required',
@@ -145,8 +85,8 @@ return "ok";
         $product->brand_id = $request->brand;
         $product->product_type_id = $request->product_type;
         $product->vendor_id = $request->vendor;
-        // $product->price = $request->price;
-        // $product->sale_price = $request->sale_price;
+        $product->price = $request->price;
+        $product->sale_price = $request->sale_price;
 
         $product->meta_title = $request->meta_title;
         $product->meta_description = $request->meta_description;
@@ -157,25 +97,44 @@ return "ok";
             $product->featured_image = 'storage/'.$image;
         }  
 
-        $inputs = $request->input('group-a');
+        
 
 
         if($product->save()){ 
             $product->collections()->sync($request->collections);
             $product->tags()->sync($request->tags);
 
+            $inputs = $request->input('group-a');
             foreach ($inputs as $input) {
                 $option  = new Option;
                 $option->product_id = $product->id;
                 $option->name = $input['option'];
                 if($option->save()){
-                    $option_val  = new OptionValue;
-                    $option_val->product_id = $product->id;
-                    $option_val->option_id = $option->id;
-                    $option_val->option_value = $input['option'];
-                    $option_val->save();
+                    $option_vals = explode(',', $input['option_value']);
+                    foreach ($option_vals as $option_val) {
+                        $option_value  = new OptionValue;
+                        $option_value->product_id = $product->id;
+                        $option_value->option_id = $option->id;
+                        $option_value->option_value = $option_val;
+                        $option_value->save();
+                    }
                 }
                 
+            }
+
+            $variants = $request->input('variants');
+            foreach ($variants as $variant) {
+
+                $product_variant = new ProductVariant;
+                $product_variant->product_id = $product->id;
+                $product_variant->variant = $variant['value'];
+                $product_variant->sku = $variant['sku'];
+                $product_variant->variant_price = $variant['variant_price'];
+                $product_variant->variant_sale_price = $variant['variant_sale_price'];
+                $product_variant->stock = $variant['quantity_on_hand'];
+                $product_variant->available_stock = $variant['quantity_available'];
+                $product_variant->save();
+
             }
             
 
