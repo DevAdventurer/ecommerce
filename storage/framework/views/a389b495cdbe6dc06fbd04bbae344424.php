@@ -44,7 +44,7 @@
                         </div>
                     
                         <div class="btn-group">
-                            <?php echo Form::button("Save Product Type", ['class' => 'btn btn-soft-success btn-border waves-effect waves-light','onClick'=>'createProductTypeForm(this)']); ?>
+                            <?php echo Form::button("Save Product Type", ['class' => 'btn btn-soft-success btn-border','onClick'=>'createProductTypeForm(this)']); ?>
 
                         </div>
                     
@@ -152,7 +152,7 @@ var table2 = $('#dataTableAjax').DataTable({
 
 
 
-var createForm = '<form method="POST" action="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>" accept-charset="UTF-8" class="form-horizontal" id="productTypeForm"><?php echo e(csrf_field()); ?><div class="form-group"><label for="name">Product Type</label><input class="form-control" required="required" placeholder="Enter Product Type" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-success btn-border waves-effect waves-light" onclick="createProductTypeForm(this)" type="button">Save Product Type</button></div></form>';
+var createForm = '<form method="POST" action="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>" accept-charset="UTF-8" class="form-horizontal" id="productTypeForm"><?php echo e(csrf_field()); ?><div class="form-group"><label for="name">Product Type</label><input class="form-control" required="required" placeholder="Enter Product Type" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-success btn-border" onclick="createProductTypeForm(this)" type="button">Save Product Type</button></div></form>';
 
 
 
@@ -206,7 +206,7 @@ function editData(url) {
         enctype: 'multipart/form-data',
         url:url+'/edit',
         success:function(response){
-           $('#form').html('<form id="productTypeForm" method="POST" action="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>" accept-charset="UTF-8"><?php echo e(method_field('PUT')); ?> <?php echo e(csrf_field()); ?><div class="form-group"><label for="name">Product Type</label><input class="form-control" required="required" value="'+response.data.name+'" placeholder="Enter Product Type" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-success btn-border waves-effect waves-light" onclick="UpdateProductTypeForm(this,'+response.data.id+')" type="button">Update Product Type</button></div></form>');
+           $('#form').html('<form id="productTypeForm" method="POST" action="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>" accept-charset="UTF-8"><?php echo e(method_field('PUT')); ?> <?php echo e(csrf_field()); ?><div class="form-group"><label for="name">Product Type</label><input class="form-control" required="required" value="'+response.data.name+'" placeholder="Enter Product Type" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-success btn-border" onclick="UpdateProductTypeForm(this,'+response.data.id+')" type="button">Update Product Type</button></div></form>');
         },
         error:function(error){
             //toastr.error(error.responseJSON.message);  

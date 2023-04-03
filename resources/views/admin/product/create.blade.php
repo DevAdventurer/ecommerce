@@ -34,7 +34,7 @@
 </div>
 <!-- end page title -->
 
-{!! Form::open(['method' => 'POST', 'route' => 'admin.'.request()->segment(2).'.store', 'class' => 'form-horizontal','files'=>true]) !!}
+{!! Form::open(['method' => 'POST', 'route' => 'admin.'.request()->segment(2).'.store', 'class' => 'form-horizontal','files'=>true, 'id'=>'productForm']) !!}
 
 
 
@@ -114,6 +114,10 @@
                                 </div>
 
                             </div>
+
+                            {!! Form::button('Get Variants', ['class' => 'btn btn-soft-success btn-border waves-effect waves-light', 'onclick'=>'getVariants($(this))']) !!}
+
+                             <div id="variants"></div>
                         </div>
                     </div>
 
@@ -169,7 +173,11 @@
                                 {!! Form::submit("Save ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']) !!}
                             </div>
 
+
+
                         </div>
+
+                        
                     </div>
 
 
@@ -313,6 +321,49 @@ if($('.report-repeater').length){
     isFirstItemUndeletable: true
     });
 }
+
+function getVariants(element){
+
+    var button = new Button(element);
+    button.process();
+    clearErrors();
+    var requestData,otpdata,data;
+
+    formData = new FormData(document.querySelector('#productForm'));
+
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url:'{{ route('admin.generate.variant') }}',
+        data: formData,
+        contentType: false,
+        processData: false,
+        cache: false,
+        success:function(response){
+
+            console.log(response);
+            $('#variants').html(response);
+            Toastify({
+                text: response.message,
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                className: response.class,
+
+            }).showToast();
+            
+        },
+        error:function(error){
+            console.log(error)
+            button.normal();
+            handleErrors(error.responseJSON);
+            
+        }
+    });
+}
  </script>
+
 
 @endpush

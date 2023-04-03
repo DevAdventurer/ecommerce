@@ -105,6 +105,10 @@ Route::middleware('admin')->name('admin.')->group(function() {
         Route::post('product', 'store')->name('product.store')->middleware('can:add_product');
         Route::put('product/{product}', 'update')->name('product.update')->middleware('can:edit_product');
         Route::delete('product/{product}/delete', 'destroy')->name('product.destroy')->middleware('can:delete_product');
+
+
+        Route::post('product/generate/variants', 'generateVariant')->name('generate.variant');
+
     });
 
 

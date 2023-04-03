@@ -58,6 +58,78 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         return $request->all();
+
+    $options = array(
+
+        'option_name' => 'Size',
+        
+        'option_value'=>[
+            "S",
+            "M"
+        ]
+        
+        
+
+    );
+
+    //dd($options);
+
+    $inputs = $request->input('group-a');
+
+    $options = [];
+    foreach ($inputs as $input) {
+        $option_val = explode(',', $input['option_value']);
+
+        $option_value = array(
+
+            'option_name' => $input['option'],
+            
+            'option_value'=>$option_val,
+
+        );
+
+        array_push($options, $option_val);
+    }
+
+//dd($options);
+
+
+$start = array_shift($options);
+$matrix = collect($start)->crossJoin(...$options);
+return view('welcome', compact('matrix'));
+
+foreach($matrix as $items){
+    //dd($item);
+    echo implode('/', $items);
+    echo "<p>";
+    foreach($items as $item){
+    //echo implode('/', $item);
+    }
+    echo "</p>";
+}
+
+
+
+return"ok";
+return $request->all();
+    
+
+        $options = [];
+
+        // Just store all options in the array
+        // I am going to assume $option["option_values"] is always an array
+        foreach ($input['option'] as $key => $option) {
+          explode(',', $input['option_value']);
+          array_push($options, $option["option_values"]);
+        }
+
+        // Get the first element so we can use collections
+        // and the crossJoin function
+        $start = array_shift($options);
+        return collect($start)->crossJoin(...$options);
+    
+
+return "ok";
         
         $this->validate($request,[
             'title' => 'required',
@@ -73,8 +145,8 @@ class ProductController extends Controller
         $product->brand_id = $request->brand;
         $product->product_type_id = $request->product_type;
         $product->vendor_id = $request->vendor;
-        $product->price = $request->price;
-        $product->sale_price = $request->sale_price;
+        // $product->price = $request->price;
+        // $product->sale_price = $request->sale_price;
 
         $product->meta_title = $request->meta_title;
         $product->meta_description = $request->meta_description;
@@ -85,9 +157,26 @@ class ProductController extends Controller
             $product->featured_image = 'storage/'.$image;
         }  
 
+        $inputs = $request->input('group-a');
+
+
         if($product->save()){ 
             $product->collections()->sync($request->collections);
             $product->tags()->sync($request->tags);
+
+            foreach ($inputs as $input) {
+                $option  = new Option;
+                $option->product_id = $product->id;
+                $option->name = $input['option'];
+                if($option->save()){
+                    $option_val  = new OptionValue;
+                    $option_val->product_id = $product->id;
+                    $option_val->option_id = $option->id;
+                    $option_val->option_value = $input['option'];
+                    $option_val->save();
+                }
+                
+            }
             
 
             return redirect()->route('admin.product.index')->with(['class'=>'success','message'=>'Product Created successfully.']);
@@ -174,5 +263,25 @@ class ProductController extends Controller
             return response()->json(['message'=>'Product Deleted successfully ...', 'class'=>'success']);  
         }
         return response()->json(['message'=>'Whoops, looks like something went wrong ! Try again ...', 'class'=>'error']);
+    }
+
+    public function generateVariant(Request $request)
+    {
+        $inputs = $request->input('group-a');
+
+        $options = [];
+        
+        foreach ($inputs as $input) {
+            $option_val = explode(',', $input['option_value']);
+            $option_value = array(
+                'option_name' => $input['option'],
+                'option_value'=>$option_val,
+            );
+            array_push($options, $option_val);
+        }
+
+        $start = array_shift($options);
+        $matrix = collect($start)->crossJoin(...$options);
+        return view('welcome', compact('matrix'));
     }
 }

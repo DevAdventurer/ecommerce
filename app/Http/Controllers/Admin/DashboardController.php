@@ -15,13 +15,16 @@ class DashboardController extends Controller
 
         $sizes = ['S', 'M', 'L'];
         $colors = ['Red', 'Green', 'Blue'];
+        $matter = ['Cotton', 'Wool'];
 
 
 
 
         $collection = collect($sizes);
  
-        $matrix = $collection->crossJoin($colors);
+        $collection = $collection->crossJoin($colors);
+
+        $matrix = $collection->crossJoin($matter);
          
         return $matrix->all();
 
