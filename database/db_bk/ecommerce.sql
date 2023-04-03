@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 01, 2023 at 01:01 PM
+-- Generation Time: Apr 03, 2023 at 01:12 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -231,6 +231,35 @@ INSERT INTO `menus` (`slug`, `name`, `icon`, `parent`, `ordering`, `status`) VAL
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `options`
+--
+
+CREATE TABLE `options` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `option_values`
+--
+
+CREATE TABLE `option_values` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `option_id` int(11) NOT NULL,
+  `option_value` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `password_resets`
 --
 
@@ -343,9 +372,11 @@ CREATE TABLE `products` (
   `title` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `body` longtext DEFAULT NULL,
+  `featured_image` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `meta_title` varchar(255) DEFAULT NULL,
   `meta_description` text DEFAULT NULL,
+  `published_at` date DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `deleted_at` date DEFAULT NULL
@@ -574,6 +605,24 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `variants`
+--
+
+CREATE TABLE `variants` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `variant` varchar(255) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `sale_price` decimal(10,2) NOT NULL,
+  `available_quantity` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `vendors`
 --
 
@@ -648,6 +697,18 @@ ALTER TABLE `menus`
   ADD UNIQUE KEY `slug` (`slug`);
 
 --
+-- Indexes for table `options`
+--
+ALTER TABLE `options`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `option_values`
+--
+ALTER TABLE `option_values`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -711,6 +772,12 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Indexes for table `variants`
+--
+ALTER TABLE `variants`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `vendors`
 --
 ALTER TABLE `vendors`
@@ -757,6 +824,18 @@ ALTER TABLE `collections`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `options`
+--
+ALTER TABLE `options`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `option_values`
+--
+ALTER TABLE `option_values`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
@@ -797,6 +876,12 @@ ALTER TABLE `tags`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `variants`
+--
+ALTER TABLE `variants`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vendors`
