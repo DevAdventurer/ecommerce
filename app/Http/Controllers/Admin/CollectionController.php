@@ -10,12 +10,12 @@ use App\Http\Resources\Admin\Collection\CollectionCollection;
 
 class CollectionController extends Controller
 {
+
     
     public function index(Request $request)
-    {
-       
+    {       
         if ($request->ajax()) {
-            $datas = Collection::orderBy('created_at','desc')->select(['id','title','slug','image','created_at','status']);
+            $datas = Collection::orderBy('created_at','desc')->select(['id','title','slug','file_id','created_at','status'])->with('media');
             $search = $request->search['value'];
 
             if ($search) {
@@ -51,7 +51,7 @@ class CollectionController extends Controller
      */
     public function store(Request $request)
     {
-
+        
         $this->validate($request,[
             'title'=>'required',
             'image'=>'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -71,11 +71,9 @@ class CollectionController extends Controller
         $collection->meta_description = $request->meta_description??$request->description;
 
 
-        if($request->hasFile('image')){
-            $image_name = time().".".$request->file('image')->getClientOriginalExtension();
-            $image = $request->file('image')->storeAs('collections', $image_name);
-            $collection->image = 'storage/'.$image;
-        }  
+        foreach($request->file as $file){
+            $collection->file_id = $file;
+        } 
 
         if($collection->save()){ 
             return redirect()->route('admin.collection.index')->with(['class'=>'success','message'=>'Collection Created successfully.']);

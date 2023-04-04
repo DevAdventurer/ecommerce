@@ -185,22 +185,59 @@ class MediaController extends Controller
 
 
     public function getAllMediaSingle(Request $request){
-        $medias = Media::orderBy('created_at', 'desc')->select('id', 'file', 'name')->paginate(10);
+        
+
+        // if ($request->search != '') {
+        //     $medias = Media::orderBy('created_at', 'desc')->where('name', 'like', '%'.$request->search.'%')->select('id', 'file', 'name')->paginate(10);
+        // }
+        // else{
+        //     $medias = Media::orderBy('created_at', 'desc')->select('id', 'file', 'name')->paginate(10);
+        // }
+
+        $medias = Media::orderBy('created_at', 'desc')->when($request->has("search"),function($q)use($request){
+            return $q->where("name","like","%".$request->get("search")."%");
+        })->paginate(10);
+
         if ($request->ajax()) {
+
+            return view('admin.media.ajax-list', compact('medias'));
+
             $html = '';
-            foreach ($medias as $media) {
-                $current_page = $medias->currentPage();
-                $last_page = $medias->lastPage();
-                if($current_page == $last_page){
-                    $html.='<li current="'.$current_page.'" last="'.$last_page.'" class="d-inline-block get-all-media">
-                    <input type="radio" name="media" id="mediaid'.$media->id.'" value="'.$media->id.'"/><label for="mediaid'.$media->id.'" id="getmedia-'.$media->id.'"><img class="d-block" src="'.asset($media->file).'" alt="'.$media->name.'"></label></li><script>$(".no-more").show();$("#load-more-single").hide();</script>';
+
+            if ($request->opentype == 'single') {
+                foreach ($medias as $media) {
+                    $current_page = $medias->currentPage();
+                    $last_page = $medias->lastPage();
+                    if($current_page == $last_page){
+                        $html.='<li current="'.$current_page.'" last="'.$last_page.'" class="d-inline-block get-all-media">
+                        <input type="radio" name="media[]" id="mediaid'.$media->id.'" value="'.$media->id.'"/><label for="mediaid'.$media->id.'" id="getmedia-'.$media->id.'"><img class="d-block" src="'.asset($media->file).'" alt="'.$media->name.'"></label></li><script>$(".no-more").show();$("#load-more-mediafiles").hide();</script>';
+                    }
+                    else{
+                        $html.='<li current="'.$current_page.'" last="'.$last_page.'" class="d-inline-block get-all-media">
+                        <input type="radio" name="media[]" id="mediaid'.$media->id.'" value="'.$media->id.'"/><label for="mediaid'.$media->id.'" id="getmedia-'.$media->id.'"><img class="d-block" src="'.asset($media->file).'" alt="'.$media->name.'"></label></li>';
+                    }
+                    
                 }
-                else{
-                    $html.='<li current="'.$current_page.'" last="'.$last_page.'" class="d-inline-block get-all-media">
-                    <input type="radio" name="media" id="mediaid'.$media->id.'" value="'.$media->id.'"/><label for="mediaid'.$media->id.'" id="getmedia-'.$media->id.'"><img class="d-block" src="'.asset($media->file).'" alt="'.$media->name.'"></label></li>';
-                }
-                
             }
+            else{
+                foreach ($medias as $media) {
+                    $current_page = $medias->currentPage();
+                    $last_page = $medias->lastPage();
+                    if($current_page == $last_page){
+                        $html.='<li current="'.$current_page.'" last="'.$last_page.'" class="d-inline-block get-all-media">
+                        <input type="checkbox" name="media[]" id="mediaid'.$media->id.'" value="'.$media->id.'"/><label for="mediaid'.$media->id.'" id="getmedia-'.$media->id.'"><img class="d-block" src="'.asset($media->file).'" alt="'.$media->name.'"></label></li><script>$(".no-more").show();$("#load-more-mediafiles").hide();</script>';
+                    }
+                    else{
+                        $html.='<li current="'.$current_page.'" last="'.$last_page.'" class="d-inline-block get-all-media">
+                        <input type="checkbox" name="media[]" id="mediaid'.$media->id.'" value="'.$media->id.'"/><label for="mediaid'.$media->id.'" id="getmedia-'.$media->id.'"><img class="d-block" src="'.asset($media->file).'" alt="'.$media->name.'"></label></li>';
+                    }
+                    
+                }
+            }
+
+            
+
+
             return $html;
         }
         return view('admin.media.select-media-single');

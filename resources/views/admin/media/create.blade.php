@@ -1,6 +1,5 @@
 @extends('admin.layouts.master')
 @push('links')
-<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 @endpush
 
 
@@ -95,7 +94,6 @@
 
 
 @push('scripts')
-<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
 <script type="text/javascript">
 Dropzone.autoDiscover = false;

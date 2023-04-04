@@ -1,96 +1,59 @@
 $('.no-more').hide();
 var paginate = 1;
 
-var singleMediaCall = document.getElementById('singlemedia')
+var singleMediaCall = document.getElementById('mediafiles')
 var bsOffcanvasSingle = new bootstrap.Offcanvas(singleMediaCall)
 
-var multipleMediaCall = document.getElementById('multiplemedia')
-var bsOffcanvasMultiple = new bootstrap.Offcanvas(multipleMediaCall)
+
 
 function loadMediaFiles(element, openType) {
-    if (openType == 'single') {
-        bsOffcanvasSingle.show();
-        if($('#medias-list-single li').length == 0){
-            loadMoreDataSingle(paginate);
-        }
 
-    }
-    else{
+    bsOffcanvasSingle.show();
+    //if($('#mediafiles-list li').length == 0){
+        mediafiles(paginate, openType);
+    //}
 
-        bsOffcanvasMultiple.show();
-        if($('#medias-list-multiple li').length == 0){
-            loadMoreDataMultiple(paginate);
-        }
-    }
 }
 
 
-$('#load-more-multiple').click(function() {
-    var page = $(this).data('paginate');
-    loadMoreDataMultiple(page);
-    $(this).data('paginate', page+1);
-});
 
-$('#load-more-single').click(function() {
-    var page = $(this).data('paginate');
-    loadMoreDataSingle(page);
-    $(this).data('paginate', page+1);
-});
+function mediafiles(paginate, openType, search='') {
+    
 
-
-        // run function when user click load more button
-function loadMoreDataSingle(paginate) {
-            //console.log(paginate);
     $.ajax({
-        url: '/admin/media/get/single?page=' + paginate,
+        url: '/admin/media/get/single?opentype='+openType+'&search='+search+'&page=' + paginate,
         type: 'get',
         datatype: 'html',
         beforeSend: function() {
-            $('#load-more-single').text('Loading...');
+            $('#load-more-mediafiles').text('Loading...');
         }
     })
     .done(function(data) {
-        if(data.length == 0) {
-            $('.no-more').show();
-            $('#load-more-single').hide();
-            return;
-        } else {
-            $('#load-more-single').text('Load more...');
-            $('#medias-list-single').append(data);
-        }
+       
+        $("#getdata").empty().html(data);
+           
     })
     .fail(function(jqXHR, ajaxOptions, thrownError) {
       alert('Something went wrong.');
   });
 }
 
-        // run function when user click load more button
-function loadMoreDataMultiple(paginate) {
-            //console.log(paginate);
-    $.ajax({
-        url: '/admin/media/get/multiple?page=' + paginate,
-        type: 'get',
-        datatype: 'html',
-        beforeSend: function() {
-            $('#load-more-multiple').text('Loading...');
-        }
-    })
-    .done(function(data) {
-        if(data.length == 0) {
-            $('.no-more').show();
-            $('#load-more-multiple').hide();
-            return;
-        } else {
-            $('#load-more-multiple').text('Load more...');
-            $('#medias-list-multiple').append(data);
-        }
-    })
-    .fail(function(jqXHR, ajaxOptions, thrownError) {
-      alert('Something went wrong.');
-  });
-}
 
-function selectMultipleFiles() {
+
+$("#mediafilesearch").keyup(function(){
+    var type = $('.select-mediatype').attr('mediatype');
+    var search = $(this).val();
+    if(search.length > 1){
+        mediafiles(1,type,search)
+    }else{
+        mediafiles(1, type)
+    }
+});
+
+
+
+
+function selectSingleFile() {
     $(".media-file-value").html('');
     $(".media-file").html('');
     var checkboxes = document.getElementsByName('media[]');
@@ -100,28 +63,7 @@ function selectMultipleFiles() {
 
     for (var i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
-            result += '<input type="hidden" name="file" value="'+checkboxes[i].value+'" class="fileid'+checkboxes[i].value+'">';
-            var myimage = $("#getmedia-"+checkboxes[i].value).html();
-            image += '<div  class="file-container d-inline-block fileid'+checkboxes[i].value+'"><span data-id="'+checkboxes[i].value+'" class="remove-file">&#x2715;</span>'+myimage+"</div>";
-        }
-    }
-    bsOffcanvasMultiple.hide();
-    $(".media-file-value").append(result);
-    $(".media-file").append(image);
-
-}
-
-function selectSingleFile() {
-    $(".media-file-value").html('');
-    $(".media-file").html('');
-    var checkboxes = document.getElementsByName('media');
-
-    var result = "";
-    var image = "";
-
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            result += '<input type="hidden" name="file" value="'+checkboxes[i].value+'" class="fileid'+checkboxes[i].value+'">';
+            result += '<input type="hidden" name="file[]" value="'+checkboxes[i].value+'" class="fileid'+checkboxes[i].value+'">';
             var myimage = $("#getmedia-"+checkboxes[i].value).html();
             image += '<div  class="file-container d-inline-block fileid'+checkboxes[i].value+'"><span data-id="'+checkboxes[i].value+'" class="remove-file">&#x2715;</span>'+myimage+"</div>";
         }
@@ -136,4 +78,39 @@ $("body").on("click", ".remove-file", function(){
     var image_id = $(this).attr("data-id");
     $(".fileid"+image_id).remove();
     $("#mediaid"+image_id+":checked").prop('checked',false);
+});
+
+
+
+
+
+
+
+$(window).on('hashchange', function() {
+    if (window.location.hash) {
+        var page = window.location.hash.replace('#', '');
+        if (page == Number.NaN || page <= 0) {
+            return false;
+        }else{
+            mediafiles(page);
+        }
+    }
+});
+
+
+$(document).ready(function()
+{
+    $(document).on('click', '.pagination a',function(event)
+    {
+        $('li').removeClass('active');
+        $(this).parent('li').addClass('active');
+        event.preventDefault();
+
+
+        var myurl = $(this).attr('href');
+        var page=$(this).attr('href').split('page=')[1];
+
+
+        mediafiles(page);
+    });
 });

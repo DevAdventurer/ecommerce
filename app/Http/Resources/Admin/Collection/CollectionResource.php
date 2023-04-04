@@ -17,7 +17,7 @@ class CollectionResource extends JsonResource
             'sn' => ++$request->start,
             'id' => $this->id,
             'title' => $this->title,
-            'image' => $this->image?'<img style="height:45px;width:45px;" src="'.asset($this->image).'">':'N/A',
+            'image' => $this->file_id?'<img style="height:45px;width:45px;" src="'.asset($this->media->file).'">':'N/A',
             'status' => $this->status?"<span class='badge rounded-pill badge-soft-success'>Active</span>":"<span class='badge rounded-pill badge-soft-danger'>Deactivate</span>",
             'created_at' => $this->created_at->format('d M Y'),
         ];

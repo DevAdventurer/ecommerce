@@ -15,6 +15,10 @@ class Collection extends Model
         'published_at' => 'datetime',
     ];
 
+    public function media(){
+        return $this->hasOne(Media::class,'id','file_id');
+    }
+
     public function sluggable(): array
     {
         return [

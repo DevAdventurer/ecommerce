@@ -60,7 +60,11 @@ table tr {
 }
 
 
-
+.dz-message span{
+    font-size: 12px;
+    width: 100%;
+    float: left;
+}
 
 .mediaselectionlist{
     max-width:18.75rem;
@@ -149,13 +153,15 @@ table tr {
   z-index: -1;
 }
 
-
+.dropzone {
+    min-height: 170px;
+}
 
 .media-file img{
     width: 100px!important;
     margin: 5px;
     height: 100px;
-    object-fit: contain;
+    object-fit: cover;
     float: left;
 }
 .media-file {
@@ -184,3 +190,30 @@ table tr {
     font-size: 12px;
     cursor: pointer;
 }
+
+#getdata ul.pagination {
+    justify-content: center;
+    margin: 5px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

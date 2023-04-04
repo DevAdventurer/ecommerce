@@ -134,9 +134,7 @@
 
 
              <div class="card">
-                <div class="card-header">
-                    <h6 class="card-title mb-0">Collection Data</h6>
-                </div>
+                
                 <div class="card-body">
 
                     <div class="form-group<?php echo e($errors->has('parrent') ? ' has-error' : ''); ?>">
@@ -147,15 +145,26 @@
                         <small class="text-danger"><?php echo e($errors->first('parrent')); ?></small>
                     </div>
 
-                    <div class="form-group <?php echo e($errors->has('image') ? ' has-error' : ''); ?>">
-                        <?php echo Form::label('image', 'Image'); ?>
+                </div>
+            </div>
 
-                        <?php echo Form::file('image', ['class'=>'dropify']); ?>
 
-                        <small class="text-danger"><?php echo e($errors->first('image')); ?></small>
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="card-title mb-0">Featured Image</h6>
+                </div>
+                <div class="card-body">
+
+                    <div class="media-area">
+                        <div class="media-file-value"></div>
+                        <div class="media-file"></div>
+                        <p><br></p>
+                        <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this), 'single')">Select Media File</a>
                     </div>
                 </div>
             </div>
+
+
         </div>
 
     </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 04, 2023 at 02:29 PM
+-- Generation Time: Apr 04, 2023 at 09:27 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -126,7 +126,7 @@ CREATE TABLE `collections` (
   `title` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `body` text DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
+  `file_id` int(11) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `meta_title` varchar(255) DEFAULT NULL,
   `meta_description` text DEFAULT NULL,
@@ -140,9 +140,10 @@ CREATE TABLE `collections` (
 -- Dumping data for table `collections`
 --
 
-INSERT INTO `collections` (`id`, `parent`, `title`, `slug`, `body`, `image`, `status`, `meta_title`, `meta_description`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT INTO `collections` (`id`, `parent`, `title`, `slug`, `body`, `file_id`, `status`, `meta_title`, `meta_description`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, NULL, 'Men', 'men', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', NULL, 1, 'Men', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.', '2023-04-01', '2023-04-01 05:22:11', '2023-04-01 05:22:11', NULL),
-(2, NULL, 'Women', 'women', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'storage/collections/1680326602.png', 1, 'Women', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,', '2023-04-01', '2023-04-01 05:23:22', '2023-04-01 05:23:22', NULL);
+(2, NULL, 'Women', 'women', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', NULL, 1, 'Women', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,', '2023-04-01', '2023-04-01 05:23:22', '2023-04-01 05:23:22', NULL),
+(3, NULL, 'New Arrivals', 'new-arrivals', '<p>Hello World</p>', 23, 1, 'New Arrivals', 'New Arrivals', '2023-04-04', '2023-04-04 16:28:36', '2023-04-04 16:28:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -168,10 +169,21 @@ CREATE TABLE `medias` (
 --
 
 INSERT INTO `medias` (`id`, `file`, `name`, `slug`, `type`, `original_name`, `handle`, `size`, `created_at`, `updated_at`) VALUES
-(13, 'storage/media/group-3934-7.png', 'Group 3934 (7)', 'group-3934-7', 'png', 'Group 3934 (7).png', 'group-3934-7', '201.56 KB', '2023-04-04 06:53:04', '2023-04-04 06:53:04'),
-(14, 'storage/media/group-3934-8.png', 'Group 3934 (8)', 'group-3934-8', 'png', 'Group 3934 (8).png', 'group-3934-8', '185.21 KB', '2023-04-04 06:53:19', '2023-04-04 06:53:19'),
-(15, 'storage/media/group-3934-8-2.png', 'Group 3934 (8)', 'group-3934-8-2', 'png', 'Group 3934 (8).png', 'group-3934-8', '185.21 KB', '2023-04-04 06:59:08', '2023-04-04 06:59:08'),
-(16, 'storage/media/group-3934-7-2.png', 'Group 3934 (7)', 'group-3934-7-2', 'png', 'Group 3934 (7).png', 'group-3934-7', '201.56 KB', '2023-04-04 06:59:08', '2023-04-04 06:59:08');
+(17, 'storage/media/wall-wallpaper-concrete-colored-painted-textured-concept.jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept', 'wall-wallpaper-concrete-colored-painted-textured-concept', 'jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept.jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept', '784.9 KB', '2023-04-04 08:30:32', '2023-04-04 08:30:32'),
+(18, 'storage/media/dark-green-texture.jpg', 'dark-green-texture', 'dark-green-texture', 'jpg', 'dark-green-texture.jpg', 'dark-green-texture', '710.27 KB', '2023-04-04 08:30:35', '2023-04-04 08:30:35'),
+(19, 'storage/media/wall-wallpaper-concrete-colored-painted-textured-concept-2.jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept', 'wall-wallpaper-concrete-colored-painted-textured-concept-2', 'jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept.jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept', '784.9 KB', '2023-04-04 08:32:04', '2023-04-04 08:32:04'),
+(20, 'storage/media/dark-green-texture-2.jpg', 'dark-green-texture', 'dark-green-texture-2', 'jpg', 'dark-green-texture.jpg', 'dark-green-texture', '710.27 KB', '2023-04-04 09:15:43', '2023-04-04 09:15:43'),
+(21, 'storage/media/wall-wallpaper-concrete-colored-painted-textured-concept-3.jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept', 'wall-wallpaper-concrete-colored-painted-textured-concept-3', 'jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept.jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept', '784.9 KB', '2023-04-04 09:18:37', '2023-04-04 09:18:37'),
+(22, 'storage/media/dark-green-texture-3.jpg', 'dark-green-texture', 'dark-green-texture-3', 'jpg', 'dark-green-texture.jpg', 'dark-green-texture', '710.27 KB', '2023-04-04 09:58:37', '2023-04-04 09:58:37'),
+(23, 'storage/media/5001235-19820.jpg', '5001235_19820', '5001235-19820', 'jpg', '5001235_19820.jpg', '5001235-19820', '763.98 KB', '2023-04-04 10:47:28', '2023-04-04 10:47:28'),
+(24, 'storage/media/facebook.png', 'facebook', 'facebook', 'png', 'facebook.png', 'facebook', '15.23 KB', '2023-04-04 11:47:32', '2023-04-04 11:47:32'),
+(25, 'storage/media/1eac70ccfc41154dab5484ab8f33c687.png', '1eac70ccfc41154dab5484ab8f33c687', '1eac70ccfc41154dab5484ab8f33c687', 'png', '1eac70ccfc41154dab5484ab8f33c687.png', '1eac70ccfc41154dab5484ab8f33c687', '53.82 KB', '2023-04-04 12:58:25', '2023-04-04 12:58:25'),
+(26, 'storage/media/autumn-leaves-space-23-2147674304.jpg', 'autumn-leaves-space_23-2147674304', 'autumn-leaves-space-23-2147674304', 'jpg', 'autumn-leaves-space_23-2147674304.jpg', 'autumn-leaves-space-23-2147674304', '121.12 KB', '2023-04-04 12:58:25', '2023-04-04 12:58:25'),
+(27, 'storage/media/orange-background-23-2147674307.jpg', 'orange-background_23-2147674307', 'orange-background-23-2147674307', 'jpg', 'orange-background_23-2147674307.jpg', 'orange-background-23-2147674307', '61.8 KB', '2023-04-04 12:58:25', '2023-04-04 12:58:25'),
+(28, 'storage/media/realistic-galaxy-background-23-2148991322.jpg', 'realistic-galaxy-background_23-2148991322', 'realistic-galaxy-background-23-2148991322', 'jpg', 'realistic-galaxy-background_23-2148991322.jpg', 'realistic-galaxy-background-23-2148991322', '37.98 KB', '2023-04-04 12:58:25', '2023-04-04 12:58:25'),
+(29, 'storage/media/unnamed-1.jpg', 'unnamed (1)', 'unnamed-1', 'jpg', 'unnamed (1).jpg', 'unnamed-1', '61.3 KB', '2023-04-04 12:58:25', '2023-04-04 12:58:25'),
+(30, 'storage/media/unnamed.jpg', 'unnamed', 'unnamed', 'jpg', 'unnamed.jpg', 'unnamed', '79.69 KB', '2023-04-04 12:58:25', '2023-04-04 12:58:25'),
+(31, 'storage/media/unnamed-1-2.jpg', 'unnamed (1)', 'unnamed-1-2', 'jpg', 'unnamed (1).jpg', 'unnamed-1', '61.3 KB', '2023-04-04 13:54:52', '2023-04-04 13:54:52');
 
 -- --------------------------------------------------------
 
@@ -910,13 +922,13 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `collections`
 --
 ALTER TABLE `collections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `medias`
 --
 ALTER TABLE `medias`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `options`
