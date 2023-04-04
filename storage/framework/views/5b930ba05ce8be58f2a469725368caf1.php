@@ -6,6 +6,7 @@
     <title><?php echo e(get_app_setting('title')); ?> | <?php echo e(Str::title(str_replace('-', ' ', request()->segment(2)))); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="<?php echo e(asset(get_app_setting('favicon')??'admin-assets/images/favicon.ico')); ?>">
@@ -27,8 +28,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     
      <link href="<?php echo e(asset('admin-assets/css/app.min.css')); ?>" rel="stylesheet" type="text/css" />
+     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <!-- custom Css-->
     <link href="<?php echo e(asset('admin-assets/css/custom.min.css')); ?>" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
@@ -77,8 +80,13 @@
     </div>
 
     <!-- Theme Settings -->
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <?php echo $__env->make('admin.media.select-media-multiple', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php echo $__env->make('admin.media.select-media-single', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+
+    
     <!-- JAVASCRIPT -->
     <script src="<?php echo e(asset('admin-assets/libs/bootstrap/js/bootstrap.bundle.min.js')); ?>"></script>
     <script src="<?php echo e(asset('admin-assets/libs/simplebar/simplebar.min.js')); ?>"></script>
@@ -87,6 +95,7 @@
     <script src="<?php echo e(asset('admin-assets/js/pages/plugins/lord-icon-2.1.0.js')); ?>"></script>
     <script src="<?php echo e(asset('admin-assets/libs/sweetalert/sweetalert.min.js')); ?>"></script>
     <script src="<?php echo e(asset('admin-assets/js/custom.js')); ?>"></script>
+    <script src="<?php echo e(asset('admin-assets/js/media.js')); ?>"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
@@ -166,11 +175,30 @@
     return false;
 }
 
-    // var drEvent = $('.dropify-edit').dropify();
+</script>
 
-    // drEvent.on('dropify.afterClear', function(event, element){
-    //     alert('File deleted');
-    // });
-     </script>
+<script type="text/javascript">
+    var previewTemplate, dropzone, dropzonePreviewNode = document.querySelector("#dropzone-preview-list");
+    dropzonePreviewNode.id = "", dropzonePreviewNode && (previewTemplate = dropzonePreviewNode.parentNode.innerHTML,
+        dropzonePreviewNode.parentNode.removeChild(dropzonePreviewNode), dropzone = new Dropzone(".dropzone", {
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "<?php echo e(route('admin.media.store')); ?>",
+            method: "post",
+            previewTemplate: previewTemplate,
+            previewsContainer: "#dropzone-preview",
+            addRemoveLinks: false,
+            success: function(file, response) {
+                $('#medias-list-single').html('');
+                setTimeout(function() {
+                    loadMoreDataSingle(1);
+                }, 1500);
+            },
+            error: function(file, response) {
+                return false;
+            }
+        }));
+</script>
 </body>
 </html><?php /**PATH /home/sanix/Documents/ecommerce/resources/views/admin/layouts/master.blade.php ENDPATH**/ ?>

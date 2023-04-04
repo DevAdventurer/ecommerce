@@ -132,6 +132,10 @@
                         <small class="text-danger">{{ $errors->first('parrent') }}</small>
                     </div>
 
+                    <div class="media-file-value"></div>
+                    <div class="media-file"></div>
+                    <a class="text-secondary" href="javascript:void(0);" onclick="loadMediaFiles($(this), 'multi')">Select Media File</a>
+
                     <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
                         {!! Form::label('image', 'Image') !!}
                         {!! Form::file('image', ['class'=>'dropify']) !!}

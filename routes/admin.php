@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\VendorController;
 use App\Http\Controllers\Admin\ProductTypeController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\ProductInventoryController;
+use App\Http\Controllers\Admin\MediaController;
 
 Route::middleware('admin.guest')->name('admin.')->group(function() {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login.form');
@@ -195,6 +196,20 @@ Route::middleware('admin')->name('admin.')->group(function() {
 
 
         Route::post('attribute/value', 'storeValue')->name('attribute.value.store')->middleware('can:add_attribute');
+    });
+
+
+    //media
+    Route::controller(MediaController::class)->group(function(){
+        Route::match(['get','patch'],'media', 'index')->name('media.index')->middleware('can:browse_media');
+        Route::get('media/create', 'create')->name('media.create')->middleware('can:add_media');
+        Route::get('media/{media}', 'show')->name('media.show')->middleware('can:read_media');
+        Route::get('media/{media}/edit', 'edit')->name('media.edit')->middleware('can:edit_media');
+        Route::post('media', 'store')->name('media.store')->middleware('can:add_media');
+        Route::put('media/{media}', 'update')->name('media.update')->middleware('can:edit_media');
+        Route::delete('media/{media}/delete', 'destroy')->name('media.destroy')->middleware('can:delete_media');
+        Route::get('media/get/multiple', 'getAllMediaMultiple')->name('media.get.multiple');
+        Route::get('media/get/single', 'getAllMediaSingle')->name('media.get.single');
     });
 
 });

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 03, 2023 at 09:53 PM
+-- Generation Time: Apr 04, 2023 at 02:29 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -147,6 +147,35 @@ INSERT INTO `collections` (`id`, `parent`, `title`, `slug`, `body`, `image`, `st
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `medias`
+--
+
+CREATE TABLE `medias` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `file` varchar(191) DEFAULT NULL,
+  `name` varchar(191) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `type` varchar(191) DEFAULT NULL,
+  `original_name` varchar(191) DEFAULT NULL,
+  `handle` varchar(191) DEFAULT NULL,
+  `size` varchar(191) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `medias`
+--
+
+INSERT INTO `medias` (`id`, `file`, `name`, `slug`, `type`, `original_name`, `handle`, `size`, `created_at`, `updated_at`) VALUES
+(13, 'storage/media/group-3934-7.png', 'Group 3934 (7)', 'group-3934-7', 'png', 'Group 3934 (7).png', 'group-3934-7', '201.56 KB', '2023-04-04 06:53:04', '2023-04-04 06:53:04'),
+(14, 'storage/media/group-3934-8.png', 'Group 3934 (8)', 'group-3934-8', 'png', 'Group 3934 (8).png', 'group-3934-8', '185.21 KB', '2023-04-04 06:53:19', '2023-04-04 06:53:19'),
+(15, 'storage/media/group-3934-8-2.png', 'Group 3934 (8)', 'group-3934-8-2', 'png', 'Group 3934 (8).png', 'group-3934-8', '185.21 KB', '2023-04-04 06:59:08', '2023-04-04 06:59:08'),
+(16, 'storage/media/group-3934-7-2.png', 'Group 3934 (7)', 'group-3934-7-2', 'png', 'Group 3934 (7).png', 'group-3934-7', '201.56 KB', '2023-04-04 06:59:08', '2023-04-04 06:59:08');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `menus`
 --
 
@@ -171,12 +200,13 @@ INSERT INTO `menus` (`slug`, `name`, `icon`, `parent`, `ordering`, `status`) VAL
 ('collection', 'Collection', NULL, 'ecommerce', 1, 1),
 ('dashboard', 'Dashboard', 'bx bx-home-circle', NULL, 0, 1),
 ('ecommerce', 'Ecommerce', 'bx bxs-shopping-bag-alt', NULL, 1, 1),
+('media', 'Media', 'bx bx-images', NULL, 3, 1),
 ('menu', 'Menu', NULL, 'setting', 1, 1),
 ('product', 'Product', NULL, 'ecommerce', 0, 1),
 ('product_type', 'Product Type', NULL, 'ecommerce', 4, 1),
 ('role', 'Role', NULL, 'setting', 0, 1),
-('setting', 'Setting', 'mdi mdi-tools', NULL, 4, 1),
-('site_setting', 'Site Setting', 'bx bx-cog', NULL, 3, 1),
+('setting', 'Setting', 'mdi mdi-tools', NULL, 5, 1),
+('site_setting', 'Site Setting', 'bx bx-cog', NULL, 4, 1),
 ('tag', 'Tag', NULL, 'ecommerce', 2, 1),
 ('vendor', 'Vendor', NULL, 'ecommerce', 5, 1);
 
@@ -200,7 +230,10 @@ CREATE TABLE `options` (
 
 INSERT INTO `options` (`id`, `product_id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Size', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(2, 1, 'Color', '2023-04-03 19:34:13', '2023-04-03 19:34:13');
+(2, 1, 'Color', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
+(3, 2, 'Size', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(4, 2, 'Color', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(5, 2, 'Material', '2023-04-04 08:50:11', '2023-04-04 08:50:11');
 
 -- --------------------------------------------------------
 
@@ -225,7 +258,16 @@ INSERT INTO `option_values` (`id`, `product_id`, `option_id`, `option_value`, `c
 (1, 1, 1, 'L', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
 (2, 1, 1, 'M', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
 (3, 1, 2, 'Red', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(4, 1, 2, 'Green', '2023-04-03 19:34:13', '2023-04-03 19:34:13');
+(4, 1, 2, 'Green', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
+(5, 2, 3, 'S', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(6, 2, 3, 'M', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(7, 2, 3, 'L', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(8, 2, 3, 'XL', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(9, 2, 4, 'Red', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(10, 2, 4, 'Green', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(11, 2, 4, 'Blue', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(12, 2, 5, 'Wool', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(13, 2, 5, 'Cottom', '2023-04-04 08:50:11', '2023-04-04 08:50:11');
 
 -- --------------------------------------------------------
 
@@ -326,7 +368,12 @@ INSERT INTO `permissions` (`id`, `menu_slug`, `permission_key`) VALUES
 (68, 'vendor', 'read_vendor'),
 (69, 'vendor', 'add_vendor'),
 (70, 'vendor', 'edit_vendor'),
-(71, 'vendor', 'delete_vendor');
+(71, 'vendor', 'delete_vendor'),
+(72, 'media', 'browse_media'),
+(73, 'media', 'read_media'),
+(74, 'media', 'add_media'),
+(75, 'media', 'edit_media'),
+(76, 'media', 'delete_media');
 
 -- --------------------------------------------------------
 
@@ -361,7 +408,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `brand_id`, `product_type_id`, `vendor_id`, `title`, `slug`, `body`, `short_description`, `featured_image`, `status`, `price`, `sale_price`, `tax_id`, `meta_title`, `meta_description`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 1, 'Test Product', 'test-product', '<p>Hello World</p>', '<p>Short Deskription</p>', 'storage/products/1680550453.jpg', 1, '900.00', '1500.00', NULL, 'Test Product', 'Hello World', '2023-04-01', '2023-04-03 19:34:13', '2023-04-03 19:34:13', NULL);
+(1, 1, 1, 1, 'Test Product', 'test-product', '<p>Hello World</p>', '<p>Short Deskription</p>', 'storage/products/1680550453.jpg', 1, '900.00', '1500.00', NULL, 'Test Product', 'Hello World', '2023-04-01', '2023-04-03 19:34:13', '2023-04-03 19:34:13', NULL),
+(2, 1, 2, 2, 'New Product', 'new-product', '<p>Hello World</p>', '<p>New Product<br></p>', 'storage/products/1680598211.png', 1, '599.00', '1200.00', NULL, 'New Product', 'New Product', '2023-04-01', '2023-04-04 08:50:11', '2023-04-04 08:50:11', NULL);
 
 -- --------------------------------------------------------
 
@@ -381,7 +429,8 @@ CREATE TABLE `product_collections` (
 --
 
 INSERT INTO `product_collections` (`product_id`, `collection_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2023-04-03 19:34:13', '2023-04-03 19:34:13');
+(1, 1, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
+(2, 2, '2023-04-04 08:50:11', '2023-04-04 08:50:11');
 
 -- --------------------------------------------------------
 
@@ -401,7 +450,9 @@ CREATE TABLE `product_tags` (
 --
 
 INSERT INTO `product_tags` (`product_id`, `tag_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2023-04-03 19:34:13', '2023-04-03 19:34:13');
+(1, 1, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
+(2, 1, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(2, 2, '2023-04-04 08:50:11', '2023-04-04 08:50:11');
 
 -- --------------------------------------------------------
 
@@ -450,9 +501,33 @@ CREATE TABLE `product_variants` (
 
 INSERT INTO `product_variants` (`id`, `product_id`, `variant`, `sku`, `variant_price`, `variant_sale_price`, `stock`, `available_stock`, `created_at`, `updated_at`) VALUES
 (1, 1, 'L/Red', 'LR00', '900.00', '1500.00', 200, 150, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(2, 1, 'L/Green', 'LG00', '800.00', '1500.00', 350, 250, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
+(2, 1, 'L/Green', 'LG00', '890.00', '1500.00', 350, 250, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
 (3, 1, 'M/Red', 'MR00', '999.00', '1800.00', 100, 60, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(4, 1, 'M/Green', 'MG000', '800.00', '1200.00', 700, 600, '2023-04-03 19:34:13', '2023-04-03 19:34:13');
+(4, 1, 'M/Green', 'MG000', '899.00', '1200.00', 700, 600, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
+(5, 2, 'S/Red/Wool', 'SRW', '999.00', '1200.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(6, 2, 'S/Red/Cottom', 'SRC', '999.00', '1200.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(7, 2, 'S/Green/Wool', 'SGW', '999.00', '1200.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(8, 2, 'S/Green/Cottom', 'SGC', '999.00', '1200.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(9, 2, 'S/Blue/Wool', 'SBW', '999.00', '1200.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(10, 2, 'S/Blue/Cottom', 'SBC', '999.00', '1200.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(11, 2, 'M/Red/Wool', 'MRW', '1199.00', '1500.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(12, 2, 'M/Red/Cottom', 'MRC', '1199.00', '1500.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(13, 2, 'M/Green/Wool', 'MGW', '1199.00', '1500.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(14, 2, 'M/Green/Cottom', 'MGC', '1199.00', '1500.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(15, 2, 'M/Blue/Wool', 'MBW', '1199.00', '1500.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(16, 2, 'M/Blue/Cottom', 'MBC', '1199.00', '1500.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(17, 2, 'L/Red/Wool', 'LRW', '1499.00', '1800.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(18, 2, 'L/Red/Cottom', 'LRC', '1499.00', '1800.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(19, 2, 'L/Green/Wool', 'LRW', '1499.00', '1800.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(20, 2, 'L/Green/Cottom', 'LGC', '1499.00', '1800.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(21, 2, 'L/Blue/Wool', 'LBW', '1499.00', '1800.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(22, 2, 'L/Blue/Cottom', 'LBC', '1499.00', '1800.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(23, 2, 'XL/Red/Wool', 'XLRW', '1799.00', '2100.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(24, 2, 'XL/Red/Cottom', 'XLRC', '1799.00', '2100.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(25, 2, 'XL/Green/Wool', 'XLGW', '1799.00', '2100.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(26, 2, 'XL/Green/Cottom', 'XLGC', '1799.00', '2100.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(27, 2, 'XL/Blue/Wool', 'XLBW', '1799.00', '2100.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
+(28, 2, 'XL/Blue/Cottom', 'XLBC', '1799.00', '2100.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11');
 
 -- --------------------------------------------------------
 
@@ -498,6 +573,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_key`) VALUES
 (1, 'add_bread'),
 (1, 'add_collection'),
 (1, 'add_ecommerce'),
+(1, 'add_media'),
 (1, 'add_menu'),
 (1, 'add_product'),
 (1, 'add_product_type'),
@@ -512,6 +588,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_key`) VALUES
 (1, 'browse_collection'),
 (1, 'browse_dashboard'),
 (1, 'browse_ecommerce'),
+(1, 'browse_media'),
 (1, 'browse_menu'),
 (1, 'browse_product'),
 (1, 'browse_product_type'),
@@ -529,6 +606,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_key`) VALUES
 (1, 'delete_bread'),
 (1, 'delete_collection'),
 (1, 'delete_ecommerce'),
+(1, 'delete_media'),
 (1, 'delete_menu'),
 (1, 'delete_product'),
 (1, 'delete_product_type'),
@@ -542,6 +620,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_key`) VALUES
 (1, 'edit_bread'),
 (1, 'edit_collection'),
 (1, 'edit_ecommerce'),
+(1, 'edit_media'),
 (1, 'edit_menu'),
 (1, 'edit_product'),
 (1, 'edit_product_type'),
@@ -556,6 +635,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_key`) VALUES
 (1, 'read_bread'),
 (1, 'read_collection'),
 (1, 'read_ecommerce'),
+(1, 'read_media'),
 (1, 'read_menu'),
 (1, 'read_product'),
 (1, 'read_product_type'),
@@ -698,6 +778,12 @@ ALTER TABLE `collections`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `medias`
+--
+ALTER TABLE `medias`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `menus`
 --
 ALTER TABLE `menus`
@@ -827,28 +913,34 @@ ALTER TABLE `collections`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `medias`
+--
+ALTER TABLE `medias`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
 -- AUTO_INCREMENT for table `options`
 --
 ALTER TABLE `options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `option_values`
 --
 ALTER TABLE `option_values`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_types`
@@ -860,7 +952,7 @@ ALTER TABLE `product_types`
 -- AUTO_INCREMENT for table `product_variants`
 --
 ALTER TABLE `product_variants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `roles`
