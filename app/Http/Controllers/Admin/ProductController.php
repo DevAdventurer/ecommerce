@@ -22,15 +22,8 @@ class ProductController extends Controller
     
     public function index(Request $request)
     {
-        return Product::orderBy('created_at','desc')
-        ->with(['tags','collections', 'brand', 'productType','vendor','productVariants'])
-        ->with('options', function($query){
-            $query->with('optionValue');
-        })
-        ->get(); 
-
-    
-       if ($request->ajax()) {
+        
+        if ($request->ajax()) {
            
 
             $datas = Product::orderBy('created_at','desc')->select(['id','title','slug','status','created_at']);

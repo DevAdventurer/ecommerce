@@ -9,7 +9,7 @@ class Option extends Model
 {
     use HasFactory;
 
-    public function optionValue(){
+    public function optionValues(){
         return $this->hasMany(OptionValue::class,'option_id','id');
     }
 }

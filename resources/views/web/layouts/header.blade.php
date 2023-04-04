@@ -35,7 +35,7 @@
                         <div class="currency-wrapper">
                             <button type="button" class="currency-btn btn-reset text-white"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                <img class="flag" src="assets/img/flag/usd.jpg" alt="img">
+                                <img class="flag" src="/assets/img/flag/usd.jpg" alt="img">
                                 <span>USD</span>
                                 <span>
                                     <svg class="icon icon-dropdown" xmlns="http://www.w3.org/2000/svg"
@@ -49,31 +49,31 @@
                             <ul class="currency-list dropdown-menu dropdown-menu-end px-2">
                                 <li class="currency-list-item ">
                                     <a class="currency-list-option" href="#" data-value="USD">
-                                        <img class="flag" src="assets/img/flag/usd.jpg" alt="img">
+                                        <img class="flag" src="/assets/img/flag/usd.jpg" alt="img">
                                         <span>USD</span>
                                     </a>
                                 </li>
                                 <li class="currency-list-item ">
                                     <a class="currency-list-option" href="#" data-value="CAD">
-                                        <img class="flag" src="assets/img/flag/cad.jpg" alt="img">
+                                        <img class="flag" src="/assets/img/flag/cad.jpg" alt="img">
                                         <span>CAD</span>
                                     </a>
                                 </li>
                                 <li class="currency-list-item ">
                                     <a class="currency-list-option" href="#" data-value="EUR">
-                                        <img class="flag" src="assets/img/flag/eur.jpg" alt="img">
+                                        <img class="flag" src="/assets/img/flag/eur.jpg" alt="img">
                                         <span>EUR</span>
                                     </a>
                                 </li>
                                 <li class="currency-list-item ">
                                     <a class="currency-list-option" href="#" data-value="JPY">
-                                        <img class="flag" src="assets/img/flag/jpy.jpg" alt="img">
+                                        <img class="flag" src="/assets/img/flag/jpy.jpg" alt="img">
                                         <span>JPY</span>
                                     </a>
                                 </li>
                                 <li class="currency-list-item ">
                                     <a class="currency-list-option" href="#" data-value="GBP">
-                                        <img class="flag" src="assets/img/flag/gbp.jpg" alt="img">
+                                        <img class="flag" src="/assets/img/flag/gbp.jpg" alt="img">
                                         <span>GBP</span>
                                     </a>
                                 </li>
@@ -95,7 +95,7 @@
                 <div class="col-lg-3 col-md-4 col-4">
                     <div class="header-logo">
                         <a href="index.html" class="logo-main">
-                            <img src="assets/img/logo.png" loading="lazy" alt="bisum">
+                            <img src="/assets/img/logo.png" loading="lazy" alt="bisum">
                         </a>
                     </div>
                 </div>
@@ -261,7 +261,7 @@
                                                     class="mega-menu-header d-flex align-items-center justify-content-between">
                                                     <a class="mega-menu-img nav-link-sub nav-text-sub"
                                                         href="collection-left-sidebar.html">
-                                                        <img class="menu-img" src="assets/img/menu/1.jpg" alt="img">
+                                                        <img class="menu-img" src="/assets/img/menu/1.jpg" alt="img">
                                                         <h2 class="img-menu-heading text_16 mt-2">Featured
                                                             Collection</h2>
                                                         <div

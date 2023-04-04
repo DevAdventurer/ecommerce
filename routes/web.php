@@ -3,9 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\Auth\LoginController;
-use App\Http\Controllers\Admin\DashboardController;
-
+use App\Http\Controllers\Web\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,6 +30,17 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+
+Route::name('web.')->group(function() {
+
+    Route::controller(ProductController::class)->group(function(){
+        Route::get('product/{product}', 'single')->name('product.single');
+        Route::post('product/{product}/variant', 'singleVariant')->name('product.single.variant');
+    });
+
+});
 
 
 

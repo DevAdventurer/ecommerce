@@ -12,30 +12,6 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
 
-
-        $sizes = ['S', 'M', 'L'];
-        $colors = ['Red', 'Green', 'Blue'];
-        $matter = ['Cotton', 'Wool'];
-
-
-
-
-        $collection = collect($sizes);
- 
-        $collection = $collection->crossJoin($colors);
-
-        $matrix = $collection->crossJoin($matter);
-         
-        return $matrix->all();
-
-
-        // foreach($sizes as $size){
-        //     foreach($colors as $color){
-        //         echo "<p>" . $size . ':' . $color . "</p>";
-        //     }
-        // }
-
-        return "<br>ok";
         return view('admin.dashboard');
     }
    

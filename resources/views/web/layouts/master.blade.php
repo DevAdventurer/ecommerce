@@ -103,12 +103,44 @@
         <!-- product quickview end -->
 
         <!-- newsletter subscribe modal start -->
-        @include('web.layouts.newsletter')
+        
         <!-- newsletter subscribe modal end -->
 
         <!-- all js -->
         <script src="{{ asset('assets/js/vendor.js') }}"></script>
         <script src="{{ asset('assets/js/main.js') }}"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+                $('.variant-item label').click(function(e){
+                    setTimeout(function () {
+                        var variant = $("#product_variants input[type='radio']:checked").map(function() {
+                            return $(this).val();
+                        }).get().join("/");
+
+                        $.ajax({
+                           type:'POST',
+                           url:'{{route('web.product.single.variant', $product->id)}}',
+                           data: {
+                            'variant': variant,
+                            '_token': '{{csrf_token()}}'
+                            },
+                            success:function(response) {
+                                $('.regular-price').html(response.datas.variant_price);
+                                $('.compare-price').html(response.datas.variant_sale_price);
+                                //console.log(response);
+                            }
+                        });
+                    }, 100);
+                });
+
+            });
+
+            
+            
+
+        </script>
     </div>
 </body>
 </html>
