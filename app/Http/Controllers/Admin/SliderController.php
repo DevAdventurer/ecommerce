@@ -18,7 +18,7 @@ class SliderController extends Controller
     {
 
         if ($request->ajax()) {
-            $datas = Slider::orderBy('created_at','desc')->select(['id','title','body','button_text','button_link','status','image','created_at']);
+            $datas = Slider::orderBy('created_at','desc')->select(['id','title','body','button_text','button_link','status','media_id','created_at']);
 
 
             $search = $request->search['value'];
@@ -27,9 +27,9 @@ class SliderController extends Controller
                 $datas->orWhere('body', 'like', '%'.$search.'%');
               
             }
-            $records = $datas->limit($request->length)->offset($request->start)->get();
-            $request->merge(['recordsTotal' => $datas->count()]);
-            return response()->json(new SliderCollection($records));
+            $request->merge(['recordsTotal' => $datas->count(), 'length' => $request->length]);
+            $datas = $datas->limit($request->length)->offset($request->start)->get();
+            return response()->json(new SliderCollection($datas));
            
         }
 
@@ -68,23 +68,24 @@ class SliderController extends Controller
                 // 'sub_title'=>'required',
                 // 'button_text'=>'required',
                 // 'button_link'=>'required',
-                'image' => 'required|image|mimes:jpeg,png,jpg|max:4000',    
+                'file.*' => 'required',    
             ]);
 
             $slider = new Slider;
           
             $slider->title = $request->title;
+            $slider->subtitle = $request->subtitle;
             $slider->body = $request->description;
             $slider->button_text = $request->button_text;
             $slider->button_link = $request->button_link;
             $slider->status = $request->status;
 
 
-            if($request->hasFile('image')){
-                $image_name = time().".".$request->file('image')->getClientOriginalExtension();
-                $image = $request->file('image')->storeAs('slider', $image_name);
-                $slider->image = 'storage/'.$image;
-            }  
+            if($request->has('file')){
+                foreach($request->file as $file){
+                    $slider->media_id = $file;
+                } 
+            } 
 
             if($slider->save()){ 
                 return redirect()->route('admin.slider.index')->with(['class'=>'success','message'=>'Slider Created successfully.']);
@@ -118,7 +119,7 @@ class SliderController extends Controller
                 // 'sub_title'=>'required',
                 // 'button_text'=>'required',
                 // 'button_link'=>'required',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4000',    
+                'file.*' => 'required',    
             ]);
           
             $slider->title = $request->title;
@@ -128,10 +129,12 @@ class SliderController extends Controller
             $slider->status = $request->status;
 
 
-            if($request->hasFile('image')){
-                $image_name = time().".".$request->file('image')->getClientOriginalExtension();
-                $image = $request->file('image')->storeAs('slider', $image_name);
-                $slider->image = 'storage/'.$image;
+            if($request->has('file')){
+                foreach($request->file as $file){
+                    $slider->media_id = $file;
+                } 
+            }else{
+                 $slider->media_id = Null;
             }  
 
             if($slider->save()){ 

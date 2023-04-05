@@ -9,19 +9,18 @@ var bsOffcanvasSingle = new bootstrap.Offcanvas(singleMediaCall)
 function loadMediaFiles(element, openType) {
 
     bsOffcanvasSingle.show();
-    //if($('#mediafiles-list li').length == 0){
-        mediafiles(paginate, openType);
-    //}
+    mediafiles(paginate, openType);
 
 }
 
 
 
-function mediafiles(paginate, openType, search='') {
+function mediafiles(paginate, search='') {
     
+    var type = $('.select-mediatype').attr('mediatype');
 
     $.ajax({
-        url: '/admin/media/get/single?opentype='+openType+'&search='+search+'&page=' + paginate,
+        url: '/admin/media/get/single?opentype='+type+'&search='+search+'&page=' + paginate,
         type: 'get',
         datatype: 'html',
         beforeSend: function() {
@@ -44,9 +43,9 @@ $("#mediafilesearch").keyup(function(){
     var type = $('.select-mediatype').attr('mediatype');
     var search = $(this).val();
     if(search.length > 1){
-        mediafiles(1,type,search)
+        mediafiles(1,search)
     }else{
-        mediafiles(1, type)
+        mediafiles(1)
     }
 });
 

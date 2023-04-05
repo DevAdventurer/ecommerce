@@ -110,7 +110,7 @@
         <script src="{{ asset('assets/js/vendor.js') }}"></script>
         <script src="{{ asset('assets/js/main.js') }}"></script>
 
-        <script type="text/javascript">
+        {{-- <script type="text/javascript">
 
             $(document).ready(function() {
                 $('.variant-item label').click(function(e){
@@ -140,7 +140,7 @@
             
             
 
-        </script>
+        </script> --}}
     </div>
 </body>
 </html>

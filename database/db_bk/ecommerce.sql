@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 04, 2023 at 09:27 PM
+-- Generation Time: Apr 05, 2023 at 11:52 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -123,10 +123,10 @@ INSERT INTO `brands` (`id`, `name`, `slug`, `image`, `created_at`, `updated_at`,
 CREATE TABLE `collections` (
   `id` int(11) NOT NULL,
   `parent` int(11) DEFAULT NULL,
+  `media_id` int(11) DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `body` text DEFAULT NULL,
-  `file_id` int(11) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `meta_title` varchar(255) DEFAULT NULL,
   `meta_description` text DEFAULT NULL,
@@ -140,10 +140,9 @@ CREATE TABLE `collections` (
 -- Dumping data for table `collections`
 --
 
-INSERT INTO `collections` (`id`, `parent`, `title`, `slug`, `body`, `file_id`, `status`, `meta_title`, `meta_description`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, NULL, 'Men', 'men', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', NULL, 1, 'Men', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.', '2023-04-01', '2023-04-01 05:22:11', '2023-04-01 05:22:11', NULL),
-(2, NULL, 'Women', 'women', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', NULL, 1, 'Women', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,', '2023-04-01', '2023-04-01 05:23:22', '2023-04-01 05:23:22', NULL),
-(3, NULL, 'New Arrivals', 'new-arrivals', '<p>Hello World</p>', 23, 1, 'New Arrivals', 'New Arrivals', '2023-04-04', '2023-04-04 16:28:36', '2023-04-04 16:28:36', NULL);
+INSERT INTO `collections` (`id`, `parent`, `media_id`, `title`, `slug`, `body`, `status`, `meta_title`, `meta_description`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, NULL, 26, 'Men', 'men', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 1, 'Men', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.', '2023-01-01', '2023-04-01 05:22:11', '2023-04-05 06:14:34', NULL),
+(2, NULL, 14, 'Women', 'women', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 1, 'Women', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,', '2023-01-01', '2023-04-01 05:23:22', '2023-04-05 05:17:56', NULL);
 
 -- --------------------------------------------------------
 
@@ -169,21 +168,26 @@ CREATE TABLE `medias` (
 --
 
 INSERT INTO `medias` (`id`, `file`, `name`, `slug`, `type`, `original_name`, `handle`, `size`, `created_at`, `updated_at`) VALUES
-(17, 'storage/media/wall-wallpaper-concrete-colored-painted-textured-concept.jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept', 'wall-wallpaper-concrete-colored-painted-textured-concept', 'jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept.jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept', '784.9 KB', '2023-04-04 08:30:32', '2023-04-04 08:30:32'),
-(18, 'storage/media/dark-green-texture.jpg', 'dark-green-texture', 'dark-green-texture', 'jpg', 'dark-green-texture.jpg', 'dark-green-texture', '710.27 KB', '2023-04-04 08:30:35', '2023-04-04 08:30:35'),
-(19, 'storage/media/wall-wallpaper-concrete-colored-painted-textured-concept-2.jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept', 'wall-wallpaper-concrete-colored-painted-textured-concept-2', 'jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept.jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept', '784.9 KB', '2023-04-04 08:32:04', '2023-04-04 08:32:04'),
-(20, 'storage/media/dark-green-texture-2.jpg', 'dark-green-texture', 'dark-green-texture-2', 'jpg', 'dark-green-texture.jpg', 'dark-green-texture', '710.27 KB', '2023-04-04 09:15:43', '2023-04-04 09:15:43'),
-(21, 'storage/media/wall-wallpaper-concrete-colored-painted-textured-concept-3.jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept', 'wall-wallpaper-concrete-colored-painted-textured-concept-3', 'jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept.jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept', '784.9 KB', '2023-04-04 09:18:37', '2023-04-04 09:18:37'),
-(22, 'storage/media/dark-green-texture-3.jpg', 'dark-green-texture', 'dark-green-texture-3', 'jpg', 'dark-green-texture.jpg', 'dark-green-texture', '710.27 KB', '2023-04-04 09:58:37', '2023-04-04 09:58:37'),
-(23, 'storage/media/5001235-19820.jpg', '5001235_19820', '5001235-19820', 'jpg', '5001235_19820.jpg', '5001235-19820', '763.98 KB', '2023-04-04 10:47:28', '2023-04-04 10:47:28'),
-(24, 'storage/media/facebook.png', 'facebook', 'facebook', 'png', 'facebook.png', 'facebook', '15.23 KB', '2023-04-04 11:47:32', '2023-04-04 11:47:32'),
-(25, 'storage/media/1eac70ccfc41154dab5484ab8f33c687.png', '1eac70ccfc41154dab5484ab8f33c687', '1eac70ccfc41154dab5484ab8f33c687', 'png', '1eac70ccfc41154dab5484ab8f33c687.png', '1eac70ccfc41154dab5484ab8f33c687', '53.82 KB', '2023-04-04 12:58:25', '2023-04-04 12:58:25'),
-(26, 'storage/media/autumn-leaves-space-23-2147674304.jpg', 'autumn-leaves-space_23-2147674304', 'autumn-leaves-space-23-2147674304', 'jpg', 'autumn-leaves-space_23-2147674304.jpg', 'autumn-leaves-space-23-2147674304', '121.12 KB', '2023-04-04 12:58:25', '2023-04-04 12:58:25'),
-(27, 'storage/media/orange-background-23-2147674307.jpg', 'orange-background_23-2147674307', 'orange-background-23-2147674307', 'jpg', 'orange-background_23-2147674307.jpg', 'orange-background-23-2147674307', '61.8 KB', '2023-04-04 12:58:25', '2023-04-04 12:58:25'),
-(28, 'storage/media/realistic-galaxy-background-23-2148991322.jpg', 'realistic-galaxy-background_23-2148991322', 'realistic-galaxy-background-23-2148991322', 'jpg', 'realistic-galaxy-background_23-2148991322.jpg', 'realistic-galaxy-background-23-2148991322', '37.98 KB', '2023-04-04 12:58:25', '2023-04-04 12:58:25'),
-(29, 'storage/media/unnamed-1.jpg', 'unnamed (1)', 'unnamed-1', 'jpg', 'unnamed (1).jpg', 'unnamed-1', '61.3 KB', '2023-04-04 12:58:25', '2023-04-04 12:58:25'),
-(30, 'storage/media/unnamed.jpg', 'unnamed', 'unnamed', 'jpg', 'unnamed.jpg', 'unnamed', '79.69 KB', '2023-04-04 12:58:25', '2023-04-04 12:58:25'),
-(31, 'storage/media/unnamed-1-2.jpg', 'unnamed (1)', 'unnamed-1-2', 'jpg', 'unnamed (1).jpg', 'unnamed-1', '61.3 KB', '2023-04-04 13:54:52', '2023-04-04 13:54:52');
+(13, 'storage/media/group-3934-7.png', 'Group 3934 (7)', 'group-3934-7', 'png', 'Group 3934 (7).png', 'group-3934-7', '201.56 KB', '2023-04-04 06:53:04', '2023-04-04 06:53:04'),
+(14, 'storage/media/group-3934-8.png', 'Group 3934 (8)', 'group-3934-8', 'png', 'Group 3934 (8).png', 'group-3934-8', '185.21 KB', '2023-04-04 06:53:19', '2023-04-04 06:53:19'),
+(15, 'storage/media/group-3934-8-2.png', 'Group 3934 (8)', 'group-3934-8-2', 'png', 'Group 3934 (8).png', 'group-3934-8', '185.21 KB', '2023-04-04 06:59:08', '2023-04-04 06:59:08'),
+(16, 'storage/media/group-3934-7-2.png', 'Group 3934 (7)', 'group-3934-7-2', 'png', 'Group 3934 (7).png', 'group-3934-7', '201.56 KB', '2023-04-04 06:59:08', '2023-04-04 06:59:08'),
+(17, 'storage/media/accessories.png', 'accessories', 'accessories', 'png', 'accessories.png', 'accessories', '67.93 KB', '2023-04-05 00:41:15', '2023-04-05 00:41:15'),
+(18, 'storage/media/healthcare-bears.png', 'healthcare-bears', 'healthcare-bears', 'png', 'healthcare-bears.png', 'healthcare-bears', '1.84 MB', '2023-04-05 00:41:15', '2023-04-05 00:41:15'),
+(19, 'storage/media/first-responder-bears.png', 'first-responder-bears', 'first-responder-bears', 'png', 'first-responder-bears.png', 'first-responder-bears', '66.48 KB', '2023-04-05 00:41:15', '2023-04-05 00:41:15'),
+(20, 'storage/media/military-bears.png', 'military-bears', 'military-bears', 'png', 'military-bears.png', 'military-bears', '82.53 KB', '2023-04-05 00:41:15', '2023-04-05 00:41:15'),
+(21, 'storage/media/glemorg.png', 'glemorg', 'glemorg', 'png', 'glemorg.png', 'glemorg', '12.09 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
+(22, 'storage/media/adidas-logo-svg.png', 'Adidas_Logo.svg', 'adidas-logo-svg', 'png', 'Adidas_Logo.svg.png', 'adidas-logosvg', '34.03 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
+(23, 'storage/media/group-3934-6.png', 'Group 3934 (6)', 'group-3934-6', 'png', 'Group 3934 (6).png', 'group-3934-6', '130.96 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
+(24, 'storage/media/group-3934-5.png', 'Group 3934 (5)', 'group-3934-5', 'png', 'Group 3934 (5).png', 'group-3934-5', '174.79 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
+(25, 'storage/media/group-3934-4.png', 'Group 3934 (4)', 'group-3934-4', 'png', 'Group 3934 (4).png', 'group-3934-4', '142.47 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
+(26, 'storage/media/group-3934-2.png', 'Group 3934 (2)', 'group-3934-2', 'png', 'Group 3934 (2).png', 'group-3934-2', '188.08 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
+(27, 'storage/media/group-3934-1.png', 'Group 3934 (1)', 'group-3934-1', 'png', 'Group 3934 (1).png', 'group-3934-1', '120.92 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
+(28, 'storage/media/group-3934.png', 'Group 3934', 'group-3934', 'png', 'Group 3934.png', 'group-3934', '187.87 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
+(29, 'storage/media/gifting-moonie.png', 'GIFTING-MOONIE', 'gifting-moonie', 'png', 'GIFTING-MOONIE.png', 'gifting-moonie', '1.66 MB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
+(30, 'storage/media/f1.jpg', 'f1', 'f1', 'jpg', 'f1.jpg', 'f1', '170.88 KB', '2023-04-05 03:46:46', '2023-04-05 03:46:46'),
+(31, 'storage/media/f2.jpg', 'f2', 'f2', 'jpg', 'f2.jpg', 'f2', '236.81 KB', '2023-04-05 04:07:30', '2023-04-05 04:07:30'),
+(32, 'storage/media/logo.png', 'logo', 'logo', 'png', 'logo.png', 'logo', '1.21 KB', '2023-04-05 04:08:57', '2023-04-05 04:08:57');
 
 -- --------------------------------------------------------
 
@@ -206,7 +210,6 @@ CREATE TABLE `menus` (
 
 INSERT INTO `menus` (`slug`, `name`, `icon`, `parent`, `ordering`, `status`) VALUES
 ('admin', 'Admin', 'mdi mdi-account-lock', NULL, 2, 1),
-('attribute', 'Attribute', NULL, 'ecommerce', 6, 1),
 ('brand', 'Brand', NULL, 'ecommerce', 3, 1),
 ('bread', 'Bread', 'ft-target', 'setting', 2, 1),
 ('collection', 'Collection', NULL, 'ecommerce', 1, 1),
@@ -219,6 +222,7 @@ INSERT INTO `menus` (`slug`, `name`, `icon`, `parent`, `ordering`, `status`) VAL
 ('role', 'Role', NULL, 'setting', 0, 1),
 ('setting', 'Setting', 'mdi mdi-tools', NULL, 5, 1),
 ('site_setting', 'Site Setting', 'bx bx-cog', NULL, 4, 1),
+('slider', 'Slider', NULL, NULL, NULL, 1),
 ('tag', 'Tag', NULL, 'ecommerce', 2, 1),
 ('vendor', 'Vendor', NULL, 'ecommerce', 5, 1);
 
@@ -385,7 +389,12 @@ INSERT INTO `permissions` (`id`, `menu_slug`, `permission_key`) VALUES
 (73, 'media', 'read_media'),
 (74, 'media', 'add_media'),
 (75, 'media', 'edit_media'),
-(76, 'media', 'delete_media');
+(76, 'media', 'delete_media'),
+(77, 'slider', 'browse_slider'),
+(78, 'slider', 'read_slider'),
+(79, 'slider', 'add_slider'),
+(80, 'slider', 'edit_slider'),
+(81, 'slider', 'delete_slider');
 
 -- --------------------------------------------------------
 
@@ -591,6 +600,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_key`) VALUES
 (1, 'add_product_type'),
 (1, 'add_role'),
 (1, 'add_site_setting'),
+(1, 'add_slider'),
 (1, 'add_tag'),
 (1, 'add_vendor'),
 (1, 'browse_admin'),
@@ -607,6 +617,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_key`) VALUES
 (1, 'browse_role'),
 (1, 'browse_setting'),
 (1, 'browse_site_setting'),
+(1, 'browse_slider'),
 (1, 'browse_tag'),
 (1, 'browse_vendor'),
 (1, 'change_email'),
@@ -624,6 +635,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_key`) VALUES
 (1, 'delete_product_type'),
 (1, 'delete_role'),
 (1, 'delete_site_setting'),
+(1, 'delete_slider'),
 (1, 'delete_tag'),
 (1, 'delete_vendor'),
 (1, 'edit_admin'),
@@ -638,6 +650,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_key`) VALUES
 (1, 'edit_product_type'),
 (1, 'edit_role'),
 (1, 'edit_site_setting'),
+(1, 'edit_slider'),
 (1, 'edit_tag'),
 (1, 'edit_vendor'),
 (1, 'logo_site_setting'),
@@ -653,6 +666,7 @@ INSERT INTO `role_permissions` (`role_id`, `permission_key`) VALUES
 (1, 'read_product_type'),
 (1, 'read_role'),
 (1, 'read_site_setting'),
+(1, 'read_slider'),
 (1, 'read_tag'),
 (1, 'read_vendor');
 
@@ -684,6 +698,33 @@ CREATE TABLE `site_settings` (
 
 INSERT INTO `site_settings` (`id`, `title`, `description`, `logo`, `favicon`, `email`, `contact_no`, `country`, `state`, `city`, `address`, `created_at`, `updated_at`) VALUES
 (1, 'AR Technology', 'Partner with an award-winning app development company to take your brick-and-mortar business online and reach a wider audience with powerful mobile and web solutions.', 'storage/site-setting/default-logo.png', 'storage/site-setting/default-favicon.png', 'info@artechnology.in', '+91 8109763160', 'India', 'Delhi', 'New Delhi', '95-B DDA Flat Mata Suntri Road\r\nNew Delhi-110002', '2022-06-26 15:46:11', '2023-02-16 14:51:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sliders`
+--
+
+CREATE TABLE `sliders` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `subtitle` varchar(255) DEFAULT NULL,
+  `body` text DEFAULT NULL,
+  `media_id` int(11) NOT NULL,
+  `button_text` varchar(255) DEFAULT NULL,
+  `button_link` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `sliders`
+--
+
+INSERT INTO `sliders` (`id`, `title`, `subtitle`, `body`, `media_id`, `button_text`, `button_link`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Discover The Best Furniture', 'Look for your inspiration here', 'The services provided by the officials was smooth and satisfactory. Products and goods delivered were up to satisfaction', 31, 'SHOP NOW', '#', 1, '2023-04-05 09:23:15', '2023-04-05 09:38:15'),
+(2, 'Discover The Best Furniture', 'Look for your inspiration here', 'The services provided by the officials was smooth and satisfactory. Products and goods delivered were up to satisfaction', 30, 'SHOP NOW', '#', 1, '2023-04-05 09:35:32', '2023-04-05 09:35:32');
 
 -- --------------------------------------------------------
 
@@ -878,6 +919,12 @@ ALTER TABLE `site_settings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sliders`
+--
+ALTER TABLE `sliders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tags`
 --
 ALTER TABLE `tags`
@@ -922,13 +969,13 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `collections`
 --
 ALTER TABLE `collections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `medias`
 --
 ALTER TABLE `medias`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `options`
@@ -946,7 +993,7 @@ ALTER TABLE `option_values`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -977,6 +1024,12 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `site_settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `sliders`
+--
+ALTER TABLE `sliders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tags`

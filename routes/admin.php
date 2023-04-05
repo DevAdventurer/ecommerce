@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\ProductTypeController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\ProductInventoryController;
 use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\SliderController;
 
 Route::middleware('admin.guest')->name('admin.')->group(function() {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login.form');
@@ -184,18 +185,15 @@ Route::middleware('admin')->name('admin.')->group(function() {
     });
 
 
-    //Attribute
-    Route::controller(AttributeController::class)->group(function(){
-        Route::match(['get','patch'],'attribute', 'index')->name('attribute.index')->middleware('can:browse_attribute');
-        Route::get('attribute/create', 'create')->name('attribute.create')->middleware('can:add_attribute');
-        Route::get('attribute/{attribute}', 'show')->name('attribute.show')->middleware('can:read_attribute');
-        Route::get('attribute/{attribute}/edit', 'edit')->name('attribute.edit')->middleware('can:edit_attribute');
-        Route::post('attribute', 'store')->name('attribute.store')->middleware('can:add_attribute');
-        Route::put('attribute/{attribute}', 'update')->name('attribute.update')->middleware('can:edit_attribute');
-        Route::delete('attribute/{attribute}/delete', 'destroy')->name('attribute.destroy')->middleware('can:delete_attribute');
-
-
-        Route::post('attribute/value', 'storeValue')->name('attribute.value.store')->middleware('can:add_attribute');
+    //Slider
+    Route::controller(SliderController::class)->group(function(){
+        Route::match(['get','patch'],'slider', 'index')->name('slider.index')->middleware('can:browse_slider');
+        Route::get('slider/create', 'create')->name('slider.create')->middleware('can:add_slider');
+        Route::get('slider/{slider}', 'show')->name('slider.show')->middleware('can:read_slider');
+        Route::get('slider/{slider}/edit', 'edit')->name('slider.edit')->middleware('can:edit_slider');
+        Route::post('slider', 'store')->name('slider.store')->middleware('can:add_slider');
+        Route::put('slider/{slider}', 'update')->name('slider.update')->middleware('can:edit_slider');
+        Route::delete('slider/{slider}/delete', 'destroy')->name('slider.destroy')->middleware('can:delete_slider');
     });
 
 

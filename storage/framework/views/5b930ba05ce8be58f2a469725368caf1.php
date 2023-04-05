@@ -20,6 +20,7 @@
     <!-- App Css-->
    
     <link href="<?php echo e(asset('admin-assets/libs/sweetalert/sweetalert.css')); ?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo e(asset('admin-assets/libs/dropzone/dropzone.css')); ?>" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
     <!--datatable responsive css-->
@@ -28,7 +29,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     
      <link href="<?php echo e(asset('admin-assets/css/app.min.css')); ?>" rel="stylesheet" type="text/css" />
-     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <!-- custom Css-->
     <link href="<?php echo e(asset('admin-assets/css/custom.min.css')); ?>" rel="stylesheet" type="text/css" />
 
@@ -79,14 +79,12 @@
         </div>
     </div>
 
+    <?php echo $__env->make('admin.media.media-files', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
     <!-- Theme Settings -->
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-    <?php echo $__env->make('admin.media.select-media-multiple', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-    <?php echo $__env->make('admin.media.select-media-single', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
-
-    
     <!-- JAVASCRIPT -->
     <script src="<?php echo e(asset('admin-assets/libs/bootstrap/js/bootstrap.bundle.min.js')); ?>"></script>
     <script src="<?php echo e(asset('admin-assets/libs/simplebar/simplebar.min.js')); ?>"></script>
@@ -94,6 +92,7 @@
     <script src="<?php echo e(asset('admin-assets/libs/feather-icons/feather.min.js')); ?>"></script>
     <script src="<?php echo e(asset('admin-assets/js/pages/plugins/lord-icon-2.1.0.js')); ?>"></script>
     <script src="<?php echo e(asset('admin-assets/libs/sweetalert/sweetalert.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('admin-assets/libs/dropzone/dropzone-min.js')); ?>"></script>
     <script src="<?php echo e(asset('admin-assets/js/custom.js')); ?>"></script>
     <script src="<?php echo e(asset('admin-assets/js/media.js')); ?>"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -190,9 +189,19 @@
             previewsContainer: "#dropzone-preview",
             addRemoveLinks: false,
             success: function(file, response) {
-                $('#medias-list-single').html('');
+                $('#mediafiles-list').html('');
                 setTimeout(function() {
-                    loadMoreDataSingle(1);
+                    mediafiles(1);
+                    Toastify({
+                        text: response.message,
+                        duration: 3000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        className: response.class,
+
+                    }).showToast();
                 }, 1500);
             },
             error: function(file, response) {

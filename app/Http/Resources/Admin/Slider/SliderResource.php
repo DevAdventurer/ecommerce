@@ -18,7 +18,7 @@ class SliderResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'body' => $this->body,
-            'image' => "<img class='rounded avatar-sm' src='".asset($this->image)."' >",
+            'image' => $this->media_id?'<img class="img-thumbnail avatar-img rounded avatar-sm" src="'.asset($this->media->file).'">':'N/A',
             'link' => $this->button_link,
             'status' => $this->status?"<span class='badge rounded-pill badge-soft-success'>Active</span>":"<span class='badge rounded-pill badge-soft-danger'>Deactivate</span>",
             'created_at' => $this->created_at->format('d M Y'),

@@ -16,7 +16,7 @@ class Collection extends Model
     ];
 
     public function media(){
-        return $this->hasOne(Media::class,'id','file_id');
+        return $this->hasOne(Media::class,'id','media_id');
     }
 
     public function sluggable(): array

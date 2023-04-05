@@ -144,7 +144,7 @@
                         <div class="media-file-value"></div>
                         <div class="media-file"></div>
                         <p><br></p>
-                        <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this), 'single')">Select Media File</a>
+                        <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Media File</a>
                     </div>
                 </div>
             </div>

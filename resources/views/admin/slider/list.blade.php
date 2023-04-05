@@ -17,7 +17,7 @@
                     <h4 class="mb-sm-0">{{Str::title(str_replace('-', ' ', request()->segment(2)))}}</h4>
                     @can('add_slider')
                     <div class="page-title-right">
-                        <a href="{{ route('admin.'.request()->segment(2).'.create') }}"  class="btn-sm btn btn-primary btn-label rounded-pill">
+                        <a href="{{ route('admin.'.request()->segment(2).'.create') }}"  class="btn-sm btn btn-success waves-effect waves-light btn-label rounded-pill">
                             <i class="bx bx-plus label-icon align-middle rounded-pill fs-16 me-2"></i>
                             Add {{Str::title(str_replace('-', ' ', request()->segment(2)))}}
                         </a>

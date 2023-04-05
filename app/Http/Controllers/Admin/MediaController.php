@@ -198,9 +198,12 @@ class MediaController extends Controller
             return $q->where("name","like","%".$request->get("search")."%");
         })->paginate(10);
 
+
         if ($request->ajax()) {
 
-            return view('admin.media.ajax-list', compact('medias'));
+            $type = $request->opentype;
+
+            return view('admin.media.ajax-list', compact('medias','type'));
 
             $html = '';
 

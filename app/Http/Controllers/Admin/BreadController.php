@@ -37,17 +37,6 @@ class BreadController extends Controller
             $datas = $datas->limit($request->length)->offset($request->start)->get();
 
             return response()->json(new BreadCollection($datas));
-            
-            // $result["length"]= $request->length;
-            // $result["recordsTotal"]= $totaldata;
-            // $result["recordsFiltered"]= $datas->count();
-            // $records = $datas->limit($request->length)->offset($request->start)->get();
-
-            // $result['data'] = [];           
-            // foreach ($records as $data) {
-            //     $result['data'][] =['sn'=>++$request->start,'name'=>$data->name, 'slug'=>$data->slug,'id'=>$data->id];
-            // }
-            // return $result;
            
         }
         return view('admin.bread.list');

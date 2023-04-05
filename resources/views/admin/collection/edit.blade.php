@@ -118,7 +118,7 @@
                     </div>
 
                      <div class="btn-group">
-                        {!! Form::submit("Save ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']) !!}
+                        {!! Form::submit("Update ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']) !!}
                     </div>
 
                 </div>
@@ -127,24 +127,47 @@
 
 
              <div class="card">
-                <div class="card-header">
-                    <h6 class="card-title mb-0">Collection Data</h6>
-                </div>
                 <div class="card-body">
-
                     <div class="form-group{{ $errors->has('parrent') ? ' has-error' : '' }}">
                         {!! Form::label('parrent', 'Parent Collection') !!}
                         {!! Form::select('parrent', $collections, $collection->parent, ['id' => 'parrent', 'class' => 'form-control', 'placeholder' => 'Choose Parent Collection']) !!}
                         <small class="text-danger">{{ $errors->first('parrent') }}</small>
                     </div>
+                </div>
+            </div>
 
-                    <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
-                        {!! Form::label('image', 'Image') !!}
-                        {!! Form::file('image', ['class'=>'dropify']) !!}
-                        <small class="text-danger">{{ $errors->first('image') }}</small>
+
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="card-title mb-0">Featured Image</h6>
+                </div>
+                <div class="card-body">
+
+                    <div class="media-area">
+
+                        <div class="media-file-value">
+                            @if($collection->media_id)
+                                <input type="hidden" name="file[]" value="{{$collection->media_id}}" class="fileid{{$collection->media_id}}">
+                            @endif
+                        </div>
+                        <div class="media-file">
+                            @if($collection->media_id)
+                                <div class="file-container d-inline-block fileid{{$collection->media_id}}">
+                                    <span data-id="{{$collection->media_id}}" class="remove-file">✕</span>
+                                    <img class="w-100 d-block img-thumbnail" src="{{asset($collection->media->file)}}" alt="{{$collection->media->name}}">
+                                </div>
+                            @endif
+                        </div>
+
+
+                        <p><br></p>
+                        <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Media File</a>
+
                     </div>
                 </div>
             </div>
+
+
         </div>
 
     </div>

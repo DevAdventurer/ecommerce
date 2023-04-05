@@ -13,9 +13,9 @@ class CollectionController extends Controller
 
     
     public function index(Request $request)
-    {       
+    {      
         if ($request->ajax()) {
-            $datas = Collection::orderBy('created_at','desc')->select(['id','title','slug','file_id','created_at','status'])->with('media');
+            $datas = Collection::orderBy('created_at','desc')->select(['id','title','slug','media_id','created_at','status'])->with('media');
             $search = $request->search['value'];
 
             if ($search) {
@@ -54,7 +54,6 @@ class CollectionController extends Controller
         
         $this->validate($request,[
             'title'=>'required',
-            'image'=>'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'description' =>'nullable',
             'status'=>'required|integer',
             'published_date'=>'required',
@@ -70,10 +69,12 @@ class CollectionController extends Controller
         $collection->meta_title = $request->meta_title??$request->title;
         $collection->meta_description = $request->meta_description??$request->description;
 
-
-        foreach($request->file as $file){
-            $collection->file_id = $file;
-        } 
+        if($request->has('file')){
+            foreach($request->file as $file){
+                $collection->media_id = $file;
+            } 
+        }
+           
 
         if($collection->save()){ 
             return redirect()->route('admin.collection.index')->with(['class'=>'success','message'=>'Collection Created successfully.']);
@@ -114,33 +115,35 @@ class CollectionController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $this->validate($request,[
-            'name'=>'required',
-            'image'=>'nullable|image|mimes:jpeg,png,jpg|max:5048',
+        //return $request->all();
+        $this->validate($request,[
+            'title'=>'required',
             'description' =>'nullable',
             'status'=>'required|integer',
+            'published_date'=>'required',
         ]);
         
         $collection = Collection::find($id);
-        $collection->name = $request->name;
+        $collection->title = $request->title;
         $collection->body = $request->description;
-        $collection->status = $request->status;
+        $collection->parent = $request->parent;
+        $collection->status = $request->status?1:0;
+        $collection->published_at = Carbon::parse($request->published_date)->format('Y-m-d');
+       
+        $collection->meta_title = $request->meta_title??$request->title;
+        $collection->meta_description = $request->meta_description??$request->description;
 
-        // $collection->name = $request->name;
-        // $collection->meta_title = $request->metaTitle??$request->name;
-        // $collection->meta_keywords = $request->metaKeywords??$request->name;
-        // $collection->meta_description = $request->metaDescription??$request->body;
-        // $collection->status = $request->status;
 
-        if($request->hasFile('image')){
-            $image_name = time().".".$request->file('image')->getClientOriginalExtension();
-            $image = $request->file('image')->storeAs('categories', $image_name);
-            $collection->image = 'storage/'.$image;
-        }  
+        if($request->has('file')){
+            foreach($request->file as $file){
+                $collection->media_id = $file;
+            } 
+        }else{
+             $collection->media_id = Null;
+        } 
 
         if($collection->save()){ 
-            return redirect()->route('admin.collection.index')->with(['class'=>'success','message'=>'Collection Created successfully.']);
-            return view('admin.collection.edit',compact('Collection'));
+            return redirect()->route('admin.collection.index')->with(['class'=>'success','message'=>'Collection Updated successfully.']);
         }
 
         return redirect()->back()->with(['class'=>'error','message'=>'Whoops, looks like something went wrong ! Try again ...']);

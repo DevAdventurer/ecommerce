@@ -141,11 +141,7 @@
 
 
              <div class="card">
-                <div class="card-header">
-                    <h6 class="card-title mb-0">Collection Data</h6>
-                </div>
                 <div class="card-body">
-
                     <div class="form-group<?php echo e($errors->has('parrent') ? ' has-error' : ''); ?>">
                         <?php echo Form::label('parrent', 'Parent Collection'); ?>
 
@@ -153,16 +149,41 @@
 
                         <small class="text-danger"><?php echo e($errors->first('parrent')); ?></small>
                     </div>
+                </div>
+            </div>
 
-                    <div class="form-group <?php echo e($errors->has('image') ? ' has-error' : ''); ?>">
-                        <?php echo Form::label('image', 'Image'); ?>
 
-                        <?php echo Form::file('image', ['class'=>'dropify']); ?>
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="card-title mb-0">Featured Image</h6>
+                </div>
+                <div class="card-body">
 
-                        <small class="text-danger"><?php echo e($errors->first('image')); ?></small>
+                    <div class="media-area">
+
+                        <div class="media-file-value">
+                            <?php if($collection->media_id): ?>
+                                <input type="hidden" name="file[]" value="<?php echo e($collection->media_id); ?>" class="fileid<?php echo e($collection->media_id); ?>">
+                            <?php endif; ?>
+                        </div>
+                        <div class="media-file">
+                            <?php if($collection->media_id): ?>
+                                <div class="file-container d-inline-block fileid<?php echo e($collection->media_id); ?>">
+                                    <span data-id="<?php echo e($collection->media_id); ?>" class="remove-file">✕</span>
+                                    <img class="w-100 d-block img-thumbnail" src="<?php echo e(asset($collection->media->file)); ?>" alt="<?php echo e($collection->media->name); ?>">
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
+
+                        <p><br></p>
+                        <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Media File</a>
+
                     </div>
                 </div>
             </div>
+
+
         </div>
 
     </div>

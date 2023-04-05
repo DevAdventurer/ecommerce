@@ -1,6 +1,5 @@
 @extends('admin.layouts.master')
 @push('links')
-<link rel="stylesheet" href="{{asset('admin-assets/libs/dropify/css/dropify.min.css')}}"> 
 <link rel="stylesheet" href="{{asset('admin-assets/libs/summernote/summernote-bs4.min.css')}}"> 
 
 @endpush
@@ -18,9 +17,9 @@
             <h4 class="mb-sm-0">{{Str::title(str_replace('-', ' ', request()->segment(2)))}}</h4>
             @can('add_admin')
             <div class="page-title-right">
-                <a href="{{ route('admin.'.request()->segment(2).'.create') }}"  class="btn-sm btn btn-primary btn-label rounded-pill">
-                    <i class="bx bx-plus label-icon align-middle rounded-pill fs-16 me-2"></i>
-                    Add {{Str::title(str_replace('-', ' ', request()->segment(2)))}}
+                 <a href="{{ route('admin.'.request()->segment(2).'.index') }}"  class="btn-sm btn btn-secondary waves-effect waves-light btn-label rounded-pill">
+                    <i class="bx bx-list-ul label-icon align-middle rounded-pill fs-16 me-2"></i>
+                    {{Str::title(str_replace('-', ' ', request()->segment(2)))}} List
                 </a>
             </div>
             @endcan
@@ -30,78 +29,90 @@
 </div>
 <!-- end page title -->
 
+
+{!! Form::open(['method' => 'POST', 'route' => 'admin.slider.store', 'class' => 'form-horizontal','files'=>true]) !!}
+
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
-                {!! Form::open(['method' => 'POST', 'route' => 'admin.slider.store', 'class' => 'form-horizontal','files'=>true]) !!}
 
-            <div class="row my-1">
-                <div class="col-lg-7 col-7">
-
-                    
-                        <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                            {!! Form::label('title', 'Title') !!}
-                            {!! Form::text('title', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Title']) !!}
-                            <small class="text-danger">{{ $errors->first('title') }}</small>
-                        </div>
-
-
-                        
-
-                        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                            {!! Form::label('description', 'Description') !!}
-                            {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Description']) !!}
-                            <small class="text-danger">{{ $errors->first('description') }}</small>
-                        </div>
-                    
-                        <div class="btn-group">
-                            {!! Form::submit("Add Slider", ['class' => 'btn btn-soft-secondary waves-effect waves-light']) !!}
-                        </div>
-                    
-
+                <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                    {!! Form::label('title', 'Title') !!}
+                    {!! Form::text('title', null, ['class' => 'form-control','placeholder'=>'Title']) !!}
+                    <small class="text-danger">{{ $errors->first('title') }}</small>
                 </div>
 
-                <div class="col-lg-5 col-5">
+                <div class="form-group{{ $errors->has('subtitle') ? ' has-error' : '' }}">
+                    {!! Form::label('subtitle', 'Subtitle') !!}
+                    {!! Form::text('subtitle', null, ['class' => 'form-control', 'placeholder'=>'Subtitle']) !!}
+                    <small class="text-danger">{{ $errors->first('subtitle') }}</small>
+                </div>
 
-                    <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
-                        {!! Form::label('status', 'Status') !!}
-                        {!! Form::select('status', [0 => 'Draft', 1 => 'Publish'], null, ['class' => 'form-control', 'id' => 'slider_status', 'placeholder'=>'Status']) !!}
-                        <small class="text-danger">{{ $errors->first('status') }}</small>
-                    </div>
+                <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                    {!! Form::label('description', 'Description') !!}
+                    {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Description']) !!}
+                    <small class="text-danger">{{ $errors->first('description') }}</small>
+                </div>
 
-                    <div class="form-group{{ $errors->has('button_text') ? ' has-error' : '' }}">
-                            {!! Form::label('button_text', 'Text On Button') !!}
-                            {!! Form::text('button_text', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Text On Button']) !!}
-                            <small class="text-danger">{{ $errors->first('button_text') }}</small>
-                        </div>
+            </div>
+        </div>
+    </div>
 
-                        <div class="form-group{{ $errors->has('button_link') ? ' has-error' : '' }}">
-                            {!! Html::decode(Form::label('button_link','Link On Button <span class="text-danger">*</span>')) !!}
-                            {!! Form::text('button_link', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Link On Button']) !!}
-                            <small class="text-danger">{{ $errors->first('button_link') }}</small>
-                        </div>
 
-                  <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
 
-                            {!! Form::label('image', 'Slider Image') !!}
+                <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
+                    {!! Form::label('status', 'Status') !!}
+                    {!! Form::select('status', [0 => 'Draft', 1 => 'Publish'], null, ['class' => 'form-control', 'id' => 'slider_status', 'placeholder'=>'Status']) !!}
+                    <small class="text-danger">{{ $errors->first('status') }}</small>
+                </div>
 
-                            {!! Form::file('image', ['class'=>'dropify']) !!}
 
-                            <small class="text-danger">{{ $errors->first('image') }}</small>
+                <div class="form-group{{ $errors->has('button_text') ? ' has-error' : '' }}">
+                    {!! Form::label('button_text', 'Text On Button') !!}
+                    {!! Form::text('button_text', null, ['class' => 'form-control','placeholder'=>'Text On Button']) !!}
+                    <small class="text-danger">{{ $errors->first('button_text') }}</small>
+                </div>
 
-                    </div>
+                <div class="form-group{{ $errors->has('button_link') ? ' has-error' : '' }}">
+                    {!! Html::decode(Form::label('button_link','Link On Button <span class="text-danger">*</span>')) !!}
+                    {!! Form::text('button_link', null, ['class' => 'form-control','placeholder'=>'Link On Button']) !!}
+                    <small class="text-danger">{{ $errors->first('button_link') }}</small>
+                </div>
+
+                 <div class="btn-group">
+                    {!! Form::submit("Save ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']) !!}
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h6 class="card-title mb-0">Slider Image</h6>
+            </div>
+            <div class="card-body">
+
+                <div class="media-area">
+                    <div class="media-file-value"></div>
+                    <div class="media-file"></div>
+                    <p><br></p>
+                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Media File</a>
                 </div>
             </div>
-            {!! Form::close() !!}
-
-
-
+        </div>
 
     </div>
+
+
 </div>
-</div>
-</div>
+
+
+{!! Form::close() !!}
+
 
 
 
@@ -111,8 +122,6 @@
 
 
 @push('scripts')
-<script src="{{asset('admin-assets/libs/dropify/js/dropify.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('admin-assets/libs/dropify/dropify.js')}}"></script>
 <script type="text/javascript" src="{{asset('admin-assets/libs/summernote/summernote-bs4.min.js')}}"></script>
 
 
