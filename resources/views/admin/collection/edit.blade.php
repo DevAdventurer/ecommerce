@@ -143,15 +143,15 @@
                 </div>
                 <div class="card-body">
 
-                    <div class="media-area">
+                    <div class="media-area" file-name="file">
 
                         <div class="media-file-value">
-                            @if($collection->media_id)
+                            @if($collection->media)
                                 <input type="hidden" name="file[]" value="{{$collection->media_id}}" class="fileid{{$collection->media_id}}">
                             @endif
                         </div>
                         <div class="media-file">
-                            @if($collection->media_id)
+                            @if($collection->media)
                                 <div class="file-container d-inline-block fileid{{$collection->media_id}}">
                                     <span data-id="{{$collection->media_id}}" class="remove-file">✕</span>
                                     <img class="w-100 d-block img-thumbnail" src="{{asset($collection->media->file)}}" alt="{{$collection->media->name}}">

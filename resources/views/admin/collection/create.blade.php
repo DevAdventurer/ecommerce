@@ -140,7 +140,7 @@
                 </div>
                 <div class="card-body">
 
-                    <div class="media-area">
+                    <div class="media-area" file-name="file">
                         <div class="media-file-value"></div>
                         <div class="media-file"></div>
                         <p><br></p>
