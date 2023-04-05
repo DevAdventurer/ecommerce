@@ -96,12 +96,13 @@
             </div>
             <div class="card-body">
 
-                <div class="media-area">
+                <div class="media-area" file-name="slider_image">
                     <div class="media-file-value"></div>
                     <div class="media-file"></div>
                     <p><br></p>
-                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Media File</a>
+                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='multi' onclick="loadMediaFiles($(this))">Select Media File</a>
                 </div>
+
             </div>
         </div>
 

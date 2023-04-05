@@ -2,14 +2,16 @@ $('.no-more').hide();
 var paginate = 1;
 
 var singleMediaCall = document.getElementById('mediafiles')
-var bsOffcanvasSingle = new bootstrap.Offcanvas(singleMediaCall)
+const bsOffcanvasSingle = new bootstrap.Offcanvas(singleMediaCall)
 
-
-
+singleMediaCall.addEventListener('hidden.bs.offcanvas', function () {
+  $('.media-area').removeClass('active');
+})
 function loadMediaFiles(element, openType) {
 
     bsOffcanvasSingle.show();
     mediafiles(paginate, openType);
+    element.parent().addClass('active')
 
 }
 
@@ -53,8 +55,12 @@ $("#mediafilesearch").keyup(function(){
 
 
 function selectSingleFile() {
-    $(".media-file-value").html('');
-    $(".media-file").html('');
+    $(".media-area.active .media-file-value").html('');
+    $(".media-area.active .media-file").html('');
+
+    var file_name = $(".media-area.active").attr('file-name');
+    //alert(file_name);
+
     var checkboxes = document.getElementsByName('media[]');
 
     var result = "";
@@ -62,15 +68,16 @@ function selectSingleFile() {
 
     for (var i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
-            result += '<input type="hidden" name="file[]" value="'+checkboxes[i].value+'" class="fileid'+checkboxes[i].value+'">';
+            result += '<input type="hidden" name="'+file_name+'[]" value="'+checkboxes[i].value+'" class="fileid'+checkboxes[i].value+'">';
             var myimage = $("#getmedia-"+checkboxes[i].value).html();
             image += '<div  class="file-container d-inline-block fileid'+checkboxes[i].value+'"><span data-id="'+checkboxes[i].value+'" class="remove-file">&#x2715;</span>'+myimage+"</div>";
         }
     }
-    bsOffcanvasSingle.hide();
-    $(".media-file-value").append(result);
-    $(".media-file").append(image);
+    
+    $(".media-area.active .media-file-value").append(result);
+    $(".media-area.active .media-file").append(image);
 
+    bsOffcanvasSingle.hide();
 }
 
 $("body").on("click", ".remove-file", function(){

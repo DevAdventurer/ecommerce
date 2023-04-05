@@ -97,15 +97,15 @@
             </div>
             <div class="card-body">
 
-                <div class="media-area">
+                <div class="media-area" file-name="slider_image">
 
                     <div class="media-file-value">
-                        @if($slider->media_id)
+                        @if($slider->media)
                             <input type="hidden" name="file[]" value="{{$slider->media_id}}" class="fileid{{$slider->media_id}}">
                         @endif
                     </div>
                     <div class="media-file">
-                        @if($slider->media_id)
+                        @if($slider->media)
                             <div class="file-container d-inline-block fileid{{$slider->media_id}}">
                                 <span data-id="{{$slider->media_id}}" class="remove-file">✕</span>
                                 <img class="w-100 d-block img-thumbnail" src="{{asset($slider->media->file)}}" alt="{{$slider->media->name}}">

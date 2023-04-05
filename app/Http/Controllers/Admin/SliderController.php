@@ -18,7 +18,7 @@ class SliderController extends Controller
     {
 
         if ($request->ajax()) {
-            $datas = Slider::orderBy('created_at','desc')->select(['id','title','body','button_text','button_link','status','media_id','created_at']);
+            $datas = Slider::orderBy('created_at','desc')->with('media')->select(['id','title','body','button_text','button_link','status','media_id','created_at']);
 
 
             $search = $request->search['value'];
@@ -62,7 +62,7 @@ class SliderController extends Controller
      * @return \Illuminate\Http\Response
      */
         public function store(Request $request) {
-
+            return $request->all();
             $this->validate($request,[
                 // 'title'=>'required',
                 // 'sub_title'=>'required',
@@ -81,8 +81,8 @@ class SliderController extends Controller
             $slider->status = $request->status;
 
 
-            if($request->has('file')){
-                foreach($request->file as $file){
+            if($request->has('slider_image')){
+                foreach($request->slider_image as $file){
                     $slider->media_id = $file;
                 } 
             } 
@@ -129,8 +129,8 @@ class SliderController extends Controller
             $slider->status = $request->status;
 
 
-            if($request->has('file')){
-                foreach($request->file as $file){
+            if($request->has('slider_image')){
+                foreach($request->slider_image as $file){
                     $slider->media_id = $file;
                 } 
             }else{

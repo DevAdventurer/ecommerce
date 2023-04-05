@@ -18,7 +18,7 @@ class SiteSettingController extends Controller
      */
     public function index(Request $request)
     {
-        $logo = SiteSetting::latest()->first();
+        $logo = SiteSetting::with(['siteLogo', 'siteFavicon'])->latest()->first();
         return view('admin.site-setting.index',compact('logo'));
     }
 
@@ -35,17 +35,25 @@ class SiteSettingController extends Controller
         $logo->city = $request->city;
         $logo->address = $request->address;
 
-        if($request->hasFile('logo')){
-            $image_name = time()."_logo.".$request->file('logo')->getClientOriginalExtension();
-            $image = $request->file('logo')->storeAs('sitesetting', $image_name);
-            $logo->logo = 'storage/'.$image;
-        } 
 
-        if($request->hasFile('favicon')){
-            $image_name = time()."_favicon.".$request->file('favicon')->getClientOriginalExtension();
-            $image = $request->file('favicon')->storeAs('sitesetting', $image_name);
-            $logo->favicon = 'storage/'.$image;
-        } 
+        if($request->has('logo')){
+            foreach($request->logo as $file){
+                $logo->logo = $file;
+            } 
+        }
+        else{
+            $logo->logo = Null;
+        }  
+
+        if($request->has('favicon')){
+            foreach($request->favicon as $file){
+                $logo->favicon = $file;
+            } 
+        }
+        else{
+            $logo->favicon = Null;
+        }
+
 
        if($logo->save()){ 
             return redirect()->route('admin.site-setting.index')->with(['class'=>'success','message'=>'Site Information Save Successfully.']);

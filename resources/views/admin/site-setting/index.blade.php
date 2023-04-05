@@ -49,28 +49,43 @@
                     <small class="text-danger">{{ $errors->first('description') }}</small>
                 </div>
 
-                <div class="form-group {{ $errors->has('logo') ? ' has-error' : '' }}">
+                
+                <div class="media-area" file-name="logo">
+                    <div class="media-file-value">
+                        @if($logo->logo)
+                            <input type="hidden" name="logo[]" value="{{$logo->logo}}" class="fileid{{$logo->logo}}">
+                        @endif
+                    </div>
+                    <div class="media-file">
+                        @if($logo->logo)
+                            <div class="file-container d-inline-block fileid{{$logo->logo}}">
+                                <span data-id="{{$logo->logo}}" class="remove-file">✕</span>
+                                <img class="w-100 d-block img-thumbnail" src="{{asset($logo->siteLogo->file)}}" alt="{{$logo->title}}">
+                            </div>
+                        @endif
+                    </div>
 
-                    {!! Form::label('logo', 'Logo') !!}
+                    <p><br></p>
+                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Logo</a>
+                </div>
 
-                    {!! Form::file('logo', ['class'=>'dropify','data-default-file'=>asset(@$logo->logo)]) !!}
 
-                    {!! Form::hidden('checkfile',@$logo->logo, ['id' => 'checkfile']) !!}
-
-                    <small class="text-danger">{{ $errors->first('logo') }}</small>
-
-                </div> 
-
-                <div class="form-group {{ $errors->has('favicon') ? ' has-error' : '' }}">
-
-                    {!! Form::label('favicon', 'Favicon Icon') !!}
-
-                    {!! Form::file('favicon', ['class'=>'dropify','data-default-file'=>asset(@$logo->favicon)]) !!}
-
-                    {!! Form::hidden('checkfile',@$logo->favicon, ['id' => 'checkfile']) !!}
-
-                    <small class="text-danger">{{ $errors->first('favicon') }}</small>
-
+                <div class="media-area" file-name="favicon">
+                    <div class="media-file-value">
+                        @if($logo->favicon)
+                            <input type="hidden" name="logo[]" value="{{$logo->favicon}}" class="fileid{{$logo->favicon}}">
+                        @endif
+                    </div>
+                    <div class="media-file">
+                        @if($logo->favicon)
+                            <div class="file-container d-inline-block fileid{{$logo->favicon}}">
+                                <span data-id="{{$logo->favicon}}" class="remove-file">✕</span>
+                                <img class="w-100 d-block img-thumbnail" src="{{asset($logo->siteFavicon->file)}}" alt="{{$logo->title}}">
+                            </div>
+                        @endif
+                    </div>
+                    <p><br></p>
+                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Favicon</a>
                 </div> 
 
             </div>

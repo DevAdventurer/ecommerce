@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Web\ProductController;
+use App\Http\Controllers\Web\FrontendController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,9 +16,7 @@ use App\Http\Controllers\Web\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('web.home');
-});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -38,6 +37,13 @@ Route::name('web.')->group(function() {
     Route::controller(ProductController::class)->group(function(){
         Route::get('product/{product}', 'single')->name('product.single');
         Route::post('product/{product}/variant', 'singleVariant')->name('product.single.variant');
+        
+    });
+
+
+    Route::controller(FrontendController::class)->group(function(){
+        Route::get('/', 'home')->name('home');
+        
     });
 
 });
