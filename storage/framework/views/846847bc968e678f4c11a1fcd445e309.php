@@ -95,6 +95,14 @@
                     <small class="text-danger"><?php echo e($errors->first('button_link')); ?></small>
                 </div>
 
+                <div class="form-group<?php echo e($errors->has('content_align') ? ' has-error' : ''); ?>">
+                    <?php echo Form::label('content_align', 'Content Align'); ?>
+
+                    <?php echo Form::select('content_align', ['justify-content-end'=>'Right', 'justify-content-start'=>'Left'], null, ['id' => 'content_align', 'class' => 'form-control', 'placeholder' => 'Content Align']); ?>
+
+                    <small class="text-danger"><?php echo e($errors->first('content_align')); ?></small>
+                </div>
+
                  <div class="btn-group">
                     <?php echo Form::submit("Save ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']); ?>
 
@@ -109,12 +117,22 @@
             </div>
             <div class="card-body">
 
-                <div class="media-area">
+                <div class="media-area" file-name="slider_image">
                     <div class="media-file-value"></div>
                     <div class="media-file"></div>
                     <p><br></p>
-                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Media File</a>
+                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Image</a>
                 </div>
+
+
+
+                <div class="media-area" file-name="slider_image_small">
+                    <div class="media-file-value"></div>
+                    <div class="media-file"></div>
+                    <p><br></p>
+                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Small Image</a>
+                </div>
+
             </div>
         </div>
 

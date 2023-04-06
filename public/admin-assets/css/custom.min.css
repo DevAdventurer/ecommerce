@@ -127,7 +127,7 @@ table tr {
 .mediaselectionlist label img {
     width: 100%;
     height: 100%;
-    object-fit: none;
+    object-fit: cover;
     background-color: transparent!important;
     border: none;
     padding: 0;
@@ -199,35 +199,10 @@ table tr {
 }
 
 
-.media-area {
-    border: 1px solid #eee;
-    margin-bottom: 12px;
-    padding: 10px;
-    height: 240px;
-    position: relative;
-}
-.select-mediatype {
-    font-size: 16px;
-    position: absolute;
+.variant-container{
     width: 100%;
-    text-align: center;
-    bottom: 0;
-    padding: 8px 0;
+    border-top: 2px dashed #bbbaba;
+    margin-top: 30px;
+    padding-top: 20px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

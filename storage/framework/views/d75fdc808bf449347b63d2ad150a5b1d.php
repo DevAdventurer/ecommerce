@@ -56,12 +56,12 @@
                 
                 <div class="media-area" file-name="logo">
                     <div class="media-file-value">
-                        <?php if($logo->logo): ?>
+                        <?php if($logo->siteLogo): ?>
                             <input type="hidden" name="logo[]" value="<?php echo e($logo->logo); ?>" class="fileid<?php echo e($logo->logo); ?>">
                         <?php endif; ?>
                     </div>
                     <div class="media-file">
-                        <?php if($logo->logo): ?>
+                        <?php if($logo->siteLogo): ?>
                             <div class="file-container d-inline-block fileid<?php echo e($logo->logo); ?>">
                                 <span data-id="<?php echo e($logo->logo); ?>" class="remove-file">✕</span>
                                 <img class="w-100 d-block img-thumbnail" src="<?php echo e(asset($logo->siteLogo->file)); ?>" alt="<?php echo e($logo->title); ?>">
@@ -76,12 +76,12 @@
 
                 <div class="media-area" file-name="favicon">
                     <div class="media-file-value">
-                        <?php if($logo->favicon): ?>
+                        <?php if($logo->siteFavicon): ?>
                             <input type="hidden" name="logo[]" value="<?php echo e($logo->favicon); ?>" class="fileid<?php echo e($logo->favicon); ?>">
                         <?php endif; ?>
                     </div>
                     <div class="media-file">
-                        <?php if($logo->favicon): ?>
+                        <?php if($logo->siteFavicon): ?>
                             <div class="file-container d-inline-block fileid<?php echo e($logo->favicon); ?>">
                                 <span data-id="<?php echo e($logo->favicon); ?>" class="remove-file">✕</span>
                                 <img class="w-100 d-block img-thumbnail" src="<?php echo e(asset($logo->siteFavicon->file)); ?>" alt="<?php echo e($logo->title); ?>">

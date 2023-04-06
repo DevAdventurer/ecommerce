@@ -18,7 +18,7 @@ class SliderController extends Controller
     {
 
         if ($request->ajax()) {
-            $datas = Slider::orderBy('created_at','desc')->with('media')->select(['id','title','body','button_text','button_link','status','media_id','created_at']);
+            $datas = Slider::orderBy('created_at','desc')->with('media', 'smallMedia');
 
 
             $search = $request->search['value'];
@@ -79,11 +79,18 @@ class SliderController extends Controller
             $slider->button_text = $request->button_text;
             $slider->button_link = $request->button_link;
             $slider->status = $request->status;
+            $slider->content_align = $request->content_align;
 
 
             if($request->has('slider_image')){
                 foreach($request->slider_image as $file){
                     $slider->media_id = $file;
+                } 
+            } 
+
+            if($request->has('slider_image_small')){
+                foreach($request->slider_image_small as $file){
+                    $slider->small_media_id = $file;
                 } 
             } 
 
@@ -127,6 +134,7 @@ class SliderController extends Controller
             $slider->button_text = $request->button_text;
             $slider->button_link = $request->button_link;
             $slider->status = $request->status;
+            $slider->content_align = $request->content_align;
 
 
             if($request->has('slider_image')){
@@ -135,7 +143,15 @@ class SliderController extends Controller
                 } 
             }else{
                  $slider->media_id = Null;
-            }  
+            } 
+
+            if($request->has('slider_image_small')){
+                foreach($request->slider_image_small as $file){
+                    $slider->small_media_id = $file;
+                } 
+            }else{
+                $slider->small_media_id = Null;
+            } 
 
             if($slider->save()){ 
                 return redirect()->route('admin.slider.index')->with(['class'=>'success','message'=>'Slider Updated successfully.']);

@@ -52,12 +52,12 @@
                 
                 <div class="media-area" file-name="logo">
                     <div class="media-file-value">
-                        @if($logo->logo)
+                        @if($logo->siteLogo)
                             <input type="hidden" name="logo[]" value="{{$logo->logo}}" class="fileid{{$logo->logo}}">
                         @endif
                     </div>
                     <div class="media-file">
-                        @if($logo->logo)
+                        @if($logo->siteLogo)
                             <div class="file-container d-inline-block fileid{{$logo->logo}}">
                                 <span data-id="{{$logo->logo}}" class="remove-file">✕</span>
                                 <img class="w-100 d-block img-thumbnail" src="{{asset($logo->siteLogo->file)}}" alt="{{$logo->title}}">
@@ -72,12 +72,12 @@
 
                 <div class="media-area" file-name="favicon">
                     <div class="media-file-value">
-                        @if($logo->favicon)
+                        @if($logo->siteFavicon)
                             <input type="hidden" name="logo[]" value="{{$logo->favicon}}" class="fileid{{$logo->favicon}}">
                         @endif
                     </div>
                     <div class="media-file">
-                        @if($logo->favicon)
+                        @if($logo->siteFavicon)
                             <div class="file-container d-inline-block fileid{{$logo->favicon}}">
                                 <span data-id="{{$logo->favicon}}" class="remove-file">✕</span>
                                 <img class="w-100 d-block img-thumbnail" src="{{asset($logo->siteFavicon->file)}}" alt="{{$logo->title}}">

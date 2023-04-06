@@ -234,6 +234,6 @@ class ProductController extends Controller
 
         $start = array_shift($options);
         $matrix = collect($start)->crossJoin(...$options);
-        return view('welcome', compact('matrix'));
+        return view('admin.product.ajax-variant-calculate', compact('matrix'));
     }
 }

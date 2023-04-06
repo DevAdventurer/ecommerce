@@ -84,6 +84,12 @@
                     <small class="text-danger">{{ $errors->first('button_link') }}</small>
                 </div>
 
+                <div class="form-group{{ $errors->has('content_align') ? ' has-error' : '' }}">
+                    {!! Form::label('content_align', 'Content Align') !!}
+                    {!! Form::select('content_align', ['justify-content-end'=>'Right', 'justify-content-start'=>'Left'], $slider->content_align, ['id' => 'content_align', 'class' => 'form-control', 'placeholder' => 'Content Align']) !!}
+                    <small class="text-danger">{{ $errors->first('content_align') }}</small>
+                </div>
+
                  <div class="btn-group">
                     {!! Form::submit("Update ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']) !!}
                 </div>
@@ -101,7 +107,7 @@
 
                     <div class="media-file-value">
                         @if($slider->media)
-                            <input type="hidden" name="file[]" value="{{$slider->media_id}}" class="fileid{{$slider->media_id}}">
+                            <input type="hidden" name="slider_image[]" value="{{$slider->media_id}}" class="fileid{{$slider->media_id}}">
                         @endif
                     </div>
                     <div class="media-file">
@@ -115,7 +121,31 @@
 
 
                     <p><br></p>
-                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Media File</a>
+                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Image</a>
+
+                </div>
+
+
+
+                <div class="media-area" file-name="slider_image_small">
+
+                    <div class="media-file-value">
+                        @if($slider->smallMedia)
+                            <input type="hidden" name="slider_image_small[]" value="{{$slider->small_media_id}}" class="fileid{{$slider->small_media_id}}">
+                        @endif
+                    </div>
+                    <div class="media-file">
+                        @if($slider->smallMedia)
+                            <div class="file-container d-inline-block fileid{{$slider->small_media_id}}">
+                                <span data-id="{{$slider->small_media_id}}" class="remove-file">✕</span>
+                                <img class="w-100 d-block img-thumbnail" src="{{asset($slider->smallMedia->file)}}" alt="{{$slider->smallMedia->name}}">
+                            </div>
+                        @endif
+                    </div>
+
+
+                    <p><br></p>
+                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Small Image</a>
 
                 </div>
 

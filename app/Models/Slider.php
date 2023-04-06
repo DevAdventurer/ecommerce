@@ -14,4 +14,8 @@ class Slider extends Model
         return $this->hasOne(Media::class,'id','media_id');
     }
 
+    public function smallMedia(){
+        return $this->hasOne(Media::class,'id','small_media_id');
+    }
+
 }
