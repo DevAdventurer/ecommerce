@@ -53,34 +53,43 @@
                     <small class="text-danger"><?php echo e($errors->first('description')); ?></small>
                 </div>
 
-                <div class="form-group <?php echo e($errors->has('logo') ? ' has-error' : ''); ?>">
+                
+                <div class="media-area" file-name="logo">
+                    <div class="media-file-value">
+                        <?php if($logo->logo): ?>
+                            <input type="hidden" name="logo[]" value="<?php echo e($logo->logo); ?>" class="fileid<?php echo e($logo->logo); ?>">
+                        <?php endif; ?>
+                    </div>
+                    <div class="media-file">
+                        <?php if($logo->logo): ?>
+                            <div class="file-container d-inline-block fileid<?php echo e($logo->logo); ?>">
+                                <span data-id="<?php echo e($logo->logo); ?>" class="remove-file">✕</span>
+                                <img class="w-100 d-block img-thumbnail" src="<?php echo e(asset($logo->siteLogo->file)); ?>" alt="<?php echo e($logo->title); ?>">
+                            </div>
+                        <?php endif; ?>
+                    </div>
 
-                    <?php echo Form::label('logo', 'Logo'); ?>
-
-
-                    <?php echo Form::file('logo', ['class'=>'dropify','data-default-file'=>asset(@$logo->logo)]); ?>
-
-
-                    <?php echo Form::hidden('checkfile',@$logo->logo, ['id' => 'checkfile']); ?>
-
-
-                    <small class="text-danger"><?php echo e($errors->first('logo')); ?></small>
-
-                </div> 
-
-                <div class="form-group <?php echo e($errors->has('favicon') ? ' has-error' : ''); ?>">
-
-                    <?php echo Form::label('favicon', 'Favicon Icon'); ?>
-
-
-                    <?php echo Form::file('favicon', ['class'=>'dropify','data-default-file'=>asset(@$logo->favicon)]); ?>
+                    <p><br></p>
+                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Logo</a>
+                </div>
 
 
-                    <?php echo Form::hidden('checkfile',@$logo->favicon, ['id' => 'checkfile']); ?>
-
-
-                    <small class="text-danger"><?php echo e($errors->first('favicon')); ?></small>
-
+                <div class="media-area" file-name="favicon">
+                    <div class="media-file-value">
+                        <?php if($logo->favicon): ?>
+                            <input type="hidden" name="logo[]" value="<?php echo e($logo->favicon); ?>" class="fileid<?php echo e($logo->favicon); ?>">
+                        <?php endif; ?>
+                    </div>
+                    <div class="media-file">
+                        <?php if($logo->favicon): ?>
+                            <div class="file-container d-inline-block fileid<?php echo e($logo->favicon); ?>">
+                                <span data-id="<?php echo e($logo->favicon); ?>" class="remove-file">✕</span>
+                                <img class="w-100 d-block img-thumbnail" src="<?php echo e(asset($logo->siteFavicon->file)); ?>" alt="<?php echo e($logo->title); ?>">
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <p><br></p>
+                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Favicon</a>
                 </div> 
 
             </div>

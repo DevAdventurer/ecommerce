@@ -37,8 +37,14 @@ if (!function_exists('cdn')) {
 
 if(!function_exists('get_app_setting')){
     function get_app_setting($setting_type){
-        $setting = App\Models\SiteSetting::latest()->first();
+        $setting = App\Models\SiteSetting::with(['siteLogo','siteFavicon'])->latest()->first();
         if($setting[$setting_type]){
+            if($setting_type == 'logo'){
+                return $setting->siteLogo->file;
+            }
+            if($setting_type == 'favicon'){
+                return $setting->siteFavicon->file;
+            }
             return $setting[$setting_type];
         }
         return "Undefined request";
