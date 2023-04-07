@@ -17,7 +17,7 @@ class BrandController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            $datas = Brand::orderBy('created_at','desc')->select(['id','name','slug','image','created_at']);
+            $datas = Brand::orderBy('created_at','desc')->select(['id','name','slug','media_id','created_at']);
             
             $search = $request->search['value'];
             if ($search) {
@@ -68,10 +68,10 @@ class BrandController extends Controller
         $brand = new Brand;
         $brand->name = $request->name;
 
-        if($request->hasFile('image')){
-            $image_name = time().".".$request->file('image')->getClientOriginalExtension();
-            $image = $request->file('image')->storeAs('brands', $image_name);
-            $brand->image = 'storage/'.$image;
+        if($request->has('brand_image')){
+            foreach($request->brand_image as $file){
+                $brand->media_id = $file;
+            } 
         } 
 
         if($brand->save()){ 
@@ -106,14 +106,14 @@ class BrandController extends Controller
 
         $brand->name = $request->name;
 
-        if($request->checkfile == ''){
-            $brand->image = '';
-        }
+    
 
-        if($request->hasFile('image')){
-            $image_name = time().".".$request->file('image')->getClientOriginalExtension();
-            $image = $request->file('image')->storeAs('brands', $image_name);
-            $brand->image = 'storage/'.$image;
+        if($request->has('brand_image')){
+            foreach($request->brand_image as $file){
+                $brand->media_id = $file;
+            } 
+        }else{
+             $brand->media_id = Null;
         } 
 
         if($brand->save()){ 

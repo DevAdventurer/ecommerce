@@ -39,28 +39,39 @@
             <div class="card-content">
                 <div class="card-body" id="form">
 
-                    <?php echo Form::open(['method' => 'POST', 'route' => 'admin.'.request()->segment(2).'.store', 'class' => 'form-horizontal','files'=>true]); ?>
+                    <?php echo Form::open(['route'=>['admin.'.request()->segment(2).'.update',$brand->id],'method'=>'put', 'class' => 'form-horizontal','files'=>true]); ?>
 
                     
                         <div class="form-group<?php echo e($errors->has('name') ? ' has-error' : ''); ?>">
                             <?php echo Form::label('name', 'Brand Name'); ?>
 
-                            <?php echo Form::text('name', null, ['class' => 'form-control slugify', 'required' => 'required','placeholder'=>'Enter Brand Name']); ?>
+                            <?php echo Form::text('name', $brand->name, ['class' => 'form-control slugify', 'required' => 'required','placeholder'=>'Enter Brand Name']); ?>
 
                             <small class="text-danger"><?php echo e($errors->first('name')); ?></small>
                         </div>
 
                         <div class="form-group">
                             <div class="media-area" file-name="brand_image">
-                                <div class="media-file-value"></div>
-                                <div class="media-file"></div>
+                                <div class="media-file-value">
+                                    <?php if($brand->media): ?>
+                                        <input type="hidden" name="brand_image[]" value="<?php echo e($brand->media_id); ?>" class="fileid<?php echo e($brand->media_id); ?>">
+                                    <?php endif; ?>
+                                </div>
+                                <div class="media-file">
+                                    <?php if($brand->media): ?>
+                                        <div class="file-container d-inline-block fileid<?php echo e($brand->media_id); ?>">
+                                            <span data-id="<?php echo e($brand->media_id); ?>" class="remove-file">✕</span>
+                                            <img class="w-100 d-block img-thumbnail" src="<?php echo e(asset($brand->media->file)); ?>" alt="<?php echo e($brand->media->name); ?>">
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
                                 <p><br></p>
                                 <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Brand Image</a>
                             </div>
                         </div>
                     
                         <div class="btn-group">
-                            <?php echo Form::submit("Save Brand", ['class' => 'btn btn-success btn-border waves-effect waves-light']); ?>
+                            <?php echo Form::submit("Update Brand", ['class' => 'btn btn-success btn-border waves-effect waves-light']); ?>
 
                         </div>
                     
@@ -91,7 +102,7 @@
                                 <th>Image</th>
                                 <th>Slug</th>
                                 <th>Created at</th>
-                                <?php if (\Illuminate\Support\Facades\Blade::check('can', ['edit_brand','delete_brand'])): ?>
+                                <?php if (\Illuminate\Support\Facades\Blade::check('can', ['edit_tag','delete_tag'])): ?>
                                   <th style="width:30px;">Action</th>
                                 <?php endif; ?>
 
@@ -142,18 +153,18 @@ var table2 = $('#dataTableAjax').DataTable({
                 if (type === 'display') {
                     var btn = '<div class="dropdown d-inline-block"><button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="ri-more-fill align-middle"></i></button><ul class="dropdown-menu dropdown-menu-end">';
 
-                    <?php if (\Illuminate\Support\Facades\Blade::check('can', ['edit_brand','delete_brand','read_brand'])): ?>
+                    <?php if (\Illuminate\Support\Facades\Blade::check('can', ['edit_tag','delete_tag','read_tag'])): ?>
 
-                    <?php if (\Illuminate\Support\Facades\Blade::check('can', 'read_brand')): ?>
+                    <?php if (\Illuminate\Support\Facades\Blade::check('can', 'read_tag')): ?>
                     // btn += '<li><a class="dropdown-item" href="<?php echo e(request()->url()); ?>/' + row['id'] + '"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>';
                     <?php endif; ?>
 
-                    <?php if (\Illuminate\Support\Facades\Blade::check('can', 'edit_brand')): ?>
-                        btn+='<li><a class="dropdown-item edit-item-btn" href="'+window.location.href+'/'+row['id']+'/edit"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>';
+                     <?php if (\Illuminate\Support\Facades\Blade::check('can', 'edit_brand')): ?>
+                        btn+='<li><a class="dropdown-item edit-item-btn" href="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>/'+row['id']+'/edit"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>';
                     <?php endif; ?>
 
-                    <?php if (\Illuminate\Support\Facades\Blade::check('can', 'delete_brand')): ?>
-                        btn += '<li><button type="button" onclick="deleteAjax(\''+window.location.href+'/'+row['id']+'/delete\')" class="dropdown-item remove-item-btn"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</button></li>';
+                    <?php if (\Illuminate\Support\Facades\Blade::check('can', 'delete_tag')): ?>
+                        btn += '<li><button type="button" onclick="deleteAjax(\'<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>/'+row['id']+'/delete\')" class="dropdown-item remove-item-btn"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</button></li>';
                     <?php endif; ?>
 
                     <?php endif; ?>
@@ -166,8 +177,14 @@ var table2 = $('#dataTableAjax').DataTable({
     }]
 
 });
+
+$(document).ready(function(){
+    $('.dropify-clear').click(function() {
+        $("#checkfile").val('');
+    });
+});
 </script>
 
 
 <?php $__env->stopPush(); ?>
-<?php echo $__env->make('admin.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/sanix/Documents/ecommerce/resources/views/admin/brand/list.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/sanix/Documents/ecommerce/resources/views/admin/brand/edit.blade.php ENDPATH**/ ?>

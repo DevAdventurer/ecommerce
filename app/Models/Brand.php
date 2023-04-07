@@ -11,6 +11,10 @@ class Brand extends Model
     use HasFactory;
     use Sluggable;
 
+    public function media(){
+        return $this->hasOne(Media::class,'id','media_id');
+    }
+    
     public function sluggable(): array
     {
         return [

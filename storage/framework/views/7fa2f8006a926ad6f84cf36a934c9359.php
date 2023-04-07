@@ -131,7 +131,7 @@
                     </div>
 
                      <div class="btn-group">
-                        <?php echo Form::submit("Save ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']); ?>
+                        <?php echo Form::submit("Update ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-success btn-border waves-effect waves-light']); ?>
 
                     </div>
 
@@ -159,15 +159,15 @@
                 </div>
                 <div class="card-body">
 
-                    <div class="media-area">
+                    <div class="media-area" file-name="file">
 
                         <div class="media-file-value">
-                            <?php if($collection->media_id): ?>
+                            <?php if($collection->media): ?>
                                 <input type="hidden" name="file[]" value="<?php echo e($collection->media_id); ?>" class="fileid<?php echo e($collection->media_id); ?>">
                             <?php endif; ?>
                         </div>
                         <div class="media-file">
-                            <?php if($collection->media_id): ?>
+                            <?php if($collection->media): ?>
                                 <div class="file-container d-inline-block fileid<?php echo e($collection->media_id); ?>">
                                     <span data-id="<?php echo e($collection->media_id); ?>" class="remove-file">✕</span>
                                     <img class="w-100 d-block img-thumbnail" src="<?php echo e(asset($collection->media->file)); ?>" alt="<?php echo e($collection->media->name); ?>">

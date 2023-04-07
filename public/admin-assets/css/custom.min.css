@@ -206,3 +206,49 @@ table tr {
     padding-top: 20px;
 }
 
+span.default-image {
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin: 0 auto;
+    border: 2px dashed #87909b;
+    padding: 4px;
+    margin-top: 15px;
+    border-radius: 4px;
+    float: left;
+}
+span.default-image svg {
+    display: block;
+    margin: 0 auto;
+    fill: #87909b;
+}
+.varinat-images {
+    width: 100%;
+    float: left;
+    border: 1px dashed #87909b;
+    max-height: 160px;
+    overflow: auto;
+    padding: 4px;
+    display: none;
+}
+.varinat-images .media-file img {
+    width: 80px!important;
+    margin: 0;
+    height: 80px;
+    object-fit: contain;
+    float: left;
+    border: 1px solid #eee;
+    padding: 0;
+}
+.varinat-images .file-container span.remove-file{
+    line-height: 16px;
+    width: 16px;
+    height: 16px;
+}
+.varinat-images a.text-secondary.select-mediatype {
+    margin-top: 6px;
+    display: inline-block;
+}
+.tagify.form-control{
+    padding: 0;
+}

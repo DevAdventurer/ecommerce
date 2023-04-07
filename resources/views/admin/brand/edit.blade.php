@@ -47,19 +47,28 @@
                             <small class="text-danger">{{ $errors->first('name') }}</small>
                         </div>
 
-                        <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
-                            {!! Form::label('image', 'Image') !!}
-                            @if($brand->image != '')
-                                {!! Form::file('image', ['class'=>'dropify','data-default-file'=>asset($brand->image)]) !!}
-                            @else
-                                {!! Form::file('image', ['class'=>'dropify']) !!}
-                            @endif
-                            {!! Form::hidden('checkfile',asset($brand->image), ['id' => 'checkfile']) !!}
-                            <small class="text-danger">{{ $errors->first('image') }}</small>
+                        <div class="form-group">
+                            <div class="media-area" file-name="brand_image">
+                                <div class="media-file-value">
+                                    @if($brand->media)
+                                        <input type="hidden" name="brand_image[]" value="{{$brand->media_id}}" class="fileid{{$brand->media_id}}">
+                                    @endif
+                                </div>
+                                <div class="media-file">
+                                    @if($brand->media)
+                                        <div class="file-container d-inline-block fileid{{$brand->media_id}}">
+                                            <span data-id="{{$brand->media_id}}" class="remove-file">✕</span>
+                                            <img class="w-100 d-block img-thumbnail" src="{{asset($brand->media->file)}}" alt="{{$brand->media->name}}">
+                                        </div>
+                                    @endif
+                                </div>
+                                <p><br></p>
+                                <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Brand Image</a>
+                            </div>
                         </div>
                     
                         <div class="btn-group">
-                            {!! Form::submit("Update Brand", ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']) !!}
+                            {!! Form::submit("Update Brand", ['class' => 'btn btn-success btn-border waves-effect waves-light']) !!}
                         </div>
                     
                     {!! Form::close() !!}

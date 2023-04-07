@@ -44,7 +44,7 @@
                         </div>
                     
                         <div class="btn-group">
-                            <?php echo Form::button("Create Tag", ['class' => 'btn btn-soft-success btn-border','onClick'=>'createTag(this)']); ?>
+                            <?php echo Form::button("Create Tag", ['class' => 'btn btn-success btn-border','onClick'=>'createTag(this)']); ?>
 
                         </div>
                     
@@ -152,7 +152,7 @@ var table2 = $('#dataTableAjax').DataTable({
 
 
 
-var createForm = '<form method="POST" action="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>" accept-charset="UTF-8" class="form-horizontal" id="tagForm"><?php echo e(csrf_field()); ?><div class="form-group"><label for="name">Tag Name</label><input class="form-control" required="required" placeholder="Enter Tag Name" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-success btn-border" onclick="createTag(this)" type="button">Create Tag</button></div></form>';
+var createForm = '<form method="POST" action="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>" accept-charset="UTF-8" class="form-horizontal" id="tagForm"><?php echo e(csrf_field()); ?><div class="form-group"><label for="name">Tag Name</label><input class="form-control" required="required" placeholder="Enter Tag Name" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-success btn-border" onclick="createTag(this)" type="button">Create Tag</button></div></form>';
 
 
 
@@ -215,7 +215,7 @@ function editData(url) {
         enctype: 'multipart/form-data',
         url:url+'/edit',
         success:function(response){
-           $('#form').html('<form id="tagForm" method="POST" action="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>" accept-charset="UTF-8"><?php echo e(method_field('PUT')); ?> <?php echo e(csrf_field()); ?><div class="form-group"><label for="name">Tag Name</label><input class="form-control" required="required" value="'+response.data.name+'" placeholder="Enter Tag Name" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-success btn-border" onclick="UpdateTag(this,'+response.data.id+')" type="button">Update Tag</button></div></form>');
+           $('#form').html('<form id="tagForm" method="POST" action="<?php echo e(route('admin.'.request()->segment(2).'.index')); ?>" accept-charset="UTF-8"><?php echo e(method_field('PUT')); ?> <?php echo e(csrf_field()); ?><div class="form-group"><label for="name">Tag Name</label><input class="form-control" required="required" value="'+response.data.name+'" placeholder="Enter Tag Name" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-success btn-border" onclick="UpdateTag(this,'+response.data.id+')" type="button">Update Tag</button></div></form>');
         },
         error:function(error){
             //toastr.error(error.responseJSON.message);  

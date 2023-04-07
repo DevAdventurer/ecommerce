@@ -11,6 +11,10 @@ class Product extends Model
     use HasFactory;
     use Sluggable;
 
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
     public function sluggable(): array
     {
         return [

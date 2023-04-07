@@ -18,7 +18,7 @@ class BrandResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'image' => $this->image?'<img style="height:45px;width:45px;" src="'.asset($this->image).'">':'N/A',
+             'image' => $this->media?'<img class="img-thumbnail avatar-img rounded avatar-sm" src="'.asset($this->media->file).'">':'N/A',
             'created_at' => $this->created_at->format('d M Y'),
         ];
     }

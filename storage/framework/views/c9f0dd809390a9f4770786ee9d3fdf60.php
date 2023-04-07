@@ -35,9 +35,7 @@
 </div>
 <!-- end page title -->
 
-<?php echo Form::open(['method' => 'POST', 'route' => 'admin.'.request()->segment(2).'.store', 'class' => 'form-horizontal','files'=>true, 'id'=>'productForm']); ?>
-
-
+<?php echo Form::open(['method' => 'PUT', 'route'=>['admin.'.request()->segment(2).'.update',$product->id], 'class' => 'form-horizontal','files'=>true, 'id'=>'productForm']); ?>
 
 
 <div class="row my-1">
@@ -49,7 +47,7 @@
                 <div class="form-group<?php echo e($errors->has('title') ? ' has-error' : ''); ?>">
                     <?php echo Form::label('title', 'Product Title'); ?>
 
-                    <?php echo Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Product Title']); ?>
+                    <?php echo Form::text('title', $product->title, ['class' => 'form-control', 'placeholder' => 'Product Title']); ?>
 
                     <small class="text-danger"><?php echo e($errors->first('title')); ?></small>
                 </div>
@@ -58,7 +56,7 @@
                 <div class="form-group<?php echo e($errors->has('description') ? ' has-error' : ''); ?>">
                     <?php echo Form::label('description', 'Description'); ?>
 
-                    <?php echo Form::textarea('description', null, ['class' => 'editor form-control']); ?>
+                    <?php echo Form::textarea('description', $product->description, ['class' => 'editor form-control']); ?>
 
                     <small class="text-danger"><?php echo e($errors->first('description')); ?></small>
                 </div>
@@ -66,7 +64,7 @@
                 <div class="form-group<?php echo e($errors->has('short_description') ? ' has-error' : ''); ?>">
                     <?php echo Form::label('short_description', 'Short Description'); ?>
 
-                    <?php echo Form::textarea('short_description', null, ['class' => 'editor form-control']); ?>
+                    <?php echo Form::textarea('short_description', $product->short_description, ['class' => 'editor form-control']); ?>
 
                     <small class="text-danger"><?php echo e($errors->first('short_description')); ?></small>
                 </div>
@@ -241,7 +239,7 @@
         <div class="form-group<?php echo e($errors->has('meta_title') ? ' has-error' : ''); ?>">
             <?php echo Form::label('meta_title', 'Meta Title'); ?>
 
-            <?php echo Form::text('meta_title', null, ['class' => 'form-control', 'placeholder' => 'Meta Title']); ?>
+            <?php echo Form::text('meta_title', $product->meta_title, ['class' => 'form-control', 'placeholder' => 'Meta Title']); ?>
 
             <small class="text-danger"><?php echo e($errors->first('meta_title')); ?></small>
         </div>
@@ -249,7 +247,7 @@
         <div class="form-group<?php echo e($errors->has('meta_description') ? ' has-error' : ''); ?>">
             <?php echo Form::label('meta_description', 'Meta Description'); ?>
 
-            <?php echo Form::textarea('meta_description', null, ['class' => 'form-control', 'placeholder' => 'Meta Description']); ?>
+            <?php echo Form::textarea('meta_description', $product->meta_description, ['class' => 'form-control', 'placeholder' => 'Meta Description']); ?>
 
             <small class="text-danger"><?php echo e($errors->first('meta_description')); ?></small>
         </div>
@@ -271,7 +269,7 @@
                             <div class="form-group<?php echo e($errors->has('status') ? ' has-error' : ''); ?>">
                                 <?php echo Form::label('status', 'Select Status'); ?>
 
-                                <?php echo Form::select('status', [0=>'Draft', 1=>'Publish'], null, ['id' => 'my_status', 'class' => 'form-control get_category_list', 'placeholder' => 'Select status',]); ?>
+                                <?php echo Form::select('status', [0=>'Draft', 1=>'Publish'], $product->status, ['id' => 'my_status', 'class' => 'form-control get_category_list', 'placeholder' => 'Select status',]); ?>
 
                                 <small class="text-danger"><?php echo e($errors->first('status')); ?></small>
                             </div>
@@ -280,7 +278,9 @@
                             <div class="form-group<?php echo e($errors->has('published_date') ? ' has-error' : ''); ?>">
                                 <?php echo Form::label('published_date', 'Publish Date'); ?>
 
-                                <?php echo Form::text('published_date', null, ['class' => 'dateSelector form-control', 'placeholder' => 'Publish Date']); ?>
+                                <?php echo e($product->published_at->format('Y-m-d')); ?>
+
+                                <?php echo Form::text('published_date', $product->published_at->format('d-m-y'), ['class' => 'dateSelector form-control', 'placeholder' => 'Publish Date']); ?>
 
                                 <small class="text-danger"><?php echo e($errors->first('published_date')); ?></small>
                             </div>
@@ -307,7 +307,7 @@
                             <div class="form-group<?php echo e($errors->has('brand') ? ' has-error' : ''); ?>">
                                 <?php echo Form::label('brand', 'Brand'); ?>
 
-                                <?php echo Form::select('brand', App\Models\Brand::pluck('name','id'), null, ['id' => 'brand', 'class' => 'form-control', 'placeholder' => 'Select Brand']); ?>
+                                <?php echo Form::select('brand', App\Models\Brand::pluck('name','id'), $product->brand_id, ['id' => 'brand', 'class' => 'form-control', 'placeholder' => 'Select Brand']); ?>
 
                                 <small class="text-danger"><?php echo e($errors->first('brand')); ?></small>
                             </div>
@@ -315,7 +315,7 @@
                             <div class="form-group<?php echo e($errors->has('product_type') ? ' has-error' : ''); ?>">
                                 <?php echo Form::label('product_type', 'Product Type'); ?>
 
-                                <?php echo Form::select('product_type', App\Models\ProductType::pluck('name', 'id'), null, ['id' => 'product_type', 'class' => 'form-control', 'placeholder' => 'Select Product Type']); ?>
+                                <?php echo Form::select('product_type', App\Models\ProductType::pluck('name', 'id'), $product->product_type_id, ['id' => 'product_type', 'class' => 'form-control', 'placeholder' => 'Select Product Type']); ?>
 
                                 <small class="text-danger"><?php echo e($errors->first('product_type')); ?></small>
                             </div>
@@ -324,7 +324,7 @@
                             <div class="form-group<?php echo e($errors->has('vendor') ? ' has-error' : ''); ?>">
                                 <?php echo Form::label('vendor', 'Vendor'); ?>
 
-                                <?php echo Form::select('vendor', App\Models\Vendor::pluck('name', 'id'), null, ['id' => 'vendor', 'class' => 'form-control', 'placeholder' => 'Select Vendor']); ?>
+                                <?php echo Form::select('vendor', App\Models\Vendor::pluck('name', 'id'), $product->vendor_id, ['id' => 'vendor', 'class' => 'form-control', 'placeholder' => 'Select Vendor']); ?>
 
                                 <small class="text-danger"><?php echo e($errors->first('vendor')); ?></small>
                             </div>
@@ -340,7 +340,7 @@
                             <div class="form-group<?php echo e($errors->has('collections') ? ' has-error' : ''); ?>">
                                 <?php echo Form::label('collections', 'Select Collection'); ?>
 
-                                <?php echo Form::select('collections[]', App\Models\Collection::pluck('title','id'), null, ['id' => 'collections','data-placeholder'=>'Select Collection', 'class' => 'form-control js-example-basic-multiple',  'multiple']); ?>
+                                <?php echo Form::select('collections[]', App\Models\Collection::pluck('title','id'), $product->collections, ['id' => 'collections','data-placeholder'=>'Select Collection', 'class' => 'form-control js-example-basic-multiple',  'multiple']); ?>
 
                                 <small class="text-danger"><?php echo e($errors->first('collections')); ?></small>
                             </div>
@@ -349,7 +349,7 @@
                             <div class="form-group<?php echo e($errors->has('tags') ? ' has-error' : ''); ?>">
                                 <?php echo Form::label('tags', 'Select Tag'); ?>
 
-                                <?php echo Form::select('tags[]', App\Models\Tag::pluck('name','id'), null, ['id' => 'tags','data-placeholder'=>'Select Tag', 'class' => 'form-control js-example-basic-multiple',  'multiple']); ?>
+                                <?php echo Form::select('tags[]', App\Models\Tag::pluck('name','id'), $product->tags, ['id' => 'tags','data-placeholder'=>'Select Tag', 'class' => 'form-control js-example-basic-multiple',  'multiple']); ?>
 
                                 <small class="text-danger"><?php echo e($errors->first('tags')); ?></small>
                             </div>
@@ -361,30 +361,10 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <div class="form-group<?php echo e($errors->has('price') ? ' has-error' : ''); ?>">
-                                <?php echo Form::label('price', 'Price'); ?>
-
-                                <?php echo Form::text('price', null, ['class' => 'form-control', 'placeholder' => 'Price']); ?>
-
-                                <small class="text-danger"><?php echo e($errors->first('price')); ?></small>
-                            </div>
-
-                            <div class="form-group<?php echo e($errors->has('sale_price') ? ' has-error' : ''); ?>">
-                                <?php echo Form::label('sale_price', 'Sale Price'); ?>
-
-                                <?php echo Form::text('sale_price', null, ['class' => 'form-control', 'placeholder' => 'Sale Price']); ?>
-
-                                <small class="text-danger"><?php echo e($errors->first('sale_price')); ?></small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
                             <div class="form-group<?php echo e($errors->has('product_selectio_type') ? ' has-error' : ''); ?>">
                                 <?php echo Form::label('product_selectio_type', 'Product Selection Type'); ?>
 
-                                <?php echo Form::select('product_selectio_type', ['simple'=>'Simple Product', 'variant'=>'Variant Product'], 'simple', ['id' => 'product_selectio_type', 'class' => 'form-control', 'required' => 'required', 'placeholder'=>'Product Selection Type', 'onchange'=>'productSelection($(this))']); ?>
+                                <?php echo Form::select('product_selectio_type', ['simple'=>'Simple Product', 'variant'=>'Variant Product'], $product->product_selectio_type, ['id' => 'product_selectio_type', 'class' => 'form-control', 'required' => 'required', 'placeholder'=>'Product Selection Type', 'onchange'=>'productSelection($(this))']); ?>
 
                                 <small class="text-danger"><?php echo e($errors->first('product_selectio_type')); ?></small>
                             </div>
@@ -428,11 +408,9 @@
 
         });
 
-
-
-                    $(".dateSelector").flatpickr({
-                        dateFormat: "d F Y",
-                    });
+            $(".dateSelector").flatpickr({
+                dateFormat: "d-m-Y",
+            });
 
                 });
 
@@ -524,4 +502,4 @@
 
 
             <?php $__env->stopPush(); ?>
-<?php echo $__env->make('admin.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/sanix/Documents/ecommerce/resources/views/admin/product/create.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/sanix/Documents/ecommerce/resources/views/admin/product/edit.blade.php ENDPATH**/ ?>

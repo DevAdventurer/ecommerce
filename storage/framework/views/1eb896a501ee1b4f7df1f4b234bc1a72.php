@@ -124,7 +124,7 @@
                     </div>
 
                      <div class="btn-group">
-                        <?php echo Form::submit("Save ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']); ?>
+                        <?php echo Form::submit("Save ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-success btn-border waves-effect waves-light']); ?>
 
                     </div>
 
@@ -155,11 +155,11 @@
                 </div>
                 <div class="card-body">
 
-                    <div class="media-area">
+                    <div class="media-area" file-name="file">
                         <div class="media-file-value"></div>
                         <div class="media-file"></div>
                         <p><br></p>
-                        <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='multiple' onclick="loadMediaFiles($(this))">Select Media File</a>
+                        <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Media File</a>
                     </div>
                 </div>
             </div>

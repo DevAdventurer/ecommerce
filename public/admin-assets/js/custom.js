@@ -76,3 +76,9 @@ handleErrors = function(error, options={}) {
 // document.querySelector('.slugify').addEventListener('change', function() {
 //     console.log('You selected: ', this.value);
 // });
+
+
+$('body').on('click', '.default-image', function(){
+    var image_class = $(this).attr('data-image');
+    $('.'+image_class).slideToggle();
+})

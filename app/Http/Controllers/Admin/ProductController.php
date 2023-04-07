@@ -12,6 +12,7 @@ use App\Models\OptionValue;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\Tag;
+use App\Models\ProductMedia;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -84,50 +85,71 @@ class ProductController extends Controller
         $product->meta_title = $request->meta_title;
         $product->meta_description = $request->meta_description;
 
-        if($request->hasFile('featured_image')){
-            $image_name = time().".".$request->file('featured_image')->getClientOriginalExtension();
-            $image = $request->file('featured_image')->storeAs('products', $image_name);
-            $product->featured_image = 'storage/'.$image;
-        }  
-
-        
 
 
         if($product->save()){ 
             $product->collections()->sync($request->collections);
             $product->tags()->sync($request->tags);
 
-            $inputs = $request->input('group-a');
-            foreach ($inputs as $input) {
-                $option  = new Option;
-                $option->product_id = $product->id;
-                $option->name = $input['option'];
-                if($option->save()){
-                    $option_vals = explode(',', $input['option_value']);
-                    foreach ($option_vals as $option_val) {
-                        $option_value  = new OptionValue;
-                        $option_value->product_id = $product->id;
-                        $option_value->option_id = $option->id;
-                        $option_value->option_value = $option_val;
-                        $option_value->save();
+            if($request->product_selectio_type == 'variant'){
+
+                $inputs = $request->input('group-a');
+                foreach ($inputs as $input) {
+                    $option  = new Option;
+                    $option->product_id = $product->id;
+                    $option->name = $input['option'];
+                    if($option->save()){
+                        $option_vals = explode(',', $input['option_value']);
+                        foreach ($option_vals as $option_val) {
+                            $option_value  = new OptionValue;
+                            $option_value->product_id = $product->id;
+                            $option_value->option_id = $option->id;
+                            $option_value->option_value = $option_val;
+                            $option_value->save();
+                        }
                     }
+                    
                 }
-                
+
+                $variants = $request->input('variants');
+                foreach ($variants as $variant) {
+
+                    $product_variant = new ProductVariant;
+                    $product_variant->product_id = $product->id;
+                    $product_variant->variant = $variant['value'];
+                    $product_variant->sku = $variant['sku'];
+                    $product_variant->variant_price = $variant['variant_price'];
+                    $product_variant->variant_sale_price = $variant['variant_sale_price'];
+                    $product_variant->stock = $variant['quantity_on_hand'];
+                    $product_variant->available_stock = $variant['quantity_available'];
+                    $product_variant->save();
+
+                }
             }
 
-            $variants = $request->input('variants');
-            foreach ($variants as $variant) {
 
-                $product_variant = new ProductVariant;
-                $product_variant->product_id = $product->id;
-                $product_variant->variant = $variant['value'];
-                $product_variant->sku = $variant['sku'];
-                $product_variant->variant_price = $variant['variant_price'];
-                $product_variant->variant_sale_price = $variant['variant_sale_price'];
-                $product_variant->stock = $variant['quantity_on_hand'];
-                $product_variant->available_stock = $variant['quantity_available'];
-                $product_variant->save();
+            if($request->product_selectio_type == 'simple'){ 
 
+                $option  = new Option;
+                $option->product_id = $product->id;
+                $option->name = 'Default Option';
+                if($option->save()){
+                    $option_value  = new OptionValue;
+                    $option_value->product_id = $product->id;
+                    $option_value->option_id = $option->id;
+                    $option_value->option_value = 'Default Title';
+                    $option_value->save();
+                }
+
+                if($request->has('product_images')){
+                    foreach($request->product_images as $file){
+                        $product_image = new ProductMedia;
+                        $product_image->media_id = $file;
+                        $product_image->product_id = $product->id;
+                        $product_image->option_value_id = $option_value->id;
+                        $product_image->save();
+                    } 
+                }
             }
             
 
@@ -158,7 +180,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::with('tags','categories')->where('id',$id)->first();
+        $product = Product::with('tags','collections','brand','vendor','productType')->where('id',$id)->first();
         return view('admin.product.edit',compact('product'));
     }
 

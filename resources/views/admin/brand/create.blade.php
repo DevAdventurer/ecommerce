@@ -84,14 +84,11 @@
                         <small class="text-danger">{{ $errors->first('status') }}</small>
                     </div>
 
-                  <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
-
-                            {!! Form::label('image', 'Slider Image') !!}
-
-                            {!! Form::file('image', ['class'=>'dropify']) !!}
-
-                            <small class="text-danger">{{ $errors->first('image') }}</small>
-
+                    <div class="media-area" file-name="brand_image">
+                        <div class="media-file-value"></div>
+                        <div class="media-file"></div>
+                        <p><br></p>
+                        <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Brand Image</a>
                     </div>
                 </div>
             </div>

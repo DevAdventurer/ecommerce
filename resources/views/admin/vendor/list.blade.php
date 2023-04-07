@@ -42,7 +42,7 @@
                         </div>
                     
                         <div class="btn-group">
-                            {!! Form::button("Save Vendor", ['class' => 'btn btn-soft-success btn-border','onClick'=>'createVendor(this)']) !!}
+                            {!! Form::button("Save Vendor", ['class' => 'btn btn-success btn-border','onClick'=>'createVendor(this)']) !!}
                         </div>
                     
                     {!! Form::close() !!}
@@ -148,7 +148,7 @@ var table2 = $('#dataTableAjax').DataTable({
 
 
 
-var createForm = '<form method="POST" action="{{ route('admin.'.request()->segment(2).'.index') }}" accept-charset="UTF-8" class="form-horizontal" id="vendorForm">{{csrf_field()}}<div class="form-group"><label for="name">Vendor Name</label><input class="form-control" required="required" placeholder="Enter Vendor Name" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-success btn-border" onclick="createVendor(this)" type="button">Save Vendor</button></div></form>';
+var createForm = '<form method="POST" action="{{ route('admin.'.request()->segment(2).'.index') }}" accept-charset="UTF-8" class="form-horizontal" id="vendorForm">{{csrf_field()}}<div class="form-group"><label for="name">Vendor Name</label><input class="form-control" required="required" placeholder="Enter Vendor Name" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-success btn-border" onclick="createVendor(this)" type="button">Save Vendor</button></div></form>';
 
 
 
@@ -211,7 +211,7 @@ function editData(url) {
         enctype: 'multipart/form-data',
         url:url+'/edit',
         success:function(response){
-           $('#form').html('<form id="vendorForm" method="POST" action="{{ route('admin.'.request()->segment(2).'.index') }}" accept-charset="UTF-8">{{method_field('PUT')}} {{csrf_field()}}<div class="form-group"><label for="name">Vendor Name</label><input class="form-control" required="required" value="'+response.data.name+'" placeholder="Enter Vendor Name" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-soft-success btn-border" onclick="UpdateVendor(this,'+response.data.id+')" type="button">Update Vendor</button></div></form>');
+           $('#form').html('<form id="vendorForm" method="POST" action="{{ route('admin.'.request()->segment(2).'.index') }}" accept-charset="UTF-8">{{method_field('PUT')}} {{csrf_field()}}<div class="form-group"><label for="name">Vendor Name</label><input class="form-control" required="required" value="'+response.data.name+'" placeholder="Enter Vendor Name" name="name" type="text" id="name"><small class="text-danger"></small></div><div class="btn-group"><button class="btn btn-success btn-border" onclick="UpdateVendor(this,'+response.data.id+')" type="button">Update Vendor</button></div></form>');
         },
         error:function(error){
             //toastr.error(error.responseJSON.message);  

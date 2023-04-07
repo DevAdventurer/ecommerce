@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 05, 2023 at 11:52 AM
+-- Generation Time: Apr 07, 2023 at 02:23 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -89,6 +89,8 @@ CREATE TABLE `admin_password_resets` (
 
 INSERT INTO `admin_password_resets` (`email`, `token`, `created_at`) VALUES
 ('asifjamal@yopmail.com', '$2y$10$J/boDihlUPMgBF7L2uPVjeaYlLxKjQ4Ifo25TfhwBOt3UCix0kkYm', '2019-06-16 12:06:57'),
+('asif.sanix@gmail.com', '$2y$10$cNoidIFR/27b5zYgCugNGeto1P2Dr0uHNen4gUahwteuP1vCgURlm', '2019-08-08 06:19:27'),
+('asifjamal@yopmail.com', '$2y$10$J/boDihlUPMgBF7L2uPVjeaYlLxKjQ4Ifo25TfhwBOt3UCix0kkYm', '2019-06-16 12:06:57'),
 ('asif.sanix@gmail.com', '$2y$10$cNoidIFR/27b5zYgCugNGeto1P2Dr0uHNen4gUahwteuP1vCgURlm', '2019-08-08 06:19:27');
 
 -- --------------------------------------------------------
@@ -101,7 +103,7 @@ CREATE TABLE `brands` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
+  `media_id` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -111,8 +113,9 @@ CREATE TABLE `brands` (
 -- Dumping data for table `brands`
 --
 
-INSERT INTO `brands` (`id`, `name`, `slug`, `image`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Adidas', 'adidas', 'storage/brands/1680327039.png', '2023-04-01 05:30:39', '2023-04-01 05:30:39', NULL);
+INSERT INTO `brands` (`id`, `name`, `slug`, `media_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Relaxo', 'relaxo', 5, '2023-04-07 09:43:27', '2023-04-07 09:50:31', NULL),
+(2, 'Raymond', 'raymond', 6, '2023-04-07 09:45:54', '2023-04-07 09:45:54', NULL);
 
 -- --------------------------------------------------------
 
@@ -141,8 +144,10 @@ CREATE TABLE `collections` (
 --
 
 INSERT INTO `collections` (`id`, `parent`, `media_id`, `title`, `slug`, `body`, `status`, `meta_title`, `meta_description`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, NULL, 26, 'Men', 'men', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 1, 'Men', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.', '2023-01-01', '2023-04-01 05:22:11', '2023-04-05 06:14:34', NULL),
-(2, NULL, 14, 'Women', 'women', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 1, 'Women', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,', '2023-01-01', '2023-04-01 05:23:22', '2023-04-05 05:17:56', NULL);
+(1, NULL, 1, 'Best Sellers', 'best-sellers', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', 1, 'Best Sellers', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.', '2023-04-01', '2023-04-07 09:22:08', '2023-04-07 09:22:08', NULL),
+(2, NULL, 2, 'New Arrival', 'new-arrival', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.', 1, 'New Arrival', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.', '2023-04-01', '2023-04-07 09:25:28', '2023-04-07 09:25:28', NULL),
+(3, NULL, NULL, 'Shoes', 'shoes', NULL, 1, 'Shoes', NULL, '2023-04-08', '2023-04-07 09:33:27', '2023-04-07 09:33:27', NULL),
+(4, NULL, NULL, 'Sneakers', 'sneakers', NULL, 1, 'Sneakers', NULL, '2023-04-01', '2023-04-07 09:34:23', '2023-04-07 09:34:23', NULL);
 
 -- --------------------------------------------------------
 
@@ -168,26 +173,12 @@ CREATE TABLE `medias` (
 --
 
 INSERT INTO `medias` (`id`, `file`, `name`, `slug`, `type`, `original_name`, `handle`, `size`, `created_at`, `updated_at`) VALUES
-(13, 'storage/media/group-3934-7.png', 'Group 3934 (7)', 'group-3934-7', 'png', 'Group 3934 (7).png', 'group-3934-7', '201.56 KB', '2023-04-04 06:53:04', '2023-04-04 06:53:04'),
-(14, 'storage/media/group-3934-8.png', 'Group 3934 (8)', 'group-3934-8', 'png', 'Group 3934 (8).png', 'group-3934-8', '185.21 KB', '2023-04-04 06:53:19', '2023-04-04 06:53:19'),
-(15, 'storage/media/group-3934-8-2.png', 'Group 3934 (8)', 'group-3934-8-2', 'png', 'Group 3934 (8).png', 'group-3934-8', '185.21 KB', '2023-04-04 06:59:08', '2023-04-04 06:59:08'),
-(16, 'storage/media/group-3934-7-2.png', 'Group 3934 (7)', 'group-3934-7-2', 'png', 'Group 3934 (7).png', 'group-3934-7', '201.56 KB', '2023-04-04 06:59:08', '2023-04-04 06:59:08'),
-(17, 'storage/media/accessories.png', 'accessories', 'accessories', 'png', 'accessories.png', 'accessories', '67.93 KB', '2023-04-05 00:41:15', '2023-04-05 00:41:15'),
-(18, 'storage/media/healthcare-bears.png', 'healthcare-bears', 'healthcare-bears', 'png', 'healthcare-bears.png', 'healthcare-bears', '1.84 MB', '2023-04-05 00:41:15', '2023-04-05 00:41:15'),
-(19, 'storage/media/first-responder-bears.png', 'first-responder-bears', 'first-responder-bears', 'png', 'first-responder-bears.png', 'first-responder-bears', '66.48 KB', '2023-04-05 00:41:15', '2023-04-05 00:41:15'),
-(20, 'storage/media/military-bears.png', 'military-bears', 'military-bears', 'png', 'military-bears.png', 'military-bears', '82.53 KB', '2023-04-05 00:41:15', '2023-04-05 00:41:15'),
-(21, 'storage/media/glemorg.png', 'glemorg', 'glemorg', 'png', 'glemorg.png', 'glemorg', '12.09 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
-(22, 'storage/media/adidas-logo-svg.png', 'Adidas_Logo.svg', 'adidas-logo-svg', 'png', 'Adidas_Logo.svg.png', 'adidas-logosvg', '34.03 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
-(23, 'storage/media/group-3934-6.png', 'Group 3934 (6)', 'group-3934-6', 'png', 'Group 3934 (6).png', 'group-3934-6', '130.96 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
-(24, 'storage/media/group-3934-5.png', 'Group 3934 (5)', 'group-3934-5', 'png', 'Group 3934 (5).png', 'group-3934-5', '174.79 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
-(25, 'storage/media/group-3934-4.png', 'Group 3934 (4)', 'group-3934-4', 'png', 'Group 3934 (4).png', 'group-3934-4', '142.47 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
-(26, 'storage/media/group-3934-2.png', 'Group 3934 (2)', 'group-3934-2', 'png', 'Group 3934 (2).png', 'group-3934-2', '188.08 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
-(27, 'storage/media/group-3934-1.png', 'Group 3934 (1)', 'group-3934-1', 'png', 'Group 3934 (1).png', 'group-3934-1', '120.92 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
-(28, 'storage/media/group-3934.png', 'Group 3934', 'group-3934', 'png', 'Group 3934.png', 'group-3934', '187.87 KB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
-(29, 'storage/media/gifting-moonie.png', 'GIFTING-MOONIE', 'gifting-moonie', 'png', 'GIFTING-MOONIE.png', 'gifting-moonie', '1.66 MB', '2023-04-05 00:41:48', '2023-04-05 00:41:48'),
-(30, 'storage/media/f1.jpg', 'f1', 'f1', 'jpg', 'f1.jpg', 'f1', '170.88 KB', '2023-04-05 03:46:46', '2023-04-05 03:46:46'),
-(31, 'storage/media/f2.jpg', 'f2', 'f2', 'jpg', 'f2.jpg', 'f2', '236.81 KB', '2023-04-05 04:07:30', '2023-04-05 04:07:30'),
-(32, 'storage/media/logo.png', 'logo', 'logo', 'png', 'logo.png', 'logo', '1.21 KB', '2023-04-05 04:08:57', '2023-04-05 04:08:57');
+(1, 'storage/media/14449322-5464026.jpg', '14449322_5464026', '14449322-5464026', 'jpg', '14449322_5464026.jpg', '14449322-5464026', '253.21 KB', '2023-04-07 03:51:55', '2023-04-07 03:51:55'),
+(2, 'storage/media/display-stand-design-witn-new-arrival-3d-rendering-118019-1433-2.jpg', 'display-stand-design-witn-new-arrival-3d-rendering_118019-1433 (2)', 'display-stand-design-witn-new-arrival-3d-rendering-118019-1433-2', 'jpg', 'display-stand-design-witn-new-arrival-3d-rendering_118019-1433 (2).jpg', 'display-stand-design-witn-new-arrival-3d-rendering-118019-1433-2', '45.01 KB', '2023-04-07 03:55:21', '2023-04-07 03:55:21'),
+(3, 'storage/media/logo1.png', 'logo1', 'logo1', 'png', 'logo1.png', 'logo1', '2.09 KB', '2023-04-07 04:01:58', '2023-04-07 04:01:58'),
+(4, 'storage/media/logo1-1.png', 'logo1 (1)', 'logo1-1', 'png', 'logo1 (1).png', 'logo1-1', '484 B', '2023-04-07 04:02:02', '2023-04-07 04:02:02'),
+(5, 'storage/media/download.jpeg', 'download', 'download', 'jpeg', 'download.jpeg', 'download', '1.7 KB', '2023-04-07 04:12:27', '2023-04-07 04:12:27'),
+(6, 'storage/media/download-2.png', 'download', 'download-2', 'png', 'download.png', 'download', '1.71 KB', '2023-04-07 04:15:48', '2023-04-07 04:15:48');
 
 -- --------------------------------------------------------
 
@@ -245,11 +236,9 @@ CREATE TABLE `options` (
 --
 
 INSERT INTO `options` (`id`, `product_id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Size', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(2, 1, 'Color', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(3, 2, 'Size', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(4, 2, 'Color', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(5, 2, 'Material', '2023-04-04 08:50:11', '2023-04-04 08:50:11');
+(1, 1, 'Default Option', '2023-04-07 11:30:20', '2023-04-07 11:30:20'),
+(2, 2, 'Default Option', '2023-04-07 11:33:51', '2023-04-07 11:33:51'),
+(3, 3, 'Default Option', '2023-04-07 11:35:52', '2023-04-07 11:35:52');
 
 -- --------------------------------------------------------
 
@@ -271,19 +260,9 @@ CREATE TABLE `option_values` (
 --
 
 INSERT INTO `option_values` (`id`, `product_id`, `option_id`, `option_value`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'L', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(2, 1, 1, 'M', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(3, 1, 2, 'Red', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(4, 1, 2, 'Green', '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(5, 2, 3, 'S', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(6, 2, 3, 'M', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(7, 2, 3, 'L', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(8, 2, 3, 'XL', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(9, 2, 4, 'Red', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(10, 2, 4, 'Green', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(11, 2, 4, 'Blue', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(12, 2, 5, 'Wool', '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(13, 2, 5, 'Cottom', '2023-04-04 08:50:11', '2023-04-04 08:50:11');
+(1, 1, 1, 'Default Title', '2023-04-07 11:30:20', '2023-04-07 11:30:20'),
+(2, 2, 2, 'Default Title', '2023-04-07 11:33:51', '2023-04-07 11:33:51'),
+(3, 3, 3, 'Default Title', '2023-04-07 11:35:52', '2023-04-07 11:35:52');
 
 -- --------------------------------------------------------
 
@@ -413,8 +392,7 @@ CREATE TABLE `products` (
   `short_description` text DEFAULT NULL,
   `featured_image` varchar(255) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
-  `price` decimal(10,2) DEFAULT NULL,
-  `sale_price` decimal(10,2) DEFAULT NULL,
+  `product_selectio_type` varchar(255) DEFAULT NULL,
   `tax_id` int(11) DEFAULT NULL,
   `meta_title` varchar(255) DEFAULT NULL,
   `meta_description` text DEFAULT NULL,
@@ -428,9 +406,10 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `brand_id`, `product_type_id`, `vendor_id`, `title`, `slug`, `body`, `short_description`, `featured_image`, `status`, `price`, `sale_price`, `tax_id`, `meta_title`, `meta_description`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 1, 'Test Product', 'test-product', '<p>Hello World</p>', '<p>Short Deskription</p>', 'storage/products/1680550453.jpg', 1, '900.00', '1500.00', NULL, 'Test Product', 'Hello World', '2023-04-01', '2023-04-03 19:34:13', '2023-04-03 19:34:13', NULL),
-(2, 1, 2, 2, 'New Product', 'new-product', '<p>Hello World</p>', '<p>New Product<br></p>', 'storage/products/1680598211.png', 1, '599.00', '1200.00', NULL, 'New Product', 'New Product', '2023-04-01', '2023-04-04 08:50:11', '2023-04-04 08:50:11', NULL);
+INSERT INTO `products` (`id`, `brand_id`, `product_type_id`, `vendor_id`, `title`, `slug`, `body`, `short_description`, `featured_image`, `status`, `product_selectio_type`, `tax_id`, `meta_title`, `meta_description`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 4, 13, 'Test Preoduct', 'test-preoduct', '<p style=\"margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p><div><br></div>', '<p style=\"margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.&nbsp;</p>', NULL, 1, NULL, NULL, 'test', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters', '2023-04-06', '2023-04-07 11:30:20', '2023-04-07 11:30:20', NULL),
+(2, 1, 2, 5, 'fgddfgh', 'fgddfgh', '<p style=\"margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p><div><br></div>', '<p style=\"margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p><div><br></div>', NULL, 1, NULL, NULL, 'gghghnj', 'ghngmgm', '2023-04-01', '2023-04-07 11:33:51', '2023-04-07 11:33:51', NULL),
+(3, 1, 2, 5, 'fgddfgh', 'fgddfgh-2', '<p style=\"margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p><div><br></div>', '<p style=\"margin-right: 0px; margin-bottom: 15px; margin-left: 0px; padding: 0px; text-align: justify; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p><div><br></div>', NULL, 1, NULL, NULL, 'gghghnj', 'ghngmgm', '2023-04-01', '2023-04-07 11:35:52', '2023-04-07 11:35:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -450,8 +429,34 @@ CREATE TABLE `product_collections` (
 --
 
 INSERT INTO `product_collections` (`product_id`, `collection_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(2, 2, '2023-04-04 08:50:11', '2023-04-04 08:50:11');
+(1, 1, '2023-04-07 11:30:20', '2023-04-07 11:30:20'),
+(2, 3, '2023-04-07 11:33:51', '2023-04-07 11:33:51'),
+(3, 3, '2023-04-07 11:35:52', '2023-04-07 11:35:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_medias`
+--
+
+CREATE TABLE `product_medias` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `option_value_id` int(11) NOT NULL,
+  `media_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_medias`
+--
+
+INSERT INTO `product_medias` (`id`, `product_id`, `option_value_id`, `media_id`, `created_at`, `updated_at`) VALUES
+(1, 3, 3, 6, '2023-04-07 11:35:52', '2023-04-07 11:35:52'),
+(2, 3, 3, 5, '2023-04-07 11:35:52', '2023-04-07 11:35:52'),
+(3, 3, 3, 4, '2023-04-07 11:35:52', '2023-04-07 11:35:52'),
+(4, 3, 3, 3, '2023-04-07 11:35:52', '2023-04-07 11:35:52');
 
 -- --------------------------------------------------------
 
@@ -471,9 +476,9 @@ CREATE TABLE `product_tags` (
 --
 
 INSERT INTO `product_tags` (`product_id`, `tag_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(2, 1, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(2, 2, '2023-04-04 08:50:11', '2023-04-04 08:50:11');
+(1, 2, '2023-04-07 11:30:20', '2023-04-07 11:30:20'),
+(2, 3, '2023-04-07 11:33:51', '2023-04-07 11:33:51'),
+(3, 3, '2023-04-07 11:35:52', '2023-04-07 11:35:52');
 
 -- --------------------------------------------------------
 
@@ -495,7 +500,8 @@ CREATE TABLE `product_types` (
 
 INSERT INTO `product_types` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
 (1, 'Jeans', 'jeans', '2023-04-01 05:36:49', '2023-04-01 05:36:49'),
-(2, 'T-Shirts', 't-shirt', '2023-04-01 05:39:34', '2023-04-01 05:43:36');
+(2, 'T-Shirts', 't-shirt', '2023-04-01 05:39:34', '2023-04-01 05:43:36'),
+(4, 'Shoes', 'shoes', '2023-04-07 09:52:50', '2023-04-07 09:52:50');
 
 -- --------------------------------------------------------
 
@@ -515,40 +521,6 @@ CREATE TABLE `product_variants` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `product_variants`
---
-
-INSERT INTO `product_variants` (`id`, `product_id`, `variant`, `sku`, `variant_price`, `variant_sale_price`, `stock`, `available_stock`, `created_at`, `updated_at`) VALUES
-(1, 1, 'L/Red', 'LR00', '900.00', '1500.00', 200, 150, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(2, 1, 'L/Green', 'LG00', '890.00', '1500.00', 350, 250, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(3, 1, 'M/Red', 'MR00', '999.00', '1800.00', 100, 60, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(4, 1, 'M/Green', 'MG000', '899.00', '1200.00', 700, 600, '2023-04-03 19:34:13', '2023-04-03 19:34:13'),
-(5, 2, 'S/Red/Wool', 'SRW', '999.00', '1200.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(6, 2, 'S/Red/Cottom', 'SRC', '999.00', '1200.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(7, 2, 'S/Green/Wool', 'SGW', '999.00', '1200.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(8, 2, 'S/Green/Cottom', 'SGC', '999.00', '1200.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(9, 2, 'S/Blue/Wool', 'SBW', '999.00', '1200.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(10, 2, 'S/Blue/Cottom', 'SBC', '999.00', '1200.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(11, 2, 'M/Red/Wool', 'MRW', '1199.00', '1500.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(12, 2, 'M/Red/Cottom', 'MRC', '1199.00', '1500.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(13, 2, 'M/Green/Wool', 'MGW', '1199.00', '1500.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(14, 2, 'M/Green/Cottom', 'MGC', '1199.00', '1500.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(15, 2, 'M/Blue/Wool', 'MBW', '1199.00', '1500.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(16, 2, 'M/Blue/Cottom', 'MBC', '1199.00', '1500.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(17, 2, 'L/Red/Wool', 'LRW', '1499.00', '1800.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(18, 2, 'L/Red/Cottom', 'LRC', '1499.00', '1800.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(19, 2, 'L/Green/Wool', 'LRW', '1499.00', '1800.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(20, 2, 'L/Green/Cottom', 'LGC', '1499.00', '1800.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(21, 2, 'L/Blue/Wool', 'LBW', '1499.00', '1800.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(22, 2, 'L/Blue/Cottom', 'LBC', '1499.00', '1800.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(23, 2, 'XL/Red/Wool', 'XLRW', '1799.00', '2100.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(24, 2, 'XL/Red/Cottom', 'XLRC', '1799.00', '2100.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(25, 2, 'XL/Green/Wool', 'XLGW', '1799.00', '2100.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(26, 2, 'XL/Green/Cottom', 'XLGC', '1799.00', '2100.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(27, 2, 'XL/Blue/Wool', 'XLBW', '1799.00', '2100.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11'),
-(28, 2, 'XL/Blue/Cottom', 'XLBC', '1799.00', '2100.00', 100, 100, '2023-04-04 08:50:11', '2023-04-04 08:50:11');
 
 -- --------------------------------------------------------
 
@@ -680,8 +652,8 @@ CREATE TABLE `site_settings` (
   `id` int(11) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
-  `logo` varchar(255) DEFAULT NULL,
-  `favicon` varchar(255) DEFAULT NULL,
+  `logo` int(11) DEFAULT NULL,
+  `favicon` int(11) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `contact_no` varchar(255) DEFAULT NULL,
   `country` varchar(200) DEFAULT NULL,
@@ -697,7 +669,7 @@ CREATE TABLE `site_settings` (
 --
 
 INSERT INTO `site_settings` (`id`, `title`, `description`, `logo`, `favicon`, `email`, `contact_no`, `country`, `state`, `city`, `address`, `created_at`, `updated_at`) VALUES
-(1, 'AR Technology', 'Partner with an award-winning app development company to take your brick-and-mortar business online and reach a wider audience with powerful mobile and web solutions.', 'storage/site-setting/default-logo.png', 'storage/site-setting/default-favicon.png', 'info@artechnology.in', '+91 8109763160', 'India', 'Delhi', 'New Delhi', '95-B DDA Flat Mata Suntri Road\r\nNew Delhi-110002', '2022-06-26 15:46:11', '2023-02-16 14:51:43');
+(1, 'AR Technology', 'Partner with an award-winning app development company to take your brick-and-mortar business online and reach a wider audience with powerful mobile and web solutions.', 3, 4, 'info@artechnology.in', '+91 8109763160', 'India', 'Delhi', 'New Delhi', '95-B DDA Flat Mata Suntri Road\r\nNew Delhi-110002', '2022-06-26 15:46:11', '2023-04-07 04:02:13');
 
 -- --------------------------------------------------------
 
@@ -711,20 +683,14 @@ CREATE TABLE `sliders` (
   `subtitle` varchar(255) DEFAULT NULL,
   `body` text DEFAULT NULL,
   `media_id` int(11) NOT NULL,
+  `small_media_id` int(11) DEFAULT NULL,
   `button_text` varchar(255) DEFAULT NULL,
   `button_link` varchar(255) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
+  `content_align` varchar(255) DEFAULT 'justify-content-end',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `sliders`
---
-
-INSERT INTO `sliders` (`id`, `title`, `subtitle`, `body`, `media_id`, `button_text`, `button_link`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Discover The Best Furniture', 'Look for your inspiration here', 'The services provided by the officials was smooth and satisfactory. Products and goods delivered were up to satisfaction', 31, 'SHOP NOW', '#', 1, '2023-04-05 09:23:15', '2023-04-05 09:38:15'),
-(2, 'Discover The Best Furniture', 'Look for your inspiration here', 'The services provided by the officials was smooth and satisfactory. Products and goods delivered were up to satisfaction', 30, 'SHOP NOW', '#', 1, '2023-04-05 09:35:32', '2023-04-05 09:35:32');
 
 -- --------------------------------------------------------
 
@@ -746,7 +712,8 @@ CREATE TABLE `tags` (
 
 INSERT INTO `tags` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
 (1, 'Jeans', 'jeans', '2023-04-01 05:29:02', '2023-04-01 05:29:02'),
-(2, 'T-Shirt', 't-shirt', '2023-04-01 05:29:09', '2023-04-01 05:29:09');
+(2, 'T-Shirt', 't-shirt', '2023-04-01 05:29:09', '2023-04-01 05:29:09'),
+(3, 'Shoes', 'shoes', '2023-04-07 09:35:24', '2023-04-07 09:35:24');
 
 -- --------------------------------------------------------
 
@@ -793,8 +760,19 @@ CREATE TABLE `vendors` (
 --
 
 INSERT INTO `vendors` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
-(1, 'Lee Cooper', 'lee-cooper', '2023-04-01 05:58:19', '2023-04-01 05:58:19'),
-(2, 'Zara', 'zara', '2023-04-01 06:04:44', '2023-04-01 06:04:44');
+(1, 'Kreal', 'kreal', '2023-04-07 09:13:13', '2023-04-07 09:13:13'),
+(2, 'Meshlya', 'meshlya', '2023-04-07 09:13:32', '2023-04-07 09:13:32'),
+(3, 'Woodland', 'woodland', '2023-04-07 09:16:10', '2023-04-07 09:16:10'),
+(4, 'Zara', 'zara', '2023-04-07 09:16:15', '2023-04-07 09:16:15'),
+(5, 'Baggit', 'baggit', '2023-04-07 09:16:48', '2023-04-07 09:16:48'),
+(6, 'BIBA', 'biba', '2023-04-07 09:17:08', '2023-04-07 09:17:08'),
+(7, 'Aurelia', 'aurelia', '2023-04-07 09:17:17', '2023-04-07 09:17:17'),
+(8, 'Allen Solly', 'allen-solly', '2023-04-07 09:17:28', '2023-04-07 09:17:28'),
+(9, 'Van Heusen', 'van-heusen', '2023-04-07 09:17:47', '2023-04-07 09:17:47'),
+(10, 'Arrow', 'arrow', '2023-04-07 09:17:56', '2023-04-07 09:17:56'),
+(11, 'Raymond', 'raymond', '2023-04-07 09:18:03', '2023-04-07 09:18:03'),
+(12, 'Sparx', 'sparx', '2023-04-07 09:18:59', '2023-04-07 09:18:59'),
+(13, 'Relaxo', 'relaxo', '2023-04-07 09:19:14', '2023-04-07 09:19:14');
 
 --
 -- Indexes for dumped tables
@@ -882,6 +860,12 @@ ALTER TABLE `product_collections`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Indexes for table `product_medias`
+--
+ALTER TABLE `product_medias`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `product_tags`
 --
 ALTER TABLE `product_tags`
@@ -916,12 +900,6 @@ ALTER TABLE `role_permissions`
 -- Indexes for table `site_settings`
 --
 ALTER TABLE `site_settings`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sliders`
---
-ALTER TABLE `sliders`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -963,31 +941,31 @@ ALTER TABLE `admin_details`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `collections`
 --
 ALTER TABLE `collections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `medias`
 --
 ALTER TABLE `medias`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `options`
 --
 ALTER TABLE `options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `option_values`
 --
 ALTER TABLE `option_values`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -999,19 +977,25 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `product_medias`
+--
+ALTER TABLE `product_medias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product_types`
 --
 ALTER TABLE `product_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product_variants`
 --
 ALTER TABLE `product_variants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1026,16 +1010,10 @@ ALTER TABLE `site_settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `sliders`
---
-ALTER TABLE `sliders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -1047,7 +1025,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
