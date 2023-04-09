@@ -35,6 +35,10 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Collection','product_collections')->withTimestamps();;
     }
 
+     public function medias()
+    {
+        return $this->belongsToMany('App\Models\Media','product_medias');
+    }
 
     public function brand(){
         return $this->belongsTo(Brand::class, 'brand_id', 'id');
@@ -54,6 +58,10 @@ class Product extends Model
     }
 
     public function options(){
+        return $this->hasMany(Option::class,'product_id','id');
+    }
+
+    public function optionValues(){
         return $this->hasMany(Option::class,'product_id','id');
     }
 

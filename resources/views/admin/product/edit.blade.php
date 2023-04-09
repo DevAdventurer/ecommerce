@@ -53,7 +53,7 @@
 
                 <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                     {!! Form::label('description', 'Description') !!}
-                    {!! Form::textarea('description', $product->description, ['class' => 'editor form-control']) !!}
+                    {!! Form::textarea('description', $product->body, ['class' => 'editor form-control']) !!}
                     <small class="text-danger">{{ $errors->first('description') }}</small>
                 </div>
 
@@ -132,6 +132,8 @@
         <div class="card-body">
             <div class="variant-container">
 
+                @foreach($product->productVariants as $variant)
+
                 <div class="row g-2">
 
                  <div class="variant-inner col" style="max-width: 70px;">
@@ -147,7 +149,7 @@
                 <div class="variant-inner col" style="display:none">
                     <div class="form-group{{ $errors->has('variant') ? ' has-error' : '' }}">
                         {!! Form::label('variant', 'Variant') !!}
-                        {!! Form::text('variants', 'Default Title',['class' => 'form-control', 'required' => 'required', 'readonly'=>'readonly']) !!}
+                        {!! Form::text('variant', 'Default Title',['class' => 'form-control', 'required' => 'required', 'readonly'=>'readonly']) !!}
                         <small class="text-danger">{{ $errors->first('variant') }}</small>
                     </div>
                 </div>
@@ -155,7 +157,7 @@
                 <div class="variant-inner col">
                     <div class="form-group{{ $errors->has('quantity_on_hand') ? ' has-error' : '' }}">
                         {!! Form::label('quantity_on_hand', 'Quantity On Hand') !!}
-                        {!! Form::text('quantity_on_hand', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Quantity On Hand']) !!}
+                        {!! Form::text('quantity_on_hand', $variant->stock, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Quantity On Hand']) !!}
                         <small class="text-danger">{{ $errors->first('quantity_on_hand') }}</small>
                     </div>
                 </div>
@@ -164,7 +166,7 @@
                 <div class="variant-inner col">
                     <div class="form-group{{ $errors->has('quantity_available') ? ' has-error' : '' }}">
                         {!! Form::label('quantity_available', 'Quantity Available') !!}
-                        {!! Form::text('quantity_available', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Quantity Available']) !!}
+                        {!! Form::text('quantity_available', $variant->available_stock, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Quantity Available']) !!}
                         <small class="text-danger">{{ $errors->first('quantity_available') }}</small>
                     </div>
                 </div>
@@ -172,7 +174,7 @@
                 <div class="variant-inner col">
                     <div class="form-group{{ $errors->has('sku') ? ' has-error' : '' }}">
                         {!! Form::label('sku', 'SKU') !!}
-                        {!! Form::text('sku', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'SKU']) !!}
+                        {!! Form::text('sku', $variant->sku, ['class' => 'form-control', 'required' => 'required','placeholder'=>'SKU']) !!}
                         <small class="text-danger">{{ $errors->first('sku') }}</small>
                     </div>
                 </div>
@@ -180,7 +182,7 @@
                 <div class="variant-inner col">
                     <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
                         {!! Form::label('price', 'Price') !!}
-                        {!! Form::text('price', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Price']) !!}
+                        {!! Form::text('price', $variant->variant_price, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Price']) !!}
                         <small class="text-danger">{{ $errors->first('price') }}</small>
                     </div>
                 </div>
@@ -188,19 +190,54 @@
                 <div class="variant-inner col">
                     <div class="form-group{{ $errors->has('sale_price') ? ' has-error' : '' }}">
                         {!! Form::label('sale_price', 'Sale Price') !!}
-                        {!! Form::text('sale_price', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Sale Price']) !!}
+                        {!! Form::text('sale_price', $variant->variant_sale_price, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Sale Price']) !!}
                         <small class="text-danger">{{ $errors->first('sale_price') }}</small>
                     </div>
                 </div>
             </div>
+            @endforeach
 
-            <div class="varinat-images product-images">
-                <div class="media-area" file-name="product_images">
-                    <div class="media-file-value"></div>
-                    <div class="media-file"></div>
-                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='multiple' onclick="loadMediaFiles($(this))">Select Product Image</a>
+            @if($product->medias->count() >0 )
+
+                
+                <div class="varinat-images product-images" style="display:block;">
+                    <div class="media-area" file-name="product_images">
+
+                        
+                        <div class="media-file-value">
+                            @foreach($product->medias as $media)
+                            <input type="hidden" name="product_images[]" value="{{$media->id}}" class="fileid{{$media->id}}">
+                            @endforeach
+                        </div>
+                        <div class="media-file">
+                            @foreach($product->medias as $media)
+                            <div class="file-container d-inline-block fileid{{$media->id}}">
+                                <span data-id="{{$media->id}}" class="remove-file">✕</span>
+                                <img class="w-100 d-block img-thumbnail" src="{{asset($media->file)}}" alt="{{$media->name}}">
+                            </div>
+                            @endforeach
+                        </div>
+                        
+
+                        <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='multiple' onclick="loadMediaFiles($(this))">Select Product Image</a>
+                    </div>
                 </div>
-            </div>
+
+            @else
+
+                <div class="varinat-images product-images">
+                    <div class="media-area" file-name="product_images">
+                        <div class="media-file-value"></div>
+                        <div class="media-file"></div>
+                        <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='multiple' onclick="loadMediaFiles($(this))">Select Product Image</a>
+                    </div>
+                </div>
+
+            @endif
+
+
+           
+
 
         </div>               
     </div>

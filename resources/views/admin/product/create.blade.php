@@ -149,7 +149,7 @@
                 <div class="variant-inner col" style="display:none">
                     <div class="form-group{{ $errors->has('variant') ? ' has-error' : '' }}">
                         {!! Form::label('variant', 'Variant') !!}
-                        {!! Form::text('variants', 'Default Title',['class' => 'form-control', 'required' => 'required', 'readonly'=>'readonly']) !!}
+                        {!! Form::text('variants', 'Default Title',['class' => 'form-control', 'readonly'=>'readonly']) !!}
                         <small class="text-danger">{{ $errors->first('variant') }}</small>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                 <div class="variant-inner col">
                     <div class="form-group{{ $errors->has('quantity_on_hand') ? ' has-error' : '' }}">
                         {!! Form::label('quantity_on_hand', 'Quantity On Hand') !!}
-                        {!! Form::text('quantity_on_hand', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Quantity On Hand']) !!}
+                        {!! Form::text('quantity_on_hand', null, ['class' => 'form-control','placeholder'=>'Quantity On Hand']) !!}
                         <small class="text-danger">{{ $errors->first('quantity_on_hand') }}</small>
                     </div>
                 </div>
@@ -166,7 +166,7 @@
                 <div class="variant-inner col">
                     <div class="form-group{{ $errors->has('quantity_available') ? ' has-error' : '' }}">
                         {!! Form::label('quantity_available', 'Quantity Available') !!}
-                        {!! Form::text('quantity_available', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Quantity Available']) !!}
+                        {!! Form::text('quantity_available', null, ['class' => 'form-control','placeholder'=>'Quantity Available']) !!}
                         <small class="text-danger">{{ $errors->first('quantity_available') }}</small>
                     </div>
                 </div>
@@ -174,7 +174,7 @@
                 <div class="variant-inner col">
                     <div class="form-group{{ $errors->has('sku') ? ' has-error' : '' }}">
                         {!! Form::label('sku', 'SKU') !!}
-                        {!! Form::text('sku', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'SKU']) !!}
+                        {!! Form::text('sku', null, ['class' => 'form-control','placeholder'=>'SKU']) !!}
                         <small class="text-danger">{{ $errors->first('sku') }}</small>
                     </div>
                 </div>
@@ -182,7 +182,7 @@
                 <div class="variant-inner col">
                     <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
                         {!! Form::label('price', 'Price') !!}
-                        {!! Form::text('price', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Price']) !!}
+                        {!! Form::text('price', null, ['class' => 'form-control','placeholder'=>'Price']) !!}
                         <small class="text-danger">{{ $errors->first('price') }}</small>
                     </div>
                 </div>
@@ -190,7 +190,7 @@
                 <div class="variant-inner col">
                     <div class="form-group{{ $errors->has('sale_price') ? ' has-error' : '' }}">
                         {!! Form::label('sale_price', 'Sale Price') !!}
-                        {!! Form::text('sale_price', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Sale Price']) !!}
+                        {!! Form::text('sale_price', null, ['class' => 'form-control','placeholder'=>'Sale Price']) !!}
                         <small class="text-danger">{{ $errors->first('sale_price') }}</small>
                     </div>
                 </div>
@@ -325,7 +325,7 @@
                         <div class="card-body">
                             <div class="form-group{{ $errors->has('product_selectio_type') ? ' has-error' : '' }}">
                                 {!! Form::label('product_selectio_type', 'Product Selection Type') !!}
-                                {!! Form::select('product_selectio_type', ['simple'=>'Simple Product', 'variant'=>'Variant Product'], 'simple', ['id' => 'product_selectio_type', 'class' => 'form-control', 'required' => 'required', 'placeholder'=>'Product Selection Type', 'onchange'=>'productSelection($(this))']) !!}
+                                {!! Form::select('product_selectio_type', ['simple'=>'Simple Product', 'variant'=>'Variant Product'], 'simple', ['id' => 'product_selectio_type', 'class' => 'form-control', 'placeholder'=>'Product Selection Type', 'onchange'=>'productSelection($(this))']) !!}
                                 <small class="text-danger">{{ $errors->first('product_selectio_type') }}</small>
                             </div>
                         </div>

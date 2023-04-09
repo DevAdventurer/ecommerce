@@ -13,4 +13,4 @@
 
 </ul>
 
-{!! $medias->render() !!}
+

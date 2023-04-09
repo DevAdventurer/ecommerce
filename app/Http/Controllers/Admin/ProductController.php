@@ -63,11 +63,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request->all();
+        return $request->all();
         
         $this->validate($request,[
             'title' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4000',
         ]);
 
         $product = new Product;
@@ -79,11 +78,10 @@ class ProductController extends Controller
         $product->brand_id = $request->brand;
         $product->product_type_id = $request->product_type;
         $product->vendor_id = $request->vendor;
-        $product->price = $request->price;
-        $product->sale_price = $request->sale_price;
 
         $product->meta_title = $request->meta_title;
         $product->meta_description = $request->meta_description;
+        $product->product_selectio_type = $request->product_selectio_type;
 
 
 
@@ -141,15 +139,29 @@ class ProductController extends Controller
                     $option_value->save();
                 }
 
-                if($request->has('product_images')){
+        
+
+                $product_variant = new ProductVariant;
+                $product_variant->product_id = $product->id;
+                $product_variant->variant = $request->variant;
+                $product_variant->sku = $request->sku;
+                $product_variant->variant_price = $request->price;
+                $product_variant->variant_sale_price = $request->sale_price;
+                $product_variant->stock = $request->quantity_on_hand;
+                $product_variant->available_stock = $request->quantity_available;
+                $product_variant->save();
+
+
+                 if($request->has('product_images')){
                     foreach($request->product_images as $file){
                         $product_image = new ProductMedia;
                         $product_image->media_id = $file;
                         $product_image->product_id = $product->id;
-                        $product_image->option_value_id = $option_value->id;
+                        $product_image->variant_id = $product_variant->id;
                         $product_image->save();
                     } 
                 }
+
             }
             
 
@@ -168,7 +180,7 @@ class ProductController extends Controller
     public function show(Request $request, Product $product)
     {
         //return view('admin.product.inventory.list');
-        $product->with(['productType', 'brand', 'vendor'])->first();
+        $product->with(['productType', 'brand', 'vendor','optionValues','options'])->first();
         return view('admin.product.views', compact('product'));
     }
 
@@ -180,7 +192,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::with('tags','collections','brand','vendor','productType')->where('id',$id)->first();
+        $product = Product::with('tags','collections','brand','vendor','productType','optionValues','options','medias','productVariants')->where('id',$id)->first();
         return view('admin.product.edit',compact('product'));
     }
 
@@ -195,30 +207,106 @@ class ProductController extends Controller
     {
         $this->validate($request,[
             'title' => 'required',
-            //'subtitle' => 'required',
-            'body' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4000',
         ]);
 
         $product = Product::find($id);
         $product->title = $request->title;
-        $product->subtitle = $request->subtitle;
-        $product->body = $request->body;
+        $product->body = $request->description;
+        $product->short_description = $request->short_description;
+        $product->published_at = Carbon::parse($request->published_date)->format('Y-m-d');
         $product->status = $request->status??0;
+        $product->brand_id = $request->brand;
+        $product->product_type_id = $request->product_type;
+        $product->vendor_id = $request->vendor;
 
-        if($request->hasFile('image')){
+        $product->meta_title = $request->meta_title;
+        $product->meta_description = $request->meta_description;
+        $product->product_selectio_type = $request->product_selectio_type;
 
-            $image_name = time().".".$request->file('image')->getClientOriginalExtension();
-            $image = $request->file('image')->storeAs('Products', $image_name);
-            $product->image = 'storage/'.$image;
-        }  
+
 
         if($product->save()){ 
-            $product->categories()->sync($request->categories);
+            $product->collections()->sync($request->collections);
             $product->tags()->sync($request->tags);
+
+            if($request->product_selectio_type == 'variant'){
+
+                $inputs = $request->input('group-a');
+                foreach ($inputs as $input) {
+                    $option  = Option::firstOrNew(['product_id'=>$id]);
+                    $option->product_id = $product->id;
+                    $option->name = $input['option'];
+                    if($option->save()){
+                        $option_vals = explode(',', $input['option_value']);
+                        foreach ($option_vals as $option_val) {
+                            $option_value  = OptionValue::firstOrNew(['product_id'=>$id, 'option_id'=>$option_vals->id]);
+                            $option_value->product_id = $product->id;
+                            $option_value->option_id = $option->id;
+                            $option_value->option_value = $option_val;
+                            $option_value->save();
+                        }
+                    }
+                    
+                }
+
+                $variants = $request->input('variants');
+                foreach ($variants as $variant) {
+
+                    $product_variant = ProductVariant::firstOrNew(['product_id'=>$id, 'variant'=>$variant['value']]);
+                    $product_variant->product_id = $product->id;
+                    $product_variant->variant = $variant['value'];
+                    $product_variant->sku = $variant['sku'];
+                    $product_variant->variant_price = $variant['variant_price'];
+                    $product_variant->variant_sale_price = $variant['variant_sale_price'];
+                    $product_variant->stock = $variant['quantity_on_hand'];
+                    $product_variant->available_stock = $variant['quantity_available'];
+                    $product_variant->save();
+
+                }
+            }
+
+
+            if($request->product_selectio_type == 'simple'){ 
+
+                $option  = Option::firstOrNew(['product_id'=>$id]);;
+                $option->product_id = $product->id;
+                $option->name = 'Default Option';
+                if($option->save()){
+                    $option_value  = OptionValue::firstOrNew(['product_id'=>$id, 'option_id'=>$option->id]);
+                    $option_value->product_id = $product->id;
+                    $option_value->option_id = $option->id;
+                    $option_value->option_value = 'Default Title';
+                    $option_value->save();
+                }
+
+        
+
+                $product_variant = ProductVariant::firstOrNew(['product_id'=>$id, 'variant'=>$request->variant]);
+                $product_variant->product_id = $product->id;
+                $product_variant->variant = $request->variant;
+                $product_variant->sku = $request->sku;
+                $product_variant->variant_price = $request->price;
+                $product_variant->variant_sale_price = $request->sale_price;
+                $product_variant->stock = $request->quantity_on_hand;
+                $product_variant->available_stock = $request->quantity_available;
+                $product_variant->save();
+
+
+                 if($request->has('product_images')){
+                    ProductMedia::where(['product_id'=>$id])->whereIn('variant_id',[$product_variant->id])->delete();
+                    foreach($request->product_images as $file){
+                        $product_image = new ProductMedia;
+                        $product_image->media_id = $file;
+                        $product_image->product_id = $product->id;
+                        $product_image->variant_id = $product_variant->id;
+                        $product_image->save();
+                    } 
+                }
+
+            }
             
 
-            return redirect()->route('admin.product.index')->with(['class'=>'success','message'=>'Product Created successfully.']);
+            return redirect()->route('admin.product.index')->with(['class'=>'success','message'=>'Product Updated successfully.']);
         }
 
         return redirect()->back()->with(['class'=>'error','message'=>'Whoops, looks like something went wrong ! Try again ...']);

@@ -9,5 +9,11 @@ class OptionValue extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'product_id',
+        'option_id',
+        'option_value',
+    ];
+
    
 }

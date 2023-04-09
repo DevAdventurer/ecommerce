@@ -8,5 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class ProductMedia extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'product_id',
+        'variant_id',
+        'media_id',
+    ];
+
     protected $table = 'product_medias';
 }

@@ -9,6 +9,11 @@ class Option extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'product_id',
+        'name',
+    ];
+
     public function optionValues(){
         return $this->hasMany(OptionValue::class,'option_id','id');
     }

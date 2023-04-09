@@ -6,6 +6,8 @@ const bsOffcanvasSingle = new bootstrap.Offcanvas(singleMediaCall)
 
 singleMediaCall.addEventListener('hidden.bs.offcanvas', function () {
   $('.media-area').removeClass('active');
+  $("#getdata").html('');
+  var paginate = 1;
 })
 function loadMediaFiles(element, openType) {
 
@@ -15,11 +17,25 @@ function loadMediaFiles(element, openType) {
 
 }
 
+$('#load-more-mediafiles').click(function() {
+    var current_page = parseInt($(this).attr('current-page'));
+    var last_page = parseInt($(this).attr('last-page'));
 
+    if(current_page < last_page){
+
+        let page = current_page+1;
+        mediafiles(page);
+    }
+    else{
+        aler('Ended');
+    }
+
+});
 
 function mediafiles(paginate, search='') {
     
     var type = $('.select-mediatype').attr('mediatype');
+    var search = $('#mediafilesearch').val();
 
     $.ajax({
         url: '/admin/media/get/single?opentype='+type+'&search='+search+'&page=' + paginate,
@@ -31,7 +47,23 @@ function mediafiles(paginate, search='') {
     })
     .done(function(data) {
        
-        $("#getdata").empty().html(data);
+        $("#getdata").append(data);
+
+        $( ".media-area.active .media-file-value input" ).each(function() {
+            var active_file =  $( this ).val();
+            $("#mediaid"+active_file).prop('checked',true)
+        });
+        var current_page = paginate;
+        var last_page = parseInt($('#load-more-mediafiles').attr('last-page'))
+        var next_page = current_page;
+        $('#load-more-mediafiles').text('Loadmore');
+        if (last_page <= next_page) {
+            $('#load-more-mediafiles').text('No More Files');
+            $('#load-more-mediafiles').removeClass('btn-soft-success');
+            $('#load-more-mediafiles').addClass('btn-soft-danger');
+        }
+        $('#load-more-mediafiles').attr('current-page', next_page);
+
            
     })
     .fail(function(jqXHR, ajaxOptions, thrownError) {
@@ -45,6 +77,7 @@ $("#mediafilesearch").keyup(function(){
     var type = $('.select-mediatype').attr('mediatype');
     var search = $(this).val();
     if(search.length > 1){
+        $("#getdata").html('');
         mediafiles(1,search)
     }else{
         mediafiles(1)
@@ -55,8 +88,8 @@ $("#mediafilesearch").keyup(function(){
 
 
 function selectSingleFile() {
-    $(".media-area.active .media-file-value").html('');
-    $(".media-area.active .media-file").html('');
+    // $(".media-area.active .media-file-value").html('');
+    // $(".media-area.active .media-file").html('');
 
     var file_name = $(".media-area.active").attr('file-name');
     //alert(file_name);
@@ -68,6 +101,11 @@ function selectSingleFile() {
 
     for (var i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
+
+            $( ".media-area.active .media-file-value input" ).each(function() {
+                $(".fileid"+checkboxes[i].value).remove();
+            });
+
             result += '<input type="hidden" name="'+file_name+'[]" value="'+checkboxes[i].value+'" class="fileid'+checkboxes[i].value+'">';
             var myimage = $("#getmedia-"+checkboxes[i].value).html();
             image += '<div  class="file-container d-inline-block fileid'+checkboxes[i].value+'"><span data-id="'+checkboxes[i].value+'" class="remove-file">&#x2715;</span>'+myimage+"</div>";
@@ -87,6 +125,9 @@ $("body").on("click", ".remove-file", function(){
 });
 
 
+$("body").on("click", ".get-all-media input", function(){
+    $(".media-area.active .fileid"+$(this).val()).remove();
+});
 
 
 
