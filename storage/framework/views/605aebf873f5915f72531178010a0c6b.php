@@ -16,7 +16,20 @@
             </div>
        </div>
 
+        <?php if($product_selectio_type == 'simple'): ?>
 
+        <div class="variant-inner col" style="display:none;">
+            <div class="form-group<?php echo e($errors->has('variant') ? ' has-error' : ''); ?>">
+                <?php echo Form::label('variant', 'Variant'); ?>
+
+                <?php echo Form::text('variants['.$count.'][value]', 'Default Title', ['class' => 'form-control', 'required' => 'required', 'readonly'=>'readonly']); ?>
+
+                <small class="text-danger"><?php echo e($errors->first('variant')); ?></small>
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <?php if($product_selectio_type == 'variant'): ?>;
         <div class="variant-inner col">
             <div class="form-group<?php echo e($errors->has('variant') ? ' has-error' : ''); ?>">
                 <?php echo Form::label('variant', 'Variant'); ?>
@@ -26,6 +39,7 @@
                 <small class="text-danger"><?php echo e($errors->first('variant')); ?></small>
             </div>
         </div>
+        <?php endif; ?>
 
         <div class="variant-inner col">
             <div class="form-group<?php echo e($errors->has('quantity_on_hand') ? ' has-error' : ''); ?>">

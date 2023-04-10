@@ -68,23 +68,30 @@
 
 
 
-        <div id="product-selection-variant" class="card" style="display:none;">
+        <div id="product-selection-variant" class="card" @if($product->product_selectio_type == 'simple') style="display:none;" @else style="display:block;" @endif>
             <div class="card-header">
                 <h6 class="card-title mb-0">Product Variants</h6>
             </div>
             <div class="card-body">
+
+
+
                 <div  class="report-repeater">
                     <button data-repeater-create type="button" class="btn btn-success" style="margin-bottom: 20px;"><i class="bx bx-plus-circle"></i></button>
                     <div data-repeater-list="group-a">
-                        <div class="repeater-row"  data-repeater-item>
+                    
+                        @foreach($product->options as $option)
 
+
+                        <div class="repeater-row"  data-repeater-item>
+                        
                             <div class="row">
 
 
                                 <div class="col-md-4">
                                     <div class="form-group{{ $errors->has('option') ? ' has-error' : '' }}">
                                         {!! Form::label('option', 'Option') !!}
-                                        {!! Form::text('option', null, ['class' => 'form-control', 'placeholder' => 'Option Name']) !!}
+                                        {!! Form::text('option', $option->name, ['class' => 'form-control', 'placeholder' => 'Option Name']) !!}
                                         <small class="small">Example: Color</small>
                                         <small class="text-danger">{{ $errors->first('option') }}</small>
                                     </div>
@@ -93,9 +100,18 @@
 
                                 <div class="col-md-7">
 
+                                    @php $tmp = ''; 
+                                        foreach ($option->optionValues as $value){
+                                            $tmp .= $value->option_value . ','; 
+                                        }
+                                        $tmp = trim($tmp, ',');    // remove trailing comma
+                                     //dd($tmp);
+                                    @endphp
+
+
                                     <div class="form-group{{ $errors->has('option_value') ? ' has-error' : '' }}">
                                         {!! Form::label('option_value', 'Option Value') !!}
-                                        {!! Form::text('option_value', null, ['class' => 'tagify form-control', 'placeholder' => 'Option Value']) !!}
+                                        {!! Form::text('option_value', $tmp, ['class' => 'tagify form-control', 'placeholder' => 'Option Value']) !!}
                                         <small class="small">Example: Red,Green,Blue</small>
                                         <small class="text-danger">{{ $errors->first('option_value') }}</small>
                                     </div>
@@ -111,11 +127,12 @@
                               </div>
 
 
-
-
-
                           </div>
+                        
+
                       </div>
+                      @endforeach
+
                   </div>
 
               </div>
@@ -127,12 +144,15 @@
       </div>
 
 
-
+    @php
+        $count = 0; 
+    @endphp 
       <div id="product-selection-simple" class="card" >
         <div class="card-body">
             <div class="variant-container">
 
                 @foreach($product->productVariants as $variant)
+
 
                 <div class="row g-2">
 
@@ -146,13 +166,27 @@
                 </div>
 
 
-                <div class="variant-inner col" style="display:none">
-                    <div class="form-group{{ $errors->has('variant') ? ' has-error' : '' }}">
-                        {!! Form::label('variant', 'Variant') !!}
-                        {!! Form::text('variant', 'Default Title',['class' => 'form-control', 'required' => 'required', 'readonly'=>'readonly']) !!}
-                        <small class="text-danger">{{ $errors->first('variant') }}</small>
+                @if($product->product_selectio_type == 'simple')
+
+                    <div class="variant-inner col" style="display:none;">
+                        <div class="form-group{{ $errors->has('variant') ? ' has-error' : '' }}">
+                            {!! Form::label('variant', 'Variant') !!}
+                            {!! Form::text('variants['.$count.'][value]', 'Default Title', ['class' => 'form-control', 'required' => 'required', 'readonly'=>'readonly']) !!}
+                            <small class="text-danger">{{ $errors->first('variant') }}</small>
+                        </div>
                     </div>
-                </div>
+                @endif
+
+                @if($product->product_selectio_type == 'variant')
+                    <div class="variant-inner col">
+                        <div class="form-group{{ $errors->has('variant') ? ' has-error' : '' }}">
+                            {!! Form::label('variant', 'Variant') !!}
+                            {!! Form::text('variants['.$count.'][value]', $variant->variant, ['class' => 'form-control', 'required' => 'required', 'readonly'=>'readonly']) !!}
+                            <small class="text-danger">{{ $errors->first('variant') }}</small>
+                        </div>
+                    </div>
+                @endif
+
 
                 <div class="variant-inner col">
                     <div class="form-group{{ $errors->has('quantity_on_hand') ? ' has-error' : '' }}">
@@ -194,10 +228,10 @@
                         <small class="text-danger">{{ $errors->first('sale_price') }}</small>
                     </div>
                 </div>
-            </div>
-            @endforeach
 
-            @if($product->medias->count() >0 )
+
+
+            @if($variant->variantMedias->count() > 0)
 
                 
                 <div class="varinat-images product-images" style="display:block;">
@@ -205,12 +239,12 @@
 
                         
                         <div class="media-file-value">
-                            @foreach($product->medias as $media)
+                            @foreach($variant->variantMedias as $media)
                             <input type="hidden" name="product_images[]" value="{{$media->id}}" class="fileid{{$media->id}}">
                             @endforeach
                         </div>
                         <div class="media-file">
-                            @foreach($product->medias as $media)
+                            @foreach($variant->variantMedias as $media)
                             <div class="file-container d-inline-block fileid{{$media->id}}">
                                 <span data-id="{{$media->id}}" class="remove-file">✕</span>
                                 <img class="w-100 d-block img-thumbnail" src="{{asset($media->file)}}" alt="{{$media->name}}">
@@ -225,16 +259,20 @@
 
             @else
 
-                <div class="varinat-images product-images">
-                    <div class="media-area" file-name="product_images">
-                        <div class="media-file-value"></div>
-                        <div class="media-file"></div>
-                        <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='multiple' onclick="loadMediaFiles($(this))">Select Product Image</a>
+                    <div class="varinat-images product-images">
+                        <div class="media-area" file-name="product_images">
+                            <div class="media-file-value"></div>
+                            <div class="media-file"></div>
+                            <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='multiple' onclick="loadMediaFiles($(this))">Select Product Image</a>
+                        </div>
                     </div>
-                </div>
 
             @endif
 
+
+
+            </div>
+            @endforeach
 
            
 
@@ -421,6 +459,8 @@
                             new Tagify(this.querySelector('.tagify'), {
                                 originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
                             });
+
+                            
                         },
                         hide: function (deleteElement) {
                             if(confirm('Are you sure you want to delete this?')) {
@@ -457,12 +497,12 @@
                                 text: response.message,
                                 duration: 3000,
                                 close: true,
-                gravity: "top", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                className: response.class,
+                                gravity: "top", // `top` or `bottom`
+                                position: "right", // `left`, `center` or `right`
+                                stopOnFocus: true, // Prevents dismissing of toast on hover
+                                className: response.class,
 
-            }).showToast();
+                            }).showToast();
 
                         },
                         error:function(error){
@@ -474,10 +514,22 @@
                     });
                 }
 
-                var input = document.querySelector('.tagify');
-                tagify = new Tagify(input, {
-                    originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+                // $(document).ready(function(){
+                //     var input = document.querySelector('.tagify');
+                //     tagify = new Tagify(input, {
+                //         originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+                //     });
+                // });
+
+
+                const allInputs = document.querySelectorAll('.tagify');
+
+                  allInputs.forEach((input) => {
+                        tagify = new Tagify(input, {
+                        originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+                    });
                 });
+                
 
                 function productSelection(e){
                     var product_selection = e.val();

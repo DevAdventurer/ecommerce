@@ -76,11 +76,12 @@
 
 
 
-        <div id="product-selection-variant" class="card" style="display:none;">
+        <div id="product-selection-variant" class="card">
             <div class="card-header">
-                <h6 class="card-title mb-0">Product Variants</h6>
+                <h6 class="card-title mb-0">Product Inventory</h6>
             </div>
             <div class="card-body">
+                <div id="variant_option" style="display:none;">
                 <div  class="report-repeater">
                     <button data-repeater-create type="button" class="btn btn-success" style="margin-bottom: 20px;"><i class="bx bx-plus-circle"></i></button>
                     <div data-repeater-list="group-a">
@@ -132,104 +133,13 @@
 
               </div>
 
-              <?php echo Form::button('Get Variants', ['class' => 'btn btn-soft-success btn-border waves-effect waves-light', 'onclick'=>'getVariants($(this))']); ?>
+              <?php echo Form::button('Get Variants', ['class' => 'btn btn-soft-success btn-border waves-effect waves-light variant-button', 'onclick'=>'getVariants($(this))']); ?>
 
-
+                </div>
               <div id="variants"></div>
           </div>
       </div>
 
-
-
-      <div id="product-selection-simple" class="card" >
-        <div class="card-body">
-            <div class="variant-container">
-
-                <div class="row g-2">
-
-                 <div class="variant-inner col" style="max-width: 70px;">
-
-                    <div class="form-group">
-                        <span class="default-image" data-image="product-images">
-                            <svg viewBox="0 0 20 20" class="Polaris-Icon__Svg_375hu" focusable="false" aria-hidden="true"><path d="M19 2.5a1.5 1.5 0 0 0-1.5-1.5h-15a1.5 1.5 0 0 0-1.5 1.5v15a1.5 1.5 0 0 0 1.5 1.5h7.5v-2h-6.503c-.41 0-.64-.46-.4-.79l3.553-4.051c.19-.21.52-.21.72-.01l1.63 1.851 3.06-4.781a.5.5 0 0 1 .84.02l.72 1.251a5.98 5.98 0 0 1 2.38-.49h3v-7.5zm-11.5 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm12.207 10.793a1 1 0 0 0-.707-.293h-2v-2a1 1 0 0 0-2 0v2h-2a1 1 0 0 0 0 2h2v2a1 1 0 1 0 2 0v-2h2a1 1 0 0 0 .707-1.707z"></path></svg>
-                        </span>
-                    </div>
-                </div>
-
-
-                <div class="variant-inner col" style="display:none">
-                    <div class="form-group<?php echo e($errors->has('variant') ? ' has-error' : ''); ?>">
-                        <?php echo Form::label('variant', 'Variant'); ?>
-
-                        <?php echo Form::text('variants', 'Default Title',['class' => 'form-control', 'required' => 'required', 'readonly'=>'readonly']); ?>
-
-                        <small class="text-danger"><?php echo e($errors->first('variant')); ?></small>
-                    </div>
-                </div>
-
-                <div class="variant-inner col">
-                    <div class="form-group<?php echo e($errors->has('quantity_on_hand') ? ' has-error' : ''); ?>">
-                        <?php echo Form::label('quantity_on_hand', 'Quantity On Hand'); ?>
-
-                        <?php echo Form::text('quantity_on_hand', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Quantity On Hand']); ?>
-
-                        <small class="text-danger"><?php echo e($errors->first('quantity_on_hand')); ?></small>
-                    </div>
-                </div>
-
-
-                <div class="variant-inner col">
-                    <div class="form-group<?php echo e($errors->has('quantity_available') ? ' has-error' : ''); ?>">
-                        <?php echo Form::label('quantity_available', 'Quantity Available'); ?>
-
-                        <?php echo Form::text('quantity_available', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Quantity Available']); ?>
-
-                        <small class="text-danger"><?php echo e($errors->first('quantity_available')); ?></small>
-                    </div>
-                </div>
-
-                <div class="variant-inner col">
-                    <div class="form-group<?php echo e($errors->has('sku') ? ' has-error' : ''); ?>">
-                        <?php echo Form::label('sku', 'SKU'); ?>
-
-                        <?php echo Form::text('sku', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'SKU']); ?>
-
-                        <small class="text-danger"><?php echo e($errors->first('sku')); ?></small>
-                    </div>
-                </div>
-
-                <div class="variant-inner col">
-                    <div class="form-group<?php echo e($errors->has('price') ? ' has-error' : ''); ?>">
-                        <?php echo Form::label('price', 'Price'); ?>
-
-                        <?php echo Form::text('price', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Price']); ?>
-
-                        <small class="text-danger"><?php echo e($errors->first('price')); ?></small>
-                    </div>
-                </div>
-
-                <div class="variant-inner col">
-                    <div class="form-group<?php echo e($errors->has('sale_price') ? ' has-error' : ''); ?>">
-                        <?php echo Form::label('sale_price', 'Sale Price'); ?>
-
-                        <?php echo Form::text('sale_price', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Sale Price']); ?>
-
-                        <small class="text-danger"><?php echo e($errors->first('sale_price')); ?></small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="varinat-images product-images">
-                <div class="media-area" file-name="product_images">
-                    <div class="media-file-value"></div>
-                    <div class="media-file"></div>
-                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='multiple' onclick="loadMediaFiles($(this))">Select Product Image</a>
-                </div>
-            </div>
-
-        </div>               
-    </div>
-</div>
 
 
 <div class="card">
@@ -361,30 +271,10 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <div class="form-group<?php echo e($errors->has('price') ? ' has-error' : ''); ?>">
-                                <?php echo Form::label('price', 'Price'); ?>
-
-                                <?php echo Form::text('price', null, ['class' => 'form-control', 'placeholder' => 'Price']); ?>
-
-                                <small class="text-danger"><?php echo e($errors->first('price')); ?></small>
-                            </div>
-
-                            <div class="form-group<?php echo e($errors->has('sale_price') ? ' has-error' : ''); ?>">
-                                <?php echo Form::label('sale_price', 'Sale Price'); ?>
-
-                                <?php echo Form::text('sale_price', null, ['class' => 'form-control', 'placeholder' => 'Sale Price']); ?>
-
-                                <small class="text-danger"><?php echo e($errors->first('sale_price')); ?></small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
                             <div class="form-group<?php echo e($errors->has('product_selectio_type') ? ' has-error' : ''); ?>">
                                 <?php echo Form::label('product_selectio_type', 'Product Selection Type'); ?>
 
-                                <?php echo Form::select('product_selectio_type', ['simple'=>'Simple Product', 'variant'=>'Variant Product'], 'simple', ['id' => 'product_selectio_type', 'class' => 'form-control', 'required' => 'required', 'placeholder'=>'Product Selection Type', 'onchange'=>'productSelection($(this))']); ?>
+                                <?php echo Form::select('product_selectio_type', ['simple'=>'Simple Product', 'variant'=>'Variant Product'], null, ['id' => 'product_selectio_type', 'class' => 'form-control', 'placeholder'=>'Product Selection Type', 'onchange'=>'productSelection($(this))']); ?>
 
                                 <small class="text-danger"><?php echo e($errors->first('product_selectio_type')); ?></small>
                             </div>
@@ -420,13 +310,13 @@
 
 
                     $('.editor').summernote({
-            height: 250, // set editor height
-            minHeight: null, // set minimum height of editor
-            maxHeight: null, // set maximum height of editor
-            focus: false, // set focus to editable area after initializing summernote
-            popover: { image: [], link: [], air: [] }
+                        height: 250, // set editor height
+                        minHeight: null, // set minimum height of editor
+                        maxHeight: null, // set maximum height of editor
+                        focus: false, // set focus to editable area after initializing summernote
+                        popover: { image: [], link: [], air: [] }
 
-        });
+                    });
 
 
 
@@ -484,12 +374,12 @@
                                 text: response.message,
                                 duration: 3000,
                                 close: true,
-                gravity: "top", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                className: response.class,
+                                gravity: "top", // `top` or `bottom`
+                                position: "right", // `left`, `center` or `right`
+                                stopOnFocus: true, // Prevents dismissing of toast on hover
+                                className: response.class,
 
-            }).showToast();
+                            }).showToast();
 
                         },
                         error:function(error){
@@ -509,13 +399,14 @@
                 function productSelection(e){
                     var product_selection = e.val();
                     if(product_selection == 'simple'){
-                        $("#product-selection-variant").slideUp();
-                        $("#product-selection-simple").slideDown();
+                        var mybutton = $('.variant-button');
+                        getVariants(mybutton);
+                        $("#variant_option").slideUp();
                         
                     }
                     if(product_selection == 'variant'){
-                        $("#product-selection-variant").slideDown();
-                        $("#product-selection-simple").slideUp();
+                        $('#variants').html(" ");
+                        $("#variant_option").slideDown();
                        
                     }
                 }

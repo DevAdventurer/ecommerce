@@ -13,6 +13,5 @@
 
 </ul>
 
-<?php echo $medias->render(); ?>
 
 <?php /**PATH /home/sanix/Documents/ecommerce/resources/views/admin/media/ajax-list.blade.php ENDPATH**/ ?>

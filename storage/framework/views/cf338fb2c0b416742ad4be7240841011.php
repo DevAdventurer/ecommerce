@@ -4,7 +4,7 @@
         <input type="search" placeholder="Search" name="search" id="mediafilesearch" class="form-control">
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body p-0 overflow-hidden">
+    <div class="offcanvas-body p-0 overflow-hidden text-center">
         <div data-simplebar class="p-2" style="height: calc(100vh - 116px);padding-bottom: 12px;">
 
 
@@ -55,7 +55,12 @@
             </div>
             
 
-           
+            <?php
+            $medias = App\Models\Media::orderBy('created_at', 'desc')->select('id', 'file', 'name')->paginate(10);
+            ?>
+        
+
+            <a id="load-more-mediafiles" class="btn-sm btn-soft-success" href="javascript:void(0);" first-page="1" current-page="<?php echo e($medias->currentPage()); ?>" last-page="<?php echo e($medias->lastPage()); ?>">Loadmore</a>
 
         </div>
     </div>

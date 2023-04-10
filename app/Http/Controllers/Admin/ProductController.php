@@ -63,7 +63,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        //return $request->all();
+
+
         
         $this->validate($request,[
             'title' => 'required',
@@ -122,6 +124,16 @@ class ProductController extends Controller
                     $product_variant->available_stock = $variant['quantity_available'];
                     $product_variant->save();
 
+                    if(count($variant['images']) > 0){
+                        foreach($variant['images'] as $file){
+                            $product_image = new ProductMedia;
+                            $product_image->media_id = $file;
+                            $product_image->product_id = $product->id;
+                            $product_image->variant_id = $product_variant->id;
+                            $product_image->save();
+                        } 
+                    }
+
                 }
             }
 
@@ -141,26 +153,34 @@ class ProductController extends Controller
 
         
 
-                $product_variant = new ProductVariant;
-                $product_variant->product_id = $product->id;
-                $product_variant->variant = $request->variant;
-                $product_variant->sku = $request->sku;
-                $product_variant->variant_price = $request->price;
-                $product_variant->variant_sale_price = $request->sale_price;
-                $product_variant->stock = $request->quantity_on_hand;
-                $product_variant->available_stock = $request->quantity_available;
-                $product_variant->save();
+                $variants = $request->input('variants');
+                foreach ($variants as $variant) {
+
+                    $product_variant = new ProductVariant;
+                    $product_variant->product_id = $product->id;
+                    $product_variant->variant = $variant['value'];
+                    $product_variant->sku = $variant['sku'];
+                    $product_variant->variant_price = $variant['variant_price'];
+                    $product_variant->variant_sale_price = $variant['variant_sale_price'];
+                    $product_variant->stock = $variant['quantity_on_hand'];
+                    $product_variant->available_stock = $variant['quantity_available'];
+                    $product_variant->save();
 
 
-                 if($request->has('product_images')){
-                    foreach($request->product_images as $file){
-                        $product_image = new ProductMedia;
-                        $product_image->media_id = $file;
-                        $product_image->product_id = $product->id;
-                        $product_image->variant_id = $product_variant->id;
-                        $product_image->save();
-                    } 
+                    if(count($variant['images']) > 0){
+                        foreach($variant['images'] as $file){
+                            $product_image = new ProductMedia;
+                            $product_image->media_id = $file;
+                            $product_image->product_id = $product->id;
+                            $product_image->variant_id = $product_variant->id;
+                            $product_image->save();
+                        } 
+                    }
+
                 }
+
+
+                 
 
             }
             
@@ -192,7 +212,14 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::with('tags','collections','brand','vendor','productType','optionValues','options','medias','productVariants')->where('id',$id)->first();
+        $product = Product::with('tags','collections','brand','vendor','productType',)
+        ->with('productVariants', function($query){
+            $query->with('variantMedias');
+        })
+        ->with('options', function($query){
+            $query->with('optionValues');
+        })
+        ->where('id',$id)->first();
         return view('admin.product.edit',compact('product'));
     }
 
@@ -205,6 +232,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //return $request->all();
         $this->validate($request,[
             'title' => 'required',
         ]);
@@ -239,7 +267,7 @@ class ProductController extends Controller
                     if($option->save()){
                         $option_vals = explode(',', $input['option_value']);
                         foreach ($option_vals as $option_val) {
-                            $option_value  = OptionValue::firstOrNew(['product_id'=>$id, 'option_id'=>$option_vals->id]);
+                            $option_value  = OptionValue::firstOrNew(['product_id'=>$product->id, 'option_id'=>$option_vals->id]);
                             $option_value->product_id = $product->id;
                             $option_value->option_id = $option->id;
                             $option_value->option_value = $option_val;
@@ -262,17 +290,28 @@ class ProductController extends Controller
                     $product_variant->available_stock = $variant['quantity_available'];
                     $product_variant->save();
 
+                    if(count($variant['images']) > 0){
+                        ProductMedia::where(['product_id'=>$id])->whereIn('variant_id',[$product_variant->id])->delete();
+                        foreach($variant['images'] as $file){
+                            $product_image = new ProductMedia;
+                            $product_image->media_id = $file;
+                            $product_image->product_id = $product->id;
+                            $product_image->variant_id = $product_variant->id;
+                            $product_image->save();
+                        } 
+                    }
+
                 }
             }
 
 
             if($request->product_selectio_type == 'simple'){ 
 
-                $option  = Option::firstOrNew(['product_id'=>$id]);;
+                $option  = new Option;
                 $option->product_id = $product->id;
                 $option->name = 'Default Option';
                 if($option->save()){
-                    $option_value  = OptionValue::firstOrNew(['product_id'=>$id, 'option_id'=>$option->id]);
+                    $option_value  = OptionValue::firstOrNew(['product_id'=>$id, 'option_id'=>$option->id]);;
                     $option_value->product_id = $product->id;
                     $option_value->option_id = $option->id;
                     $option_value->option_value = 'Default Title';
@@ -281,26 +320,31 @@ class ProductController extends Controller
 
         
 
-                $product_variant = ProductVariant::firstOrNew(['product_id'=>$id, 'variant'=>$request->variant]);
-                $product_variant->product_id = $product->id;
-                $product_variant->variant = $request->variant;
-                $product_variant->sku = $request->sku;
-                $product_variant->variant_price = $request->price;
-                $product_variant->variant_sale_price = $request->sale_price;
-                $product_variant->stock = $request->quantity_on_hand;
-                $product_variant->available_stock = $request->quantity_available;
-                $product_variant->save();
+                $variants = $request->input('variants');
+                foreach ($variants as $variant) {
+
+                    $product_variant = ProductVariant::firstOrNew(['product_id'=>$id, 'variant'=>$request->variant]);
+                    $product_variant->product_id = $product->id;
+                    $product_variant->variant = $variant['value'];
+                    $product_variant->sku = $variant['sku'];
+                    $product_variant->variant_price = $variant['variant_price'];
+                    $product_variant->variant_sale_price = $variant['variant_sale_price'];
+                    $product_variant->stock = $variant['quantity_on_hand'];
+                    $product_variant->available_stock = $variant['quantity_available'];
+                    $product_variant->save();
 
 
-                 if($request->has('product_images')){
-                    ProductMedia::where(['product_id'=>$id])->whereIn('variant_id',[$product_variant->id])->delete();
-                    foreach($request->product_images as $file){
-                        $product_image = new ProductMedia;
-                        $product_image->media_id = $file;
-                        $product_image->product_id = $product->id;
-                        $product_image->variant_id = $product_variant->id;
-                        $product_image->save();
-                    } 
+                    if(count($variant['images']) > 0){
+                        ProductMedia::where(['product_id'=>$id])->whereIn('variant_id',[$product_variant->id])->delete();
+                        foreach($variant['images'] as $file){
+                            $product_image = new ProductMedia;
+                            $product_image->media_id = $file;
+                            $product_image->product_id = $product->id;
+                            $product_image->variant_id = $product_variant->id;
+                            $product_image->save();
+                        } 
+                    }
+
                 }
 
             }
@@ -330,6 +374,7 @@ class ProductController extends Controller
     public function generateVariant(Request $request)
     {
         $inputs = $request->input('group-a');
+        $product_selectio_type = $request->product_selectio_type;
 
         $options = [];
         
@@ -344,6 +389,6 @@ class ProductController extends Controller
 
         $start = array_shift($options);
         $matrix = collect($start)->crossJoin(...$options);
-        return view('admin.product.ajax-variant-calculate', compact('matrix'));
+        return view('admin.product.ajax-variant-calculate', compact('matrix','product_selectio_type'));
     }
 }

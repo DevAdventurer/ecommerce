@@ -56,7 +56,7 @@
                 <div class="form-group<?php echo e($errors->has('description') ? ' has-error' : ''); ?>">
                     <?php echo Form::label('description', 'Description'); ?>
 
-                    <?php echo Form::textarea('description', $product->description, ['class' => 'editor form-control']); ?>
+                    <?php echo Form::textarea('description', $product->body, ['class' => 'editor form-control']); ?>
 
                     <small class="text-danger"><?php echo e($errors->first('description')); ?></small>
                 </div>
@@ -74,16 +74,23 @@
 
 
 
-        <div id="product-selection-variant" class="card" style="display:none;">
+        <div id="product-selection-variant" class="card" <?php if($product->product_selectio_type == 'simple'): ?> style="display:none;" <?php else: ?> style="display:block;" <?php endif; ?>>
             <div class="card-header">
                 <h6 class="card-title mb-0">Product Variants</h6>
             </div>
             <div class="card-body">
+
+
+
                 <div  class="report-repeater">
                     <button data-repeater-create type="button" class="btn btn-success" style="margin-bottom: 20px;"><i class="bx bx-plus-circle"></i></button>
                     <div data-repeater-list="group-a">
-                        <div class="repeater-row"  data-repeater-item>
+                    
+                        <?php $__currentLoopData = $product->options; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
+
+                        <div class="repeater-row"  data-repeater-item>
+                        
                             <div class="row">
 
 
@@ -91,7 +98,7 @@
                                     <div class="form-group<?php echo e($errors->has('option') ? ' has-error' : ''); ?>">
                                         <?php echo Form::label('option', 'Option'); ?>
 
-                                        <?php echo Form::text('option', null, ['class' => 'form-control', 'placeholder' => 'Option Name']); ?>
+                                        <?php echo Form::text('option', $option->name, ['class' => 'form-control', 'placeholder' => 'Option Name']); ?>
 
                                         <small class="small">Example: Color</small>
                                         <small class="text-danger"><?php echo e($errors->first('option')); ?></small>
@@ -101,10 +108,19 @@
 
                                 <div class="col-md-7">
 
+                                    <?php $tmp = ''; 
+                                        foreach ($option->optionValues as $value){
+                                            $tmp .= $value->option_value . ','; 
+                                        }
+                                        $tmp = trim($tmp, ',');    // remove trailing comma
+                                     //dd($tmp);
+                                    ?>
+
+
                                     <div class="form-group<?php echo e($errors->has('option_value') ? ' has-error' : ''); ?>">
                                         <?php echo Form::label('option_value', 'Option Value'); ?>
 
-                                        <?php echo Form::text('option_value', null, ['class' => 'tagify form-control', 'placeholder' => 'Option Value']); ?>
+                                        <?php echo Form::text('option_value', $tmp, ['class' => 'tagify form-control', 'placeholder' => 'Option Value']); ?>
 
                                         <small class="small">Example: Red,Green,Blue</small>
                                         <small class="text-danger"><?php echo e($errors->first('option_value')); ?></small>
@@ -121,11 +137,12 @@
                               </div>
 
 
-
-
-
                           </div>
+                        
+
                       </div>
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
                   </div>
 
               </div>
@@ -138,10 +155,15 @@
       </div>
 
 
-
+    <?php
+        $count = 0; 
+    ?> 
       <div id="product-selection-simple" class="card" >
         <div class="card-body">
             <div class="variant-container">
+
+                <?php $__currentLoopData = $product->productVariants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $variant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
 
                 <div class="row g-2">
 
@@ -155,21 +177,37 @@
                 </div>
 
 
-                <div class="variant-inner col" style="display:none">
-                    <div class="form-group<?php echo e($errors->has('variant') ? ' has-error' : ''); ?>">
-                        <?php echo Form::label('variant', 'Variant'); ?>
+                <?php if($product->product_selectio_type == 'simple'): ?>
 
-                        <?php echo Form::text('variants', 'Default Title',['class' => 'form-control', 'required' => 'required', 'readonly'=>'readonly']); ?>
+                    <div class="variant-inner col" style="display:none;">
+                        <div class="form-group<?php echo e($errors->has('variant') ? ' has-error' : ''); ?>">
+                            <?php echo Form::label('variant', 'Variant'); ?>
 
-                        <small class="text-danger"><?php echo e($errors->first('variant')); ?></small>
+                            <?php echo Form::text('variants['.$count.'][value]', 'Default Title', ['class' => 'form-control', 'required' => 'required', 'readonly'=>'readonly']); ?>
+
+                            <small class="text-danger"><?php echo e($errors->first('variant')); ?></small>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
+
+                <?php if($product->product_selectio_type == 'variant'): ?>
+                    <div class="variant-inner col">
+                        <div class="form-group<?php echo e($errors->has('variant') ? ' has-error' : ''); ?>">
+                            <?php echo Form::label('variant', 'Variant'); ?>
+
+                            <?php echo Form::text('variants['.$count.'][value]', $variant->variant, ['class' => 'form-control', 'required' => 'required', 'readonly'=>'readonly']); ?>
+
+                            <small class="text-danger"><?php echo e($errors->first('variant')); ?></small>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
 
                 <div class="variant-inner col">
                     <div class="form-group<?php echo e($errors->has('quantity_on_hand') ? ' has-error' : ''); ?>">
                         <?php echo Form::label('quantity_on_hand', 'Quantity On Hand'); ?>
 
-                        <?php echo Form::text('quantity_on_hand', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Quantity On Hand']); ?>
+                        <?php echo Form::text('quantity_on_hand', $variant->stock, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Quantity On Hand']); ?>
 
                         <small class="text-danger"><?php echo e($errors->first('quantity_on_hand')); ?></small>
                     </div>
@@ -180,7 +218,7 @@
                     <div class="form-group<?php echo e($errors->has('quantity_available') ? ' has-error' : ''); ?>">
                         <?php echo Form::label('quantity_available', 'Quantity Available'); ?>
 
-                        <?php echo Form::text('quantity_available', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Quantity Available']); ?>
+                        <?php echo Form::text('quantity_available', $variant->available_stock, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Quantity Available']); ?>
 
                         <small class="text-danger"><?php echo e($errors->first('quantity_available')); ?></small>
                     </div>
@@ -190,7 +228,7 @@
                     <div class="form-group<?php echo e($errors->has('sku') ? ' has-error' : ''); ?>">
                         <?php echo Form::label('sku', 'SKU'); ?>
 
-                        <?php echo Form::text('sku', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'SKU']); ?>
+                        <?php echo Form::text('sku', $variant->sku, ['class' => 'form-control', 'required' => 'required','placeholder'=>'SKU']); ?>
 
                         <small class="text-danger"><?php echo e($errors->first('sku')); ?></small>
                     </div>
@@ -200,7 +238,7 @@
                     <div class="form-group<?php echo e($errors->has('price') ? ' has-error' : ''); ?>">
                         <?php echo Form::label('price', 'Price'); ?>
 
-                        <?php echo Form::text('price', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Price']); ?>
+                        <?php echo Form::text('price', $variant->variant_price, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Price']); ?>
 
                         <small class="text-danger"><?php echo e($errors->first('price')); ?></small>
                     </div>
@@ -210,20 +248,59 @@
                     <div class="form-group<?php echo e($errors->has('sale_price') ? ' has-error' : ''); ?>">
                         <?php echo Form::label('sale_price', 'Sale Price'); ?>
 
-                        <?php echo Form::text('sale_price', null, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Sale Price']); ?>
+                        <?php echo Form::text('sale_price', $variant->variant_sale_price, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Sale Price']); ?>
 
                         <small class="text-danger"><?php echo e($errors->first('sale_price')); ?></small>
                     </div>
                 </div>
-            </div>
 
-            <div class="varinat-images product-images">
-                <div class="media-area" file-name="product_images">
-                    <div class="media-file-value"></div>
-                    <div class="media-file"></div>
-                    <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='multiple' onclick="loadMediaFiles($(this))">Select Product Image</a>
+
+
+            <?php if($variant->variantMedias->count() > 0): ?>
+
+                
+                <div class="varinat-images product-images" style="display:block;">
+                    <div class="media-area" file-name="product_images">
+
+                        
+                        <div class="media-file-value">
+                            <?php $__currentLoopData = $variant->variantMedias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $media): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <input type="hidden" name="product_images[]" value="<?php echo e($media->id); ?>" class="fileid<?php echo e($media->id); ?>">
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
+                        <div class="media-file">
+                            <?php $__currentLoopData = $variant->variantMedias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $media): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="file-container d-inline-block fileid<?php echo e($media->id); ?>">
+                                <span data-id="<?php echo e($media->id); ?>" class="remove-file">✕</span>
+                                <img class="w-100 d-block img-thumbnail" src="<?php echo e(asset($media->file)); ?>" alt="<?php echo e($media->name); ?>">
+                            </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
+                        
+
+                        <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='multiple' onclick="loadMediaFiles($(this))">Select Product Image</a>
+                    </div>
                 </div>
+
+            <?php else: ?>
+
+                    <div class="varinat-images product-images">
+                        <div class="media-area" file-name="product_images">
+                            <div class="media-file-value"></div>
+                            <div class="media-file"></div>
+                            <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='multiple' onclick="loadMediaFiles($(this))">Select Product Image</a>
+                        </div>
+                    </div>
+
+            <?php endif; ?>
+
+
+
             </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+           
+
 
         </div>               
     </div>
@@ -426,6 +503,8 @@
                             new Tagify(this.querySelector('.tagify'), {
                                 originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
                             });
+
+                            
                         },
                         hide: function (deleteElement) {
                             if(confirm('Are you sure you want to delete this?')) {
@@ -462,12 +541,12 @@
                                 text: response.message,
                                 duration: 3000,
                                 close: true,
-                gravity: "top", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                className: response.class,
+                                gravity: "top", // `top` or `bottom`
+                                position: "right", // `left`, `center` or `right`
+                                stopOnFocus: true, // Prevents dismissing of toast on hover
+                                className: response.class,
 
-            }).showToast();
+                            }).showToast();
 
                         },
                         error:function(error){
@@ -479,10 +558,22 @@
                     });
                 }
 
-                var input = document.querySelector('.tagify');
-                tagify = new Tagify(input, {
-                    originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+                // $(document).ready(function(){
+                //     var input = document.querySelector('.tagify');
+                //     tagify = new Tagify(input, {
+                //         originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+                //     });
+                // });
+
+
+                const allInputs = document.querySelectorAll('.tagify');
+
+                  allInputs.forEach((input) => {
+                        tagify = new Tagify(input, {
+                        originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+                    });
                 });
+                
 
                 function productSelection(e){
                     var product_selection = e.val();

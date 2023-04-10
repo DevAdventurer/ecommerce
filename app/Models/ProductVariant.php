@@ -14,4 +14,8 @@ class ProductVariant extends Model
         'variant',
     ];
 
+    public function variantMedias(){
+        return $this->belongsToMany('App\Models\Media','product_medias','variant_id');
+    }
+
 }

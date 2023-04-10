@@ -103,7 +103,7 @@ function selectSingleFile() {
         if (checkboxes[i].checked) {
 
             $( ".media-area.active .media-file-value input" ).each(function() {
-                $(".fileid"+checkboxes[i].value).remove();
+                $(".media-area.active .fileid"+checkboxes[i].value).remove();
             });
 
             result += '<input type="hidden" name="'+file_name+'[]" value="'+checkboxes[i].value+'" class="fileid'+checkboxes[i].value+'">';
