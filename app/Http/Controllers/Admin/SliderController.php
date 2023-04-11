@@ -62,7 +62,7 @@ class SliderController extends Controller
      * @return \Illuminate\Http\Response
      */
         public function store(Request $request) {
-            return $request->all();
+            //return $request->all();
             $this->validate($request,[
                 // 'title'=>'required',
                 // 'sub_title'=>'required',

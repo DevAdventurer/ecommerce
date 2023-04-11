@@ -88,13 +88,17 @@ $("#mediafilesearch").keyup(function(){
 
 
 function selectSingleFile() {
-    // $(".media-area.active .media-file-value").html('');
-    // $(".media-area.active .media-file").html('');
+    if ($("input[name='media[]']").is(':radio')) {
+        $(".media-area.active .media-file-value").html('');
+        $(".media-area.active .media-file").html('');
+    }
 
     var file_name = $(".media-area.active").attr('file-name');
     //alert(file_name);
 
     var checkboxes = document.getElementsByName('media[]');
+
+    
 
     var result = "";
     var image = "";
