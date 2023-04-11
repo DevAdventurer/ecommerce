@@ -63,11 +63,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
-        return $request->all();
-=======
        // return $request->all();
->>>>>>> f40340fe44bfbfbdff9441ee99379b552edfdea7
 
 
         

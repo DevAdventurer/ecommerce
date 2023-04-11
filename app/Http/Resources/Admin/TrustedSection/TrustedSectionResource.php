@@ -6,9 +6,18 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class TrustedSectionResource extends JsonResource
 {
     
-    public function icon($iconType)
+    public function myIcon($iconType)
     {
-        return "ok";
+        $icon = 'N/A';
+        if ($iconType == 'image') {
+            return $icon = '<img class="img-thumbnail avatar-img rounded avatar-sm" src="'.asset($this->media->file).'">';
+        }
+        if ($iconType == 'icon') {
+            return $icon = '<img class="img-thumbnail avatar-img rounded avatar-sm" src="'.asset($geticon->media->file).'">';
+        }
+        if ($iconType == 'svg') {
+            return $icon = '<img class="img-thumbnail avatar-img rounded avatar-sm" src="'.asset($geticon->media->file).'">';
+        }
     }
 
     public function toArray($request)
@@ -19,7 +28,7 @@ class TrustedSectionResource extends JsonResource
             'title' => $this->title,
             'subtitle' => $this->subtitle,
             'icon_type' => $this->icon_type,
-            'icon' => $this->icon($this->icon_type),
+            'icon' => $this->myIcon($this->icon_type),
             'created_at' => $this->created_at->format('d M Y'),
         ];
     }

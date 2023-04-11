@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 11, 2023 at 01:43 PM
+-- Generation Time: Apr 11, 2023 at 08:47 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -199,7 +199,9 @@ INSERT INTO `medias` (`id`, `file`, `name`, `slug`, `type`, `original_name`, `ha
 (24, 'storage/media/facebook-2.png', 'facebook', 'facebook-2', 'png', 'facebook.png', 'facebook', '15.23 KB', '2023-04-08 11:51:08', '2023-04-08 11:51:08'),
 (25, 'storage/media/dark-green-texture-2.jpg', 'dark-green-texture', 'dark-green-texture-2', 'jpg', 'dark-green-texture.jpg', 'dark-green-texture', '710.27 KB', '2023-04-08 11:51:18', '2023-04-08 11:51:18'),
 (26, 'storage/media/5001235-19820-2.jpg', '5001235_19820', '5001235-19820-2', 'jpg', '5001235_19820.jpg', '5001235-19820', '763.98 KB', '2023-04-08 11:51:33', '2023-04-08 11:51:33'),
-(27, 'storage/media/1.png', '1', '1', 'png', '1.png', '1', '787 B', '2023-04-11 06:08:27', '2023-04-11 06:08:27');
+(27, 'storage/media/1.png', '1', '1', 'png', '1.png', '1', '787 B', '2023-04-11 06:08:27', '2023-04-11 06:08:27'),
+(28, 'storage/media/2.png', '2', '2', 'png', '2.png', '2', '1.25 KB', '2023-04-11 10:44:56', '2023-04-11 10:44:56'),
+(29, 'storage/media/3.png', '3', '3', 'png', '3.png', '3', '404 B', '2023-04-11 11:22:28', '2023-04-11 11:22:28');
 
 -- --------------------------------------------------------
 
@@ -221,24 +223,24 @@ CREATE TABLE `menus` (
 --
 
 INSERT INTO `menus` (`slug`, `name`, `icon`, `parent`, `ordering`, `status`) VALUES
-('admin', 'Admin', 'mdi mdi-account-lock', NULL, 2, 1),
+('admin', 'Admin', 'mdi mdi-account-lock', NULL, 4, 1),
 ('brand', 'Brand', NULL, 'ecommerce', 3, 1),
 ('bread', 'Bread', 'ft-target', 'setting', 2, 1),
 ('collection', 'Collection', NULL, 'ecommerce', 1, 1),
-('dashboard', 'Dashboard', 'bx bx-home-circle', NULL, 0, 1),
-('ecommerce', 'Ecommerce', 'bx bxs-shopping-bag-alt', NULL, 1, 1),
-('home_page', 'Home Page', NULL, NULL, NULL, 1),
-('media', 'Media', 'bx bx-images', NULL, 3, 1),
+('dashboard', 'Dashboard', 'bx bx-home-circle', NULL, 2, 1),
+('ecommerce', 'Ecommerce', 'bx bxs-shopping-bag-alt', NULL, 3, 1),
+('home_page', 'Home Page', NULL, NULL, 0, 1),
+('media', 'Media', 'bx bx-images', NULL, 5, 1),
 ('menu', 'Menu', NULL, 'setting', 1, 1),
 ('product', 'Product', NULL, 'ecommerce', 0, 1),
 ('product_type', 'Product Type', NULL, 'ecommerce', 4, 1),
 ('role', 'Role', NULL, 'setting', 0, 1),
-('setting', 'Setting', 'mdi mdi-tools', NULL, 5, 1),
-('site_setting', 'Site Setting', 'bx bx-cog', NULL, 4, 1),
-('slider', 'Slider', NULL, NULL, NULL, 1),
+('setting', 'Setting', 'mdi mdi-tools', NULL, 7, 1),
+('site_setting', 'Site Setting', 'bx bx-cog', NULL, 6, 1),
+('slider', 'Slider', NULL, 'home_page', 0, 1),
 ('tag', 'Tag', NULL, 'ecommerce', 2, 1),
-('trusted_section', 'Trusted Section', NULL, NULL, NULL, 1),
-('trusted_sections', 'Trusted Sections', NULL, NULL, NULL, 1),
+('trusted_section', 'Trusted Section', NULL, 'home_page', 1, 1),
+('trusted_sections', 'Trusted Sections', NULL, NULL, 1, 1),
 ('vendor', 'Vendor', NULL, 'ecommerce', 5, 1);
 
 -- --------------------------------------------------------
@@ -293,7 +295,7 @@ INSERT INTO `option_values` (`id`, `product_id`, `option_id`, `option_value`, `c
 (4, 2, 3, 'Red', '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
 (5, 2, 3, 'Green', '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
 (11, 3, 9, 'Default Title', '2023-04-11 05:29:11', '2023-04-11 05:29:11'),
-(12, 4, 10, 'Yellow', '2023-04-11 05:33:41', '2023-04-11 06:08:20'),
+(12, 4, 10, 'Yellow', '2023-04-11 05:33:41', '2023-04-11 15:41:14'),
 (13, 4, 10, 'L', '2023-04-11 05:33:41', '2023-04-11 05:33:41'),
 (14, 4, 11, 'Orange', '2023-04-11 05:33:41', '2023-04-11 05:33:41'),
 (15, 4, 11, 'Yellow', '2023-04-11 05:33:41', '2023-04-11 05:33:41');
@@ -511,17 +513,6 @@ INSERT INTO `product_medias` (`product_id`, `variant_id`, `media_id`, `created_a
 (2, 5, 19, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
 (2, 5, 20, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
 (2, 5, 21, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(4, 10, 26, '2023-04-11 06:08:20', '2023-04-11 06:08:20'),
-(4, 10, 25, '2023-04-11 06:08:20', '2023-04-11 06:08:20'),
-(4, 10, 22, '2023-04-11 06:08:20', '2023-04-11 06:08:20'),
-(4, 10, 8, '2023-04-11 06:08:20', '2023-04-11 06:08:20'),
-(4, 10, 9, '2023-04-11 06:08:20', '2023-04-11 06:08:20'),
-(4, 11, 24, '2023-04-11 06:08:20', '2023-04-11 06:08:20'),
-(4, 11, 23, '2023-04-11 06:08:20', '2023-04-11 06:08:20'),
-(4, 12, 22, '2023-04-11 06:08:20', '2023-04-11 06:08:20'),
-(4, 12, 8, '2023-04-11 06:08:20', '2023-04-11 06:08:20'),
-(4, 13, 17, '2023-04-11 06:08:20', '2023-04-11 06:08:20'),
-(4, 13, 18, '2023-04-11 06:08:20', '2023-04-11 06:08:20'),
 (3, 9, 22, '2023-04-11 06:14:07', '2023-04-11 06:14:07'),
 (3, 9, 8, '2023-04-11 06:14:07', '2023-04-11 06:14:07'),
 (3, 9, 17, '2023-04-11 06:14:07', '2023-04-11 06:14:07'),
@@ -529,7 +520,20 @@ INSERT INTO `product_medias` (`product_id`, `variant_id`, `media_id`, `created_a
 (1, 1, 6, '2023-04-11 06:46:12', '2023-04-11 06:46:12'),
 (1, 1, 4, '2023-04-11 06:46:12', '2023-04-11 06:46:12'),
 (1, 1, 2, '2023-04-11 06:46:12', '2023-04-11 06:46:12'),
-(1, 1, 1, '2023-04-11 06:46:12', '2023-04-11 06:46:12');
+(1, 1, 1, '2023-04-11 06:46:12', '2023-04-11 06:46:12'),
+(4, 10, 26, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
+(4, 10, 25, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
+(4, 10, 22, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
+(4, 10, 8, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
+(4, 10, 9, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
+(4, 11, 26, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
+(4, 11, 25, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
+(4, 11, 23, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
+(4, 11, 22, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
+(4, 12, 22, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
+(4, 12, 8, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
+(4, 13, 17, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
+(4, 13, 18, '2023-04-11 15:41:14', '2023-04-11 15:41:14');
 
 -- --------------------------------------------------------
 
@@ -838,6 +842,15 @@ CREATE TABLE `trusted_sections` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `trusted_sections`
+--
+
+INSERT INTO `trusted_sections` (`id`, `title`, `subtitle`, `icon`, `icon_type`, `created_at`, `updated_at`) VALUES
+(1, 'Free Shipping & Return', 'On all order over $99.00', '27', 'image', '2023-04-11 16:13:01', '2023-04-11 16:13:01'),
+(2, 'Customer Support 24/7', 'Instant access to support', '28', 'image', '2023-04-11 16:15:07', '2023-04-11 16:15:07'),
+(3, '100% Secure Payment', 'We ensure secure payment!', '29', 'image', '2023-04-11 17:03:30', '2023-04-11 17:03:30');
+
 -- --------------------------------------------------------
 
 --
@@ -1082,7 +1095,7 @@ ALTER TABLE `collections`
 -- AUTO_INCREMENT for table `medias`
 --
 ALTER TABLE `medias`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `options`
@@ -1148,7 +1161,7 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT for table `trusted_sections`
 --
 ALTER TABLE `trusted_sections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`

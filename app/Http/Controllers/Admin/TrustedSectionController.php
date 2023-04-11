@@ -13,7 +13,8 @@ class TrustedSectionController extends Controller
 
     
     public function index(Request $request)
-    {      
+    {   
+        //return $datas = TrustedSection::orderBy('created_at','desc')->select(['id','title','subtitle','icon','icon_type','created_at'])->with('media')->get();   
         if ($request->ajax()) {
             $datas = TrustedSection::orderBy('created_at','desc')->select(['id','title','subtitle','icon','icon_type','created_at'])->with('media');
             $search = $request->search['value'];
@@ -50,28 +51,33 @@ class TrustedSectionController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request->all();
         
         $this->validate($request,[
             'title'=>'required',
+            'subtitle'=>'required',
+            'icon_type'=>'required',
         ]);
         
         $trusted_section = new TrustedSection;
         $trusted_section->title = $request->title;
-        $trusted_section->body = $request->description;
-        $trusted_section->parent = $request->parent;
-        $trusted_section->status = $request->status?1:0;
-        $trusted_section->published_at = Carbon::parse($request->published_date)->format('Y-m-d');
+        $trusted_section->subtitle = $request->subtitle;
+        $trusted_section->icon_type = $request->icon_type;
        
-        $trusted_section->meta_title = $request->meta_title??$request->title;
-        $trusted_section->meta_description = $request->meta_description??$request->description;
-
-        if($request->has('file')){
+        if($request->input('file')){
             foreach($request->file as $file){
-                $trusted_section->media_id = $file;
+                $trusted_section->icon = $file;
             } 
         }
-           
 
+        if($request->input('icon')){
+            $trusted_section->icon = $request->icon;
+        }
+
+        if($request->input('svg')){
+            $trusted_section->icon = $request->svg;
+        }
+         
         if($trusted_section->save()){ 
             return redirect()->route('admin.trusted-section.index')->with(['class'=>'success','message'=>'Trusted 
                 Section Created successfully.']);

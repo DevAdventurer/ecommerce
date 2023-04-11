@@ -106,7 +106,7 @@
                     </div>
 
 
-                     <div class="btn-group">
+                     <div class="btn-group" style="margin-top:30px;">
                         {!! Form::submit("Save ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-success btn-border waves-effect waves-light']) !!}
                     </div>
 

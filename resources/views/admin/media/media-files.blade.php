@@ -66,8 +66,8 @@
 
         </div>
     </div>
-    <div class="offcanvas-foorter border p-1 text-center">
-        <button onclick="selectSingleFile()" class="btn">Select File</button>
+    <div class="offcanvas-foorter text-center">
+        <button onclick="selectSingleFile()" class="btn btn-success btn-border waves-effect waves-light d-block w-100 p-3 border-none" style="border-radius: 0;">Select File</button>
     </div>
 </div>
 
