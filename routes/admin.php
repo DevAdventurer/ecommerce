@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\ProductInventoryController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\TrustedSectionController;
 
 Route::middleware('admin.guest')->name('admin.')->group(function() {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login.form');
@@ -109,7 +110,7 @@ Route::middleware('admin')->name('admin.')->group(function() {
         Route::delete('product/{product}/delete', 'destroy')->name('product.destroy')->middleware('can:delete_product');
 
 
-        Route::post('product/generate/variants', 'generateVariant')->name('generate.variant');
+        Route::match(['post','put'],'product/generate/variants', 'generateVariant')->name('generate.variant');
 
     });
 
@@ -208,6 +209,29 @@ Route::middleware('admin')->name('admin.')->group(function() {
         Route::delete('media/{media}/delete', 'destroy')->name('media.destroy')->middleware('can:delete_media');
         Route::get('media/get/multiple', 'getAllMediaMultiple')->name('media.get.multiple');
         Route::get('media/get/single', 'getAllMediaSingle')->name('media.get.single');
+    });
+
+
+     //Home Page
+    Route::controller(HomePageController::class)->group(function(){
+        Route::match(['get','patch'],'home-page', 'index')->name('home-page.index')->middleware('can:browse_home_page');
+        Route::get('home-page/create', 'create')->name('home-page.create')->middleware('can:add_home_page');
+        Route::get('home-page/{home-page}', 'show')->name('home-page.show')->middleware('can:read_home_page');
+        Route::get('home-page/{home-page}/edit', 'edit')->name('home-page.edit')->middleware('can:edit_home_page');
+        Route::post('home-page', 'store')->name('home-page.store')->middleware('can:add_home_page');
+        Route::put('home-page/{home-page}', 'update')->name('home-page.update')->middleware('can:edit_home_page');
+        Route::delete('home-page/{home-page}/delete', 'destroy')->name('home-page.destroy')->middleware('can:delete_home_page');
+    });
+
+    //Trusted Sections
+    Route::controller(TrustedSectionController::class)->group(function(){
+        Route::match(['get','patch'],'trusted-section', 'index')->name('trusted-section.index')->middleware('can:browse_trusted_section');
+        Route::get('trusted-section/create', 'create')->name('trusted-section.create')->middleware('can:add_trusted_section');
+        Route::get('trusted-section/{trusted-section}', 'show')->name('trusted-section.show')->middleware('can:read_trusted_section');
+        Route::get('trusted-section/{trusted-section}/edit', 'edit')->name('trusted-section.edit')->middleware('can:edit_trusted_section');
+        Route::post('trusted-section', 'store')->name('trusted-section.store')->middleware('can:add_trusted_section');
+        Route::put('trusted-section/{trusted-section}', 'update')->name('trusted-section.update')->middleware('can:edit_trusted_section');
+        Route::delete('trusted-section/{trusted-section}/delete', 'destroy')->name('trusted-section.destroy')->middleware('can:delete_trusted_section');
     });
 
 });

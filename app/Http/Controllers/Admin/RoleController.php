@@ -22,8 +22,9 @@ class RoleController extends Controller
        
 
         if ($request->ajax()) {
-            $datas = Role::whereNotIn('id',[1])->orderBy('name','asc')->select(['id','name','display_name','created_at']);
+            $datas = Role::orderBy('name','asc')->select(['id','name','display_name','created_at']);
             $search = $request->search['value'];
+
 
             if ($search) {
                 $datas->where('name', 'like', '%'.$search.'%');

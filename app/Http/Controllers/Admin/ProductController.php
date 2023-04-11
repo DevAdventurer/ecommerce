@@ -63,7 +63,11 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
         return $request->all();
+=======
+       // return $request->all();
+>>>>>>> f40340fe44bfbfbdff9441ee99379b552edfdea7
 
 
         
@@ -257,7 +261,7 @@ class ProductController extends Controller
             $product->collections()->sync($request->collections);
             $product->tags()->sync($request->tags);
 
-            if($request->product_selectio_type == 'variant'){
+            //if($request->product_selectio_type == 'variant'){
 
                 $inputs = $request->input('group-a');
                 foreach ($inputs as $input) {
@@ -267,7 +271,7 @@ class ProductController extends Controller
                     if($option->save()){
                         $option_vals = explode(',', $input['option_value']);
                         foreach ($option_vals as $option_val) {
-                            $option_value  = OptionValue::firstOrNew(['product_id'=>$product->id, 'option_id'=>$option_vals->id]);
+                            $option_value  = OptionValue::firstOrNew(['product_id'=>$product->id, 'option_id'=>$option->id]);
                             $option_value->product_id = $product->id;
                             $option_value->option_id = $option->id;
                             $option_value->option_value = $option_val;
@@ -290,6 +294,8 @@ class ProductController extends Controller
                     $product_variant->available_stock = $variant['quantity_available'];
                     $product_variant->save();
 
+                    //return $variant['images'];
+
                     if(count($variant['images']) > 0){
                         ProductMedia::where(['product_id'=>$id])->whereIn('variant_id',[$product_variant->id])->delete();
                         foreach($variant['images'] as $file){
@@ -302,52 +308,52 @@ class ProductController extends Controller
                     }
 
                 }
-            }
+           // }
 
 
-            if($request->product_selectio_type == 'simple'){ 
+            // if($request->product_selectio_type == 'simple'){ 
 
-                $option  = new Option;
-                $option->product_id = $product->id;
-                $option->name = 'Default Option';
-                if($option->save()){
-                    $option_value  = OptionValue::firstOrNew(['product_id'=>$id, 'option_id'=>$option->id]);;
-                    $option_value->product_id = $product->id;
-                    $option_value->option_id = $option->id;
-                    $option_value->option_value = 'Default Title';
-                    $option_value->save();
-                }
+            //     $option  = Option::firstOrNew(['product_id'=>$id]);
+            //     $option->product_id = $product->id;
+            //     $option->name = 'Default Option';
+            //     if($option->save()){
+            //         $option_value  = OptionValue::firstOrNew(['product_id'=>$id, 'option_id'=>$option->id]);
+            //         $option_value->product_id = $product->id;
+            //         $option_value->option_id = $option->id;
+            //         $option_value->option_value = 'Default Title';
+            //         $option_value->save();
+            //     }
 
         
 
-                $variants = $request->input('variants');
-                foreach ($variants as $variant) {
+            //     $variants = $request->input('variants');
+            //     foreach ($variants as $variant) {
 
-                    $product_variant = ProductVariant::firstOrNew(['product_id'=>$id, 'variant'=>$request->variant]);
-                    $product_variant->product_id = $product->id;
-                    $product_variant->variant = $variant['value'];
-                    $product_variant->sku = $variant['sku'];
-                    $product_variant->variant_price = $variant['variant_price'];
-                    $product_variant->variant_sale_price = $variant['variant_sale_price'];
-                    $product_variant->stock = $variant['quantity_on_hand'];
-                    $product_variant->available_stock = $variant['quantity_available'];
-                    $product_variant->save();
+            //         $product_variant = ProductVariant::firstOrNew(['product_id'=>$id, 'variant'=>$request->variant]);
+            //         $product_variant->product_id = $product->id;
+            //         $product_variant->variant = $variant['value'];
+            //         $product_variant->sku = $variant['sku'];
+            //         $product_variant->variant_price = $variant['variant_price'];
+            //         $product_variant->variant_sale_price = $variant['variant_sale_price'];
+            //         $product_variant->stock = $variant['quantity_on_hand'];
+            //         $product_variant->available_stock = $variant['quantity_available'];
+            //         $product_variant->save();
 
 
-                    if(count($variant['images']) > 0){
-                        ProductMedia::where(['product_id'=>$id])->whereIn('variant_id',[$product_variant->id])->delete();
-                        foreach($variant['images'] as $file){
-                            $product_image = new ProductMedia;
-                            $product_image->media_id = $file;
-                            $product_image->product_id = $product->id;
-                            $product_image->variant_id = $product_variant->id;
-                            $product_image->save();
-                        } 
-                    }
+            //         if(count($variant['images']) > 0){
+            //             ProductMedia::where(['product_id'=>$id])->whereIn('variant_id',[$product_variant->id])->delete();
+            //             foreach($variant['images'] as $file){
+            //                 $product_image = new ProductMedia;
+            //                 $product_image->media_id = $file;
+            //                 $product_image->product_id = $product->id;
+            //                 $product_image->variant_id = $product_variant->id;
+            //                 $product_image->save();
+            //             } 
+            //         }
 
-                }
+            //     }
 
-            }
+            // }
             
 
             return redirect()->route('admin.product.index')->with(['class'=>'success','message'=>'Product Updated successfully.']);

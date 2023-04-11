@@ -29,12 +29,12 @@ $sliders = App\Models\Slider::where('status', 1)->get();
             <div class="container height-inherit d-flex align-items-center {{$slider->content_align}}">
                 <div class="content-box slide-content slide-content-1 py-4">
                     <h2 class="slide-heading heading_72 animate__animated animate__fadeInUp" data-animation="animate__animated animate__fadeInUp">
-                        Discover The Best Furniture
+                        {{$slider->title}}
                     </h2>
                     <p class="slide-subheading heading_24 animate__animated animate__fadeInUp" data-animation="animate__animated animate__fadeInUp">
-                        Look for your inspiration here
+                        {{$slider->subtitle}}
                     </p>
-                    <a class="btn-primary slide-btn animate__animated animate__fadeInUp" href="collection-left-sidebar.html" data-animation="animate__animated animate__fadeInUp">SHOP NOW ok</a>
+                    <a class="btn-primary slide-btn animate__animated animate__fadeInUp" href="{{$slider->button_link}}" data-animation="animate__animated animate__fadeInUp">{{$slider->button_text}}</a>
                 </div>
             </div>
         </div>
