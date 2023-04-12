@@ -50,16 +50,17 @@
                             <small class="text-danger"><?php echo e($errors->first('name')); ?></small>
                         </div>
 
-                        <div class="form-group <?php echo e($errors->has('image') ? ' has-error' : ''); ?>">
-                            <?php echo Form::label('image', 'Image'); ?>
-
-                            <?php echo Form::file('image', ['class'=>'dropify']); ?>
-
-                            <small class="text-danger"><?php echo e($errors->first('image')); ?></small>
+                        <div class="form-group">
+                            <div class="media-area" file-name="brand_image">
+                                <div class="media-file-value"></div>
+                                <div class="media-file"></div>
+                                <p><br></p>
+                                <a class="text-secondary select-mediatype" href="javascript:void(0);" mediatype='single' onclick="loadMediaFiles($(this))">Select Brand Image</a>
+                            </div>
                         </div>
                     
                         <div class="btn-group">
-                            <?php echo Form::submit("Save Brand", ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']); ?>
+                            <?php echo Form::submit("Save Brand", ['class' => 'btn btn-success btn-border waves-effect waves-light']); ?>
 
                         </div>
                     

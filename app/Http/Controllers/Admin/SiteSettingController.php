@@ -36,7 +36,7 @@ class SiteSettingController extends Controller
         $logo->address = $request->address;
 
 
-        if($request->has('logo')){
+        if($request->input('logo')){
             foreach($request->logo as $file){
                 $logo->logo = $file;
             } 
@@ -45,7 +45,7 @@ class SiteSettingController extends Controller
             $logo->logo = Null;
         }  
 
-        if($request->has('favicon')){
+        if($request->input('favicon')){
             foreach($request->favicon as $file){
                 $logo->favicon = $file;
             } 

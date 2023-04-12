@@ -73,7 +73,7 @@
                 <div class="media-area" file-name="favicon">
                     <div class="media-file-value">
                         @if($logo->siteFavicon)
-                            <input type="hidden" name="logo[]" value="{{$logo->favicon}}" class="fileid{{$logo->favicon}}">
+                            <input type="hidden" name="favicon[]" value="{{$logo->favicon}}" class="fileid{{$logo->favicon}}">
                         @endif
                     </div>
                     <div class="media-file">

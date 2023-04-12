@@ -77,7 +77,7 @@
                 <div class="media-area" file-name="favicon">
                     <div class="media-file-value">
                         <?php if($logo->siteFavicon): ?>
-                            <input type="hidden" name="logo[]" value="<?php echo e($logo->favicon); ?>" class="fileid<?php echo e($logo->favicon); ?>">
+                            <input type="hidden" name="favicon[]" value="<?php echo e($logo->favicon); ?>" class="fileid<?php echo e($logo->favicon); ?>">
                         <?php endif; ?>
                     </div>
                     <div class="media-file">

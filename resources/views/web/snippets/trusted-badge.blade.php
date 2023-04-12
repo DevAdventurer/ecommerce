@@ -12,7 +12,7 @@ $sections = App\Models\TrustedSection::orderBy('created_at','desc')->get();
                     <div class="trusted-badge rounded p-0">
                         <div class="trusted-icon">
                             @if($section->icon_type == 'image')
-                                <img class="icon-trusted" src="{{$section->media->file}}" alt="icon-1">
+                                <img class="icon-trusted" src="{{$section->media?$section->media->file:'NA'}}" alt="icon-1">
                             @endif
                         </div>
                         <div class="trusted-content">

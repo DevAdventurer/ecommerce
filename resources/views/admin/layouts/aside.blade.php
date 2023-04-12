@@ -16,7 +16,7 @@
                         <img src="{{asset(get_app_setting('favicon')??'assets/images/logo-sm.png')}}" alt="" width="40">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{asset(get_app_setting('logo')??'assets/images/logo-light.png')}}" alt="" width="200">
+                        <img src="{{asset(get_app_setting('logo')??'assets/images/logo-light.png')}}" alt="" width="140">
                     </span>
                 </a>
                 <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">

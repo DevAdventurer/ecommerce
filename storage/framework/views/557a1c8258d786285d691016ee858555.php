@@ -1,4 +1,4 @@
- <div class="announcement-bar bg-1 py-1 py-lg-2">
+ <div class="announcement-bar bg-3 py-1 py-lg-2">
     <div class="container">
         <div class="row align-items-center justify-content-between">
             <div class="col-lg-7 col-12">
