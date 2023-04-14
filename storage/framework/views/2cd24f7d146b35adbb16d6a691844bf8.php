@@ -40,7 +40,7 @@
                 <div class="form-group<?php echo e($errors->has('title') ? ' has-error' : ''); ?>">
                     <?php echo Form::label('title', 'Title'); ?>
 
-                    <?php echo Form::text('title', $slider->title, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Title']); ?>
+                    <?php echo Form::text('title', $slider->title, ['class' => 'form-control','placeholder'=>'Title']); ?>
 
                     <small class="text-danger"><?php echo e($errors->first('title')); ?></small>
                 </div>

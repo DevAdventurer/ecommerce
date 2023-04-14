@@ -23,11 +23,17 @@ class ProductController extends Controller
     
     public function index(Request $request)
     {
+       
         
         if ($request->ajax()) {
            
 
-            $datas = Product::orderBy('created_at','desc')->select(['id','title','slug','status','created_at']);
+            $datas = Product::with('tags','collections','brand','vendor','productType')->with('productVariants', function($query){
+                                $query->with('variantMedias');
+                            })->with('options', function($query){
+                                $query->with('optionValues');
+                            });
+
             $search = $request->search['value'];
 
             if ($search) {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 11, 2023 at 08:47 PM
+-- Generation Time: Apr 14, 2023 at 12:26 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -115,7 +115,9 @@ CREATE TABLE `brands` (
 
 INSERT INTO `brands` (`id`, `name`, `slug`, `media_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Relaxo', 'relaxo', 5, '2023-04-07 09:43:27', '2023-04-07 09:50:31', NULL),
-(2, 'Raymond', 'raymond', 6, '2023-04-07 09:45:54', '2023-04-07 09:45:54', NULL);
+(2, 'Raymond', 'raymond', 6, '2023-04-07 09:45:54', '2023-04-07 09:45:54', NULL),
+(3, 'Zarlak', 'zarlak', 5, '2023-04-13 12:17:05', '2023-04-13 12:17:05', NULL),
+(4, 'Jamie Kay', 'jamie-kay', NULL, '2023-04-14 07:28:13', '2023-04-14 07:28:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -146,8 +148,8 @@ CREATE TABLE `collections` (
 INSERT INTO `collections` (`id`, `parent`, `media_id`, `title`, `slug`, `body`, `status`, `meta_title`, `meta_description`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, NULL, 1, 'Best Sellers', 'best-sellers', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', 1, 'Best Sellers', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.', '2023-04-01', '2023-04-07 09:22:08', '2023-04-07 09:22:08', NULL),
 (2, NULL, 2, 'New Arrival', 'new-arrival', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.', 1, 'New Arrival', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.', '2023-04-01', '2023-04-07 09:25:28', '2023-04-07 09:25:28', NULL),
-(3, NULL, NULL, 'Shoes', 'shoes', NULL, 1, 'Shoes', NULL, '2023-04-08', '2023-04-07 09:33:27', '2023-04-07 09:33:27', NULL),
-(4, NULL, NULL, 'Sneakers', 'sneakers', NULL, 1, 'Sneakers', NULL, '2023-04-01', '2023-04-07 09:34:23', '2023-04-07 09:34:23', NULL);
+(3, NULL, 7, 'Girls Dresses', 'girls-dresses', NULL, 1, 'Girls Dresses', NULL, '2023-04-01', '2023-04-13 12:04:04', '2023-04-13 12:04:04', NULL),
+(4, NULL, 9, 'Boys Clothing', 'boys-clothing', NULL, 1, 'Boys Clothing', NULL, '2023-04-01', '2023-04-13 12:19:57', '2023-04-13 12:19:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -173,35 +175,26 @@ CREATE TABLE `medias` (
 --
 
 INSERT INTO `medias` (`id`, `file`, `name`, `slug`, `type`, `original_name`, `handle`, `size`, `created_at`, `updated_at`) VALUES
-(1, 'storage/media/14449322-5464026.jpg', '14449322_5464026', '14449322-5464026', 'jpg', '14449322_5464026.jpg', '14449322-5464026', '253.21 KB', '2023-04-07 03:51:55', '2023-04-07 03:51:55'),
-(2, 'storage/media/display-stand-design-witn-new-arrival-3d-rendering-118019-1433-2.jpg', 'display-stand-design-witn-new-arrival-3d-rendering_118019-1433 (2)', 'display-stand-design-witn-new-arrival-3d-rendering-118019-1433-2', 'jpg', 'display-stand-design-witn-new-arrival-3d-rendering_118019-1433 (2).jpg', 'display-stand-design-witn-new-arrival-3d-rendering-118019-1433-2', '45.01 KB', '2023-04-07 03:55:21', '2023-04-07 03:55:21'),
-(3, 'storage/media/logo1.png', 'logo1', 'logo1', 'png', 'logo1.png', 'logo1', '2.09 KB', '2023-04-07 04:01:58', '2023-04-07 04:01:58'),
-(4, 'storage/media/logo1-1.png', 'logo1 (1)', 'logo1-1', 'png', 'logo1 (1).png', 'logo1-1', '484 B', '2023-04-07 04:02:02', '2023-04-07 04:02:02'),
-(5, 'storage/media/download.jpeg', 'download', 'download', 'jpeg', 'download.jpeg', 'download', '1.7 KB', '2023-04-07 04:12:27', '2023-04-07 04:12:27'),
-(6, 'storage/media/download-2.png', 'download', 'download-2', 'png', 'download.png', 'download', '1.71 KB', '2023-04-07 04:15:48', '2023-04-07 04:15:48'),
-(7, 'storage/media/autumn-leaves-space-23-2147674304.jpg', 'autumn-leaves-space_23-2147674304', 'autumn-leaves-space-23-2147674304', 'jpg', 'autumn-leaves-space_23-2147674304.jpg', 'autumn-leaves-space-23-2147674304', '121.12 KB', '2023-04-07 09:12:09', '2023-04-07 09:12:09'),
-(8, 'storage/media/1eac70ccfc41154dab5484ab8f33c687.png', '1eac70ccfc41154dab5484ab8f33c687', '1eac70ccfc41154dab5484ab8f33c687', 'png', '1eac70ccfc41154dab5484ab8f33c687.png', '1eac70ccfc41154dab5484ab8f33c687', '53.82 KB', '2023-04-07 14:44:40', '2023-04-07 14:44:40'),
-(9, 'storage/media/5001235-19820.jpg', '5001235_19820', '5001235-19820', 'jpg', '5001235_19820.jpg', '5001235-19820', '763.98 KB', '2023-04-07 14:44:40', '2023-04-07 14:44:40'),
-(10, 'storage/media/autumn-leaves-space-23-2147674304-2.jpg', 'autumn-leaves-space_23-2147674304', 'autumn-leaves-space-23-2147674304-2', 'jpg', 'autumn-leaves-space_23-2147674304.jpg', 'autumn-leaves-space-23-2147674304', '121.12 KB', '2023-04-07 14:44:40', '2023-04-07 14:44:40'),
-(11, 'storage/media/dark-green-texture.jpg', 'dark-green-texture', 'dark-green-texture', 'jpg', 'dark-green-texture.jpg', 'dark-green-texture', '710.27 KB', '2023-04-07 14:44:40', '2023-04-07 14:44:40'),
-(12, 'storage/media/ecommerce-2.sql', 'ecommerce (2)', 'ecommerce-2', 'sql', 'ecommerce (2).sql', 'ecommerce-2', '36.26 KB', '2023-04-07 14:44:40', '2023-04-07 14:44:40'),
-(13, 'storage/media/ecommerce.sql', 'ecommerce', 'ecommerce', 'sql', 'ecommerce.sql', 'ecommerce', '28.58 KB', '2023-04-07 14:44:40', '2023-04-07 14:44:40'),
-(14, 'storage/media/facebook.png', 'facebook', 'facebook', 'png', 'facebook.png', 'facebook', '15.23 KB', '2023-04-07 14:44:40', '2023-04-07 14:44:40'),
-(15, 'storage/media/favicon.png', 'favicon', 'favicon', 'png', 'favicon.png', 'favicon', '1.27 KB', '2023-04-07 14:44:40', '2023-04-07 14:44:40'),
-(16, 'storage/media/logo.png', 'logo', 'logo', 'png', 'logo.png', 'logo', '1.21 KB', '2023-04-07 14:44:40', '2023-04-07 14:44:40'),
-(17, 'storage/media/orange-background-23-2147674307.jpg', 'orange-background_23-2147674307', 'orange-background-23-2147674307', 'jpg', 'orange-background_23-2147674307.jpg', 'orange-background-23-2147674307', '61.8 KB', '2023-04-07 14:44:40', '2023-04-07 14:44:40'),
-(18, 'storage/media/realistic-galaxy-background-23-2148991322.jpg', 'realistic-galaxy-background_23-2148991322', 'realistic-galaxy-background-23-2148991322', 'jpg', 'realistic-galaxy-background_23-2148991322.jpg', 'realistic-galaxy-background-23-2148991322', '37.98 KB', '2023-04-07 14:44:40', '2023-04-07 14:44:40'),
-(19, 'storage/media/unnamed-1.jpg', 'unnamed (1)', 'unnamed-1', 'jpg', 'unnamed (1).jpg', 'unnamed-1', '61.3 KB', '2023-04-07 14:44:40', '2023-04-07 14:44:40'),
-(20, 'storage/media/unnamed.jpg', 'unnamed', 'unnamed', 'jpg', 'unnamed.jpg', 'unnamed', '79.69 KB', '2023-04-07 14:44:40', '2023-04-07 14:44:40'),
-(21, 'storage/media/wall-wallpaper-concrete-colored-painted-textured-concept.jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept', 'wall-wallpaper-concrete-colored-painted-textured-concept', 'jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept.jpg', 'wall-wallpaper-concrete-colored-painted-textured-concept', '784.9 KB', '2023-04-07 14:44:40', '2023-04-07 14:44:40'),
-(22, 'storage/media/autumn-leaves-space-23-2147674304-3.jpg', 'autumn-leaves-space_23-2147674304', 'autumn-leaves-space-23-2147674304-3', 'jpg', 'autumn-leaves-space_23-2147674304.jpg', 'autumn-leaves-space-23-2147674304', '121.12 KB', '2023-04-08 11:50:35', '2023-04-08 11:50:35'),
-(23, 'storage/media/unnamed-1-2.jpg', 'unnamed (1)', 'unnamed-1-2', 'jpg', 'unnamed (1).jpg', 'unnamed-1', '61.3 KB', '2023-04-08 11:50:46', '2023-04-08 11:50:46'),
-(24, 'storage/media/facebook-2.png', 'facebook', 'facebook-2', 'png', 'facebook.png', 'facebook', '15.23 KB', '2023-04-08 11:51:08', '2023-04-08 11:51:08'),
-(25, 'storage/media/dark-green-texture-2.jpg', 'dark-green-texture', 'dark-green-texture-2', 'jpg', 'dark-green-texture.jpg', 'dark-green-texture', '710.27 KB', '2023-04-08 11:51:18', '2023-04-08 11:51:18'),
-(26, 'storage/media/5001235-19820-2.jpg', '5001235_19820', '5001235-19820-2', 'jpg', '5001235_19820.jpg', '5001235-19820', '763.98 KB', '2023-04-08 11:51:33', '2023-04-08 11:51:33'),
-(27, 'storage/media/1.png', '1', '1', 'png', '1.png', '1', '787 B', '2023-04-11 06:08:27', '2023-04-11 06:08:27'),
-(28, 'storage/media/2.png', '2', '2', 'png', '2.png', '2', '1.25 KB', '2023-04-11 10:44:56', '2023-04-11 10:44:56'),
-(29, 'storage/media/3.png', '3', '3', 'png', '3.png', '3', '404 B', '2023-04-11 11:22:28', '2023-04-11 11:22:28');
+(1, 'storage/media/megamart-removebg-preview-2.png', 'Megamart-removebg-preview (2)', 'megamart-removebg-preview-2', 'png', 'Megamart-removebg-preview (2).png', 'megamart-removebg-preview-2', '5.12 KB', '2023-04-12 09:37:48', '2023-04-12 09:37:48'),
+(2, 'storage/media/megamart-removebg-preview-1.png', 'Megamart-removebg-preview (1)', 'megamart-removebg-preview-1', 'png', 'Megamart-removebg-preview (1).png', 'megamart-removebg-preview-1', '14 KB', '2023-04-12 09:40:02', '2023-04-12 09:40:02'),
+(3, 'storage/media/tl.png', 'tl', 'tl', 'png', 'tl.png', 'tl', '9.62 KB', '2023-04-12 10:08:37', '2023-04-12 10:08:37'),
+(4, 'storage/media/megamart-4-removebg-preview-1.png', 'Megamart__4_-removebg-preview (1)', 'megamart-4-removebg-preview-1', 'png', 'Megamart__4_-removebg-preview (1).png', 'megamart-4-removebg-preview-1', '8.17 KB', '2023-04-12 10:08:52', '2023-04-12 10:08:52'),
+(5, 'storage/media/zarlak-logo-full-color-rgb-720px.png', 'zarlak-logo-full-color-rgb-720px', 'zarlak-logo-full-color-rgb-720px', 'png', 'zarlak-logo-full-color-rgb-720px.png', 'zarlak-logo-full-color-rgb-720px', '39.1 KB', '2023-04-13 06:24:52', '2023-04-13 06:24:52'),
+(6, 'storage/media/favicon-7e4f7621-035f-4cdf-9dc6-4a0f7e44243b.png', 'favicon_7e4f7621-035f-4cdf-9dc6-4a0f7e44243b', 'favicon-7e4f7621-035f-4cdf-9dc6-4a0f7e44243b', 'png', 'favicon_7e4f7621-035f-4cdf-9dc6-4a0f7e44243b.png', 'favicon-7e4f7621-035f-4cdf-9dc6-4a0f7e44243b', '1.71 KB', '2023-04-13 06:25:02', '2023-04-13 06:25:02'),
+(7, 'storage/media/girls-dresses.png', 'GIRLS-DRESSES', 'girls-dresses', 'png', 'GIRLS-DRESSES.png', 'girls-dresses', '910.01 KB', '2023-04-13 06:27:48', '2023-04-13 06:27:48'),
+(8, 'storage/media/calista-dress-dresses-children-of-the-tribe-37049775751414-1200x-49fdb399-8823-4b04-bdfa-b7bf545e3109.png', 'calista-dress-dresses-children-of-the-tribe-37049775751414_1200x_49fdb399-8823-4b04-bdfa-b7bf545e3109', 'calista-dress-dresses-children-of-the-tribe-37049775751414-1200x-49fdb399-8823-4b04-bdfa-b7bf545e3109', 'png', 'calista-dress-dresses-children-of-the-tribe-37049775751414_1200x_49fdb399-8823-4b04-bdfa-b7bf545e3109.png', 'calista-dress-dresses-children-of-the-tribe-37049775751414-1200x-49fdb399-8823-4b04-bdfa-b7bf545e3109', '1.72 MB', '2023-04-13 06:43:59', '2023-04-13 06:43:59'),
+(9, 'storage/media/boys-clothing.png', 'BOYS-CLOTHING', 'boys-clothing', 'png', 'BOYS-CLOTHING.png', 'boys-clothing', '1.16 MB', '2023-04-13 06:49:22', '2023-04-13 06:49:22'),
+(12, 'storage/media/grown-holiday22-mobile-2e55a505-72e7-4243-a260-ad8e1201c5e5-1-430x.png', 'GROWN-HOLIDAY22-MOBILE_2e55a505-72e7-4243-a260-ad8e1201c5e5_1_430x', 'grown-holiday22-mobile-2e55a505-72e7-4243-a260-ad8e1201c5e5-1-430x', 'png', 'GROWN-HOLIDAY22-MOBILE_2e55a505-72e7-4243-a260-ad8e1201c5e5_1_430x.png', 'grown-holiday22-mobile-2e55a505-72e7-4243-a260-ad8e1201c5e5-1-430x', '181 KB', '2023-04-14 01:17:02', '2023-04-14 01:17:02'),
+(13, 'storage/media/banner.png', 'banner', 'banner', 'png', 'banner.png', 'banner', '1.32 MB', '2023-04-14 01:17:02', '2023-04-14 01:17:02'),
+(16, 'storage/media/new-project.png', 'New Project', 'new-project', 'png', 'New Project.png', 'new-project', '15.37 KB', '2023-04-14 01:42:12', '2023-04-14 01:42:12'),
+(17, 'storage/media/new-1.png', 'new (1)', 'new-1', 'png', 'new (1).png', 'new-1', '1.23 MB', '2023-04-14 01:44:21', '2023-04-14 01:44:21'),
+(18, 'storage/media/new-small-1.png', 'new-small (1)', 'new-small-1', 'png', 'new-small (1).png', 'new-small-1', '1.31 MB', '2023-04-14 01:44:21', '2023-04-14 01:44:21'),
+(19, 'storage/media/jamiekay-jan6-3950.jpg', 'JamieKay-Jan6-3950', 'jamiekay-jan6-3950', 'jpg', 'JamieKay-Jan6-3950.jpg', 'jamiekay-jan6-3950', '65.96 KB', '2023-04-14 02:02:53', '2023-04-14 02:02:53'),
+(20, 'storage/media/jamiekay-jan6-4992.jpg', 'JamieKay-Jan6-4992', 'jamiekay-jan6-4992', 'jpg', 'JamieKay-Jan6-4992.jpg', 'jamiekay-jan6-4992', '82.99 KB', '2023-04-14 02:02:53', '2023-04-14 02:02:53'),
+(21, 'storage/media/jamiekay-jan5-1214-c2166ad7-0118-4e17-8769-ef1086add1ef.jpg', 'JamieKay-Jan5-1214_c2166ad7-0118-4e17-8769-ef1086add1ef', 'jamiekay-jan5-1214-c2166ad7-0118-4e17-8769-ef1086add1ef', 'jpg', 'JamieKay-Jan5-1214_c2166ad7-0118-4e17-8769-ef1086add1ef.jpg', 'jamiekay-jan5-1214-c2166ad7-0118-4e17-8769-ef1086add1ef', '103.25 KB', '2023-04-14 02:02:53', '2023-04-14 02:02:53'),
+(22, 'storage/media/jamiekay-jan5-1188.jpg', 'JamieKay-Jan5-1188', 'jamiekay-jan5-1188', 'jpg', 'JamieKay-Jan5-1188.jpg', 'jamiekay-jan5-1188', '76.98 KB', '2023-04-14 02:02:53', '2023-04-14 02:02:53'),
+(23, 'storage/media/jamiekay-jan5-1153.jpg', 'JamieKay-Jan5-1153', 'jamiekay-jan5-1153', 'jpg', 'JamieKay-Jan5-1153.jpg', 'jamiekay-jan5-1153', '91.6 KB', '2023-04-14 02:02:53', '2023-04-14 02:02:53'),
+(24, 'storage/media/februarydrop2organiccottonmuslingemimatop-mauveshadow.jpg', 'FebruaryDrop2OrganicCottonMuslinGemimaTop-MauveShadow', 'februarydrop2organiccottonmuslingemimatop-mauveshadow', 'jpg', 'FebruaryDrop2OrganicCottonMuslinGemimaTop-MauveShadow.jpg', 'februarydrop2organiccottonmuslingemimatop-mauveshadow', '23.96 KB', '2023-04-14 02:02:53', '2023-04-14 02:02:53');
 
 -- --------------------------------------------------------
 
@@ -262,12 +255,9 @@ CREATE TABLE `options` (
 --
 
 INSERT INTO `options` (`id`, `product_id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Default Option', '2023-04-10 09:39:59', '2023-04-10 09:39:59'),
-(2, 2, 'Size', '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(3, 2, 'Color', '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(9, 3, 'Default Option', '2023-04-11 05:29:11', '2023-04-11 05:29:11'),
-(10, 4, 'Color', '2023-04-11 05:33:41', '2023-04-11 05:34:51'),
-(11, 4, 'Color', '2023-04-11 05:33:41', '2023-04-11 05:33:41');
+(1, 1, 'Size', '2023-04-13 12:14:25', '2023-04-13 12:14:25'),
+(2, 2, 'Size', '2023-04-13 12:25:27', '2023-04-13 12:25:27'),
+(3, 3, 'Size', '2023-04-14 07:34:03', '2023-04-14 07:34:03');
 
 -- --------------------------------------------------------
 
@@ -289,16 +279,16 @@ CREATE TABLE `option_values` (
 --
 
 INSERT INTO `option_values` (`id`, `product_id`, `option_id`, `option_value`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Default Title', '2023-04-10 09:39:59', '2023-04-10 09:39:59'),
-(2, 2, 2, 'S', '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(3, 2, 2, 'M', '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(4, 2, 3, 'Red', '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(5, 2, 3, 'Green', '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(11, 3, 9, 'Default Title', '2023-04-11 05:29:11', '2023-04-11 05:29:11'),
-(12, 4, 10, 'Yellow', '2023-04-11 05:33:41', '2023-04-11 15:41:14'),
-(13, 4, 10, 'L', '2023-04-11 05:33:41', '2023-04-11 05:33:41'),
-(14, 4, 11, 'Orange', '2023-04-11 05:33:41', '2023-04-11 05:33:41'),
-(15, 4, 11, 'Yellow', '2023-04-11 05:33:41', '2023-04-11 05:33:41');
+(1, 1, 1, '4-5 Years', '2023-04-13 12:14:25', '2023-04-13 12:17:34'),
+(2, 1, 1, '3-4 Years', '2023-04-13 12:14:25', '2023-04-13 12:14:25'),
+(3, 1, 1, '4-5 Years', '2023-04-13 12:14:25', '2023-04-13 12:14:25'),
+(4, 2, 2, '5 Years', '2023-04-13 12:25:27', '2023-04-14 08:12:10'),
+(5, 2, 2, '4 Years', '2023-04-13 12:25:27', '2023-04-13 12:25:27'),
+(6, 2, 2, '5 Years', '2023-04-13 12:25:27', '2023-04-13 12:25:27'),
+(7, 2, 2, '6 Years', '2023-04-13 12:25:27', '2023-04-13 12:25:27'),
+(8, 3, 3, '0-3 Months', '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(9, 3, 3, '3-6 Months', '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(10, 3, 3, '6-12 Months', '2023-04-14 07:34:03', '2023-04-14 07:34:03');
 
 -- --------------------------------------------------------
 
@@ -453,10 +443,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `brand_id`, `product_type_id`, `vendor_id`, `title`, `slug`, `body`, `short_description`, `featured_image`, `status`, `product_selectio_type`, `tax_id`, `meta_title`, `meta_description`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 2, 1, 'Simple Product', 'simple-product', '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<br></p>', '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer to<br></p>', NULL, 1, 'simple', NULL, 'Simple Product', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it', '2023-04-01 00:00:00', '2023-04-10 09:39:59', '2023-04-11 06:46:12', NULL),
-(2, 1, 2, 2, 'First Variant product', 'first-variant-product', '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum<br></p>', '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries<br></p>', NULL, 1, 'variant', NULL, 'First Variant product', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2023-04-01 00:00:00', '2023-04-10 09:50:09', '2023-04-10 09:50:09', NULL),
-(3, 1, 1, 2, 'singple 2', 'singple2', '<p>bdfcgbh</p>', '<p>gbh</p>', NULL, 1, 'simple', NULL, 'dhbgdfh', 'gdfhb', '2023-04-01 00:00:00', '2023-04-11 05:29:11', '2023-04-11 05:29:48', NULL),
-(4, 1, 2, 12, 'Variant 2', 'variant-2', '<p>fgnhf</p>', '<p>fgnhfgh</p>', NULL, 1, 'variant', NULL, 'fgnhfg', 'fghn', '2023-04-05 00:00:00', '2023-04-11 05:33:41', '2023-04-11 05:33:41', NULL);
+(2, 3, 5, 14, 'Alphabet Soup Amped Long Sleeve Tee Multi Tie Dye', 'alphabet-soup-amped-long-sleeve-tee-multi-tie-dye', '<p>Let your kid stand out in style with the <strong>Amped Long Sleeve T-Shirt </strong>in<strong> Multi Tie Dye </strong>from<strong> Alphabet Soup</strong>. This comfy 100% cotton tee features a multicolor tie-dye design with long sleeves perfect for cooler days. The ribbed neckline, embroidered logo, and brand patch to the front hem make it extra special. It\'s all the style and comfort your kiddo needs!</p>\r\n<ul>\r\n<li>Regular fit Longsleeve Tee.</li>\r\n<li>100% Cotton.</li>\r\n<li>All over tie-dye fabric Long sleeves.<br>\r\n</li>\r\n<li>Ribbed neckline Embroidered logo to front chest.</li>\r\n<li>Brand patch to front hem.</li>\r\n<li>Cold machine wash and do not tumble dry, bleach or dry clean.</li>\r\n</ul>', 'Let your kid stand out in style with the Amped Long Sleeve T-Shirt in Multi Tie Dye from Alphabet Soup. This comfy 100% cotton tee features a multicolor tie-dye design with long sleeves perfect for cooler days. The ribbed neckline, embroidered logo, and brand patch to the front hem make it extra special. It\'s all the style and comfort your kiddo needs!', NULL, 1, 'variant', NULL, NULL, NULL, '2023-04-01 00:00:00', '2023-04-13 12:25:27', '2023-04-14 08:10:33', NULL),
+(3, 4, 5, 6, 'Organic Cotton Muslin Gemima Top Mauve Shadow', 'organic-cotton-muslin-gemima-top-mauve-shadow', '<p data-mce-fragment=\"1\"><meta charset=\"utf-8\">Let your little one make a statement in this&nbsp;gorgeous&nbsp;<strong>Organic Cotton Muslin&nbsp;Gemima Top</strong>&nbsp;in <strong>Mauve Shadow</strong> by <strong>Jamie Kay</strong>! Crafted from comfortable, breathable 100% organic cotton muslin and embellished with frills at the sleeves and bottom, it\'s perfect for twirling, dancing and any other&nbsp;activities your kid can dream of. Plus, the easy-dressing button-up design makes it a breeze to get them dressed and out the door.&nbsp;</p>\r\n<p data-mce-fragment=\"1\">Features :</p>\r\n<ul data-mce-fragment=\"1\">\r\n<li data-mce-fragment=\"1\">100% organic cotton muslin</li>\r\n<li data-mce-fragment=\"1\">Frill detailed&nbsp;on sleeves and bottom of top</li>\r\n<li data-mce-fragment=\"1\">Buttons on front</li>\r\n<li data-mce-fragment=\"1\">Mauve shadow colour</li>\r\n<li data-mce-fragment=\"1\">Available in sizes&nbsp;0 months -&nbsp;1 year</li>\r\n</ul>\r\n<div data-mce-fragment=\"1\">&nbsp;</div>\r\n<div data-mce-fragment=\"1\">\r\n<p class=\"p1\" data-mce-fragment=\"1\">Why organic cotton?&nbsp;Not only is&nbsp;it&nbsp;a more sustainable farming method, it doesn\'t contain any nasty chemicals which may irritate delicate skin.&nbsp;Muslin is well known for its ability to&nbsp;breath while keeping the body nice&nbsp;and warm. Light and soft - perfect for those summery days or layering up for winter.</p>\r\n<p class=\"p1\" data-mce-fragment=\"1\">For the most accurate garment colour, we recommend referring to the flat&nbsp;lay image on a desktop computer.</p>\r\n<p class=\"p1\" data-mce-fragment=\"1\"><em data-mce-fragment=\"1\">We recommend a delicate wash in laundry bag.&nbsp;Please follow our care label, wash on cold and do not tumble dry.</em></p></div>', 'Let your little one make a statement in this gorgeous Organic Cotton Muslin Gemima Top in Mauve Shadow by Jamie Kay! Crafted from comfortable, breathable 100% organic cotton muslin and embellished with frills at the sleeves and bottom, it\'s perfect for twirling, dancing and any other activities your kid can dream of. Plus, the easy-dressing button-up design makes it a breeze to get them dressed and out the door.', NULL, 1, 'variant', NULL, 'Organic Cotton Muslin Gemima Top Mauve Shadow', 'Let your little one make a statement in this gorgeous Organic Cotton Muslin Gemima Top in Mauve Shadow by Jamie Kay! Crafted from comfortable, breathable 100% organic cotton muslin and embellished with frills at the sleeves and bottom, it\'s perfect for twirling, dancing and any other activities your kid can dream of. Plus, the easy-dressing button-up design makes it a breeze to get them dressed and out the door.', '2023-04-01 00:00:00', '2023-04-14 07:34:03', '2023-04-14 07:34:03', NULL);
 
 -- --------------------------------------------------------
 
@@ -476,10 +464,8 @@ CREATE TABLE `product_collections` (
 --
 
 INSERT INTO `product_collections` (`product_id`, `collection_id`, `created_at`, `updated_at`) VALUES
-(1, 2, '2023-04-10 09:39:59', '2023-04-10 09:39:59'),
-(2, 2, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(3, 2, '2023-04-11 05:29:11', '2023-04-11 05:29:11'),
-(4, 1, '2023-04-11 05:33:41', '2023-04-11 05:33:41');
+(2, 4, '2023-04-13 12:25:27', '2023-04-13 12:25:27'),
+(3, 3, '2023-04-14 07:34:03', '2023-04-14 07:34:03');
 
 -- --------------------------------------------------------
 
@@ -500,40 +486,29 @@ CREATE TABLE `product_medias` (
 --
 
 INSERT INTO `product_medias` (`product_id`, `variant_id`, `media_id`, `created_at`, `updated_at`) VALUES
-(2, 2, 22, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(2, 2, 8, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(2, 3, 26, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(2, 3, 25, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(2, 3, 24, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(2, 4, 23, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(2, 4, 8, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(2, 4, 10, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(2, 5, 17, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(2, 5, 18, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(2, 5, 19, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(2, 5, 20, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(2, 5, 21, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(3, 9, 22, '2023-04-11 06:14:07', '2023-04-11 06:14:07'),
-(3, 9, 8, '2023-04-11 06:14:07', '2023-04-11 06:14:07'),
-(3, 9, 17, '2023-04-11 06:14:07', '2023-04-11 06:14:07'),
-(3, 9, 18, '2023-04-11 06:14:07', '2023-04-11 06:14:07'),
-(1, 1, 6, '2023-04-11 06:46:12', '2023-04-11 06:46:12'),
-(1, 1, 4, '2023-04-11 06:46:12', '2023-04-11 06:46:12'),
-(1, 1, 2, '2023-04-11 06:46:12', '2023-04-11 06:46:12'),
-(1, 1, 1, '2023-04-11 06:46:12', '2023-04-11 06:46:12'),
-(4, 10, 26, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
-(4, 10, 25, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
-(4, 10, 22, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
-(4, 10, 8, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
-(4, 10, 9, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
-(4, 11, 26, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
-(4, 11, 25, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
-(4, 11, 23, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
-(4, 11, 22, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
-(4, 12, 22, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
-(4, 12, 8, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
-(4, 13, 17, '2023-04-11 15:41:14', '2023-04-11 15:41:14'),
-(4, 13, 18, '2023-04-11 15:41:14', '2023-04-11 15:41:14');
+(1, 1, 8, '2023-04-13 12:17:34', '2023-04-13 12:17:34'),
+(1, 2, 8, '2023-04-13 12:17:34', '2023-04-13 12:17:34'),
+(1, 3, 8, '2023-04-13 12:17:34', '2023-04-13 12:17:34'),
+(3, 5, 19, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 5, 20, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 5, 21, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 5, 22, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 5, 23, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 5, 24, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 6, 19, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 6, 20, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 6, 21, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 6, 22, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 6, 23, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 6, 24, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 7, 19, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 7, 20, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 7, 21, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 7, 22, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 7, 23, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(3, 7, 24, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(2, 4, 8, '2023-04-14 08:12:10', '2023-04-14 08:12:10'),
+(2, 4, 7, '2023-04-14 08:12:10', '2023-04-14 08:12:10');
 
 -- --------------------------------------------------------
 
@@ -553,10 +528,7 @@ CREATE TABLE `product_tags` (
 --
 
 INSERT INTO `product_tags` (`product_id`, `tag_id`, `created_at`, `updated_at`) VALUES
-(1, 2, '2023-04-10 09:39:59', '2023-04-10 09:39:59'),
-(2, 2, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(3, 2, '2023-04-11 05:29:11', '2023-04-11 05:29:11'),
-(4, 2, '2023-04-11 05:33:41', '2023-04-11 05:33:41');
+(3, 1, '2023-04-14 07:34:03', '2023-04-14 07:34:03');
 
 -- --------------------------------------------------------
 
@@ -579,7 +551,8 @@ CREATE TABLE `product_types` (
 INSERT INTO `product_types` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
 (1, 'Jeans', 'jeans', '2023-04-01 05:36:49', '2023-04-01 05:36:49'),
 (2, 'T-Shirts', 't-shirt', '2023-04-01 05:39:34', '2023-04-01 05:43:36'),
-(4, 'Shoes', 'shoes', '2023-04-07 09:52:50', '2023-04-07 09:52:50');
+(4, 'Shoes', 'shoes', '2023-04-07 09:52:50', '2023-04-07 09:52:50'),
+(5, 'Dresses', 'dresses', '2023-04-13 12:15:07', '2023-04-13 12:15:07');
 
 -- --------------------------------------------------------
 
@@ -605,16 +578,13 @@ CREATE TABLE `product_variants` (
 --
 
 INSERT INTO `product_variants` (`id`, `product_id`, `variant`, `sku`, `variant_price`, `variant_sale_price`, `stock`, `available_stock`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Default Title', 'mnopokkk', '10000.00', '12000.00', 1000, 200, '2023-04-10 09:39:59', '2023-04-11 05:27:29'),
-(2, 2, 'S/Red', 'FVR001', '1200.00', '999.00', 100, 80, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(3, 2, 'S/Green', 'FVR002', '1400.00', '1199.00', 100, 80, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(4, 2, 'M/Red', 'FVR003', '1600.00', '1399.00', 100, 80, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(5, 2, 'M/Green', 'FVR004', '1800.00', '1599.00', 100, 80, '2023-04-10 09:50:09', '2023-04-10 09:50:09'),
-(9, 3, 'Default Title', 'SMP2', '1200.00', '999.00', 100, 100, '2023-04-11 05:29:11', '2023-04-11 05:29:48'),
-(10, 4, 'S/Orange', 'VRSK1', '100.00', '200.00', 1000, 800, '2023-04-11 05:33:41', '2023-04-11 05:33:41'),
-(11, 4, 'S/Yellow', 'VRSK2', '200.00', '300.00', 1000, 800, '2023-04-11 05:33:41', '2023-04-11 05:33:41'),
-(12, 4, 'L/Orange', 'VRSK3', '300.00', '400.00', 1000, 700, '2023-04-11 05:33:41', '2023-04-11 05:33:41'),
-(13, 4, 'L/Yellow', 'VRSK4', '1400.00', '1500.00', 10000, 777, '2023-04-11 05:33:41', '2023-04-11 05:34:51');
+(1, 1, '2-3 Years', 'CHD001', '39.99', '49.99', 200, 150, '2023-04-13 12:14:26', '2023-04-13 12:14:26'),
+(2, 1, '3-4 Years', 'CHD002', '44.99', '49.99', 200, 150, '2023-04-13 12:14:26', '2023-04-13 12:14:26'),
+(3, 1, '4-5 Years', 'CHD003', '49.99', '54.99', 200, 150, '2023-04-13 12:14:26', '2023-04-13 12:14:26'),
+(4, 2, '3 Years', 'BDR001', '40.00', '50.00', 200, 150, '2023-04-13 12:25:27', '2023-04-13 12:25:27'),
+(5, 3, '0-3 Months', 'JKY001', '1299.00', '1500.00', 100, 80, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(6, 3, '3-6 Months', 'JKY002', '1399.00', '1800.00', 100, 80, '2023-04-14 07:34:03', '2023-04-14 07:34:03'),
+(7, 3, '6-12 Months', 'JKY003', '1499.00', '2100.00', 100, 80, '2023-04-14 07:34:03', '2023-04-14 07:34:03');
 
 -- --------------------------------------------------------
 
@@ -773,7 +743,7 @@ CREATE TABLE `site_settings` (
 --
 
 INSERT INTO `site_settings` (`id`, `title`, `description`, `logo`, `favicon`, `email`, `contact_no`, `country`, `state`, `city`, `address`, `created_at`, `updated_at`) VALUES
-(1, 'AR Technology', 'Partner with an award-winning app development company to take your brick-and-mortar business online and reach a wider audience with powerful mobile and web solutions.', 3, 4, 'info@artechnology.in', '+91 8109763160', 'India', 'Delhi', 'New Delhi', '95-B DDA Flat Mata Suntri Road\r\nNew Delhi-110002', '2022-06-26 15:46:11', '2023-04-07 04:02:13');
+(1, 'AR Technology', 'Partner with an award-winning app development company to take your brick-and-mortar business online and reach a wider audience with powerful mobile and web solutions.', 5, 6, 'info@artechnology.in', '+91 8109763160', 'India', 'Delhi', 'New Delhi', '95-B DDA Flat Mata Suntri Road\r\nNew Delhi-110002', '2022-06-26 15:46:11', '2023-04-13 06:25:08');
 
 -- --------------------------------------------------------
 
@@ -801,7 +771,8 @@ CREATE TABLE `sliders` (
 --
 
 INSERT INTO `sliders` (`id`, `title`, `subtitle`, `body`, `media_id`, `small_media_id`, `button_text`, `button_link`, `status`, `content_align`, `created_at`, `updated_at`) VALUES
-(1, 'New', 'sub', '<p>gfnbfgnfg</p>', 22, 10, 'more', 'dfbg', 1, 'justify-content-end', '2023-04-11 06:32:04', '2023-04-11 06:32:04');
+(1, NULL, NULL, NULL, 13, 12, NULL, NULL, 1, NULL, '2023-04-14 07:04:21', '2023-04-14 07:06:52'),
+(2, NULL, NULL, NULL, 17, 18, NULL, NULL, 1, NULL, '2023-04-14 07:14:59', '2023-04-14 07:14:59');
 
 -- --------------------------------------------------------
 
@@ -908,7 +879,8 @@ INSERT INTO `vendors` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
 (10, 'Arrow', 'arrow', '2023-04-07 09:17:56', '2023-04-07 09:17:56'),
 (11, 'Raymond', 'raymond', '2023-04-07 09:18:03', '2023-04-07 09:18:03'),
 (12, 'Sparx', 'sparx', '2023-04-07 09:18:59', '2023-04-07 09:18:59'),
-(13, 'Relaxo', 'relaxo', '2023-04-07 09:19:14', '2023-04-07 09:19:14');
+(13, 'Relaxo', 'relaxo', '2023-04-07 09:19:14', '2023-04-07 09:19:14'),
+(14, 'Children Of The Tribe', 'children-of-the-tribe', '2023-04-13 12:15:45', '2023-04-13 12:15:45');
 
 --
 -- Indexes for dumped tables
@@ -1083,7 +1055,7 @@ ALTER TABLE `admin_details`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `collections`
@@ -1095,19 +1067,19 @@ ALTER TABLE `collections`
 -- AUTO_INCREMENT for table `medias`
 --
 ALTER TABLE `medias`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `options`
 --
 ALTER TABLE `options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `option_values`
 --
 ALTER TABLE `option_values`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1119,19 +1091,19 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `product_types`
 --
 ALTER TABLE `product_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `product_variants`
 --
 ALTER TABLE `product_variants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1149,7 +1121,7 @@ ALTER TABLE `site_settings`
 -- AUTO_INCREMENT for table `sliders`
 --
 ALTER TABLE `sliders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tags`
@@ -1173,7 +1145,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

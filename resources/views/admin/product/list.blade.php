@@ -45,12 +45,14 @@
                         <thead>
                             <tr>
                                 <th width="2%">Si</th>
+                                <th width="6%">Image</th>
                                 <th width="35%">Title</th>
-                                <th>Slug</th>
-                                <th width="3%">Status</th>
-                                <th width="10%">Image</th>
-                                <th>Created at</th>
-                                <th>Action</th>
+                                <th width="3%">Brand</th>
+                                <th width="5%">Product Type</th>
+                                <th width="5%">Vendor</th>
+                                <th width="5%">Stock</th>
+                                <th width="5%">Status</th>
+                                <th width="2%">Action</th>
                             </tr>
                         </thead>
                         
@@ -90,11 +92,13 @@
                 },
                 "columns": [
                     { "data": "sn" }, 
-                    { "data": "name" }, 
-                    { "data": "slug" },   
+                     { "data": "image" },
+                    { "data": "name" },   
+                    { "data": "brand" },
+                    { "data": "product_type" },
+                    { "data": "vendor" },
+                    { "data": "stock" },
                     { "data": "status" },
-                    { "data": "image" },
-                    { "data": "created_at" }, 
                     {
                         "data": "action",
                         render: function(data, type, row) {

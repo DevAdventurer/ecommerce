@@ -98,6 +98,7 @@ table tr {
     height: 134px;
     width: 100%;
     border-radius: 5px;
+    overflow: hidden;
 }
 .mediaselectionlist input[type="checkbox"][id^="mediaid"] {
   display: none;
@@ -125,13 +126,22 @@ table tr {
 }
 
 .mediaselectionlist label img {
-    width: 100%;
-    height: 100%;
+    width: auto;
+    max-width: 100%;
+    height: auto;
     object-fit: cover;
     background-color: transparent!important;
     border: none;
     padding: 0;
-    border-radius: 3px;;
+    border-radius: 3px;
+    position: absolute;
+    z-index: 9;
+    margin: auto;
+    display: inline-table;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .mediaselectionlist :checked + label {
@@ -142,7 +152,7 @@ table tr {
   content: "✓";
   background-color: #0ab39c;
   transform: scale(1);
-  z-index: 9;
+  z-index: 99;
   line-height: 24px;
   color: #fff;
 }
@@ -150,7 +160,7 @@ table tr {
 .mediaselectionlist :checked + label img {
   /* transform: scale(0.9); */
   /* box-shadow: 0 0 5px #333; */
-  z-index: -1;
+/*  z-index: -1;*/
 }
 
 .dropzone {

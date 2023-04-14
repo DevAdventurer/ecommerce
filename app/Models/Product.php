@@ -41,16 +41,16 @@ class Product extends Model
     }
 
     public function brand(){
-        return $this->belongsTo(Brand::class, 'brand_id', 'id');
+        return $this->hasOne(Brand::class, 'id', 'brand_id');
     }
 
     public function productType(){
-        return $this->belongsTo(ProductType::class, 'product_type_id', 'id');
+        return $this->hasOne(ProductType::class, 'id', 'product_type_id');
     }
 
 
     public function vendor(){
-        return $this->belongsTo(Vendor::class, 'vendor_id', 'id');
+        return $this->hasOne(Vendor::class, 'id', 'vendor_id');
     }
     
     public function productVariants(){

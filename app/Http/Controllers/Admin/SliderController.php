@@ -80,6 +80,7 @@ class SliderController extends Controller
             $slider->button_link = $request->button_link;
             $slider->status = $request->status;
             $slider->content_align = $request->content_align;
+            $slider->status = $request->status?1:0;
 
 
             if($request->has('slider_image')){

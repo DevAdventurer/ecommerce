@@ -39,7 +39,7 @@
 
                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                     {!! Form::label('title', 'Title') !!}
-                    {!! Form::text('title', $slider->title, ['class' => 'form-control', 'required' => 'required','placeholder'=>'Title']) !!}
+                    {!! Form::text('title', $slider->title, ['class' => 'form-control','placeholder'=>'Title']) !!}
                     <small class="text-danger">{{ $errors->first('title') }}</small>
                 </div>
 
@@ -91,7 +91,7 @@
                 </div>
 
                  <div class="btn-group">
-                    {!! Form::submit("Update ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-soft-success btn-border waves-effect waves-light']) !!}
+                    {!! Form::submit("Update ".Str::title(str_replace('-', ' ', request()->segment(2))), ['class' => 'btn btn-success btn-border waves-effect waves-light']) !!}
                 </div>
 
             </div>

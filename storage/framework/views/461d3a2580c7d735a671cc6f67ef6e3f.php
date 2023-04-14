@@ -368,7 +368,7 @@
                         cache: false,
                         success:function(response){
 
-                            console.log(response);
+                            //console.log(response);
                             $('#variants').html(response);
                             Toastify({
                                 text: response.message,
